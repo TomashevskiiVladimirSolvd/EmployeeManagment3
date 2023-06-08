@@ -1,9 +1,13 @@
 package dao;
 
 import Interfaces.IDao;
-import model.Departments;
+import model.*;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DepartmentsDAO implements IDao<Departments, Long> {
