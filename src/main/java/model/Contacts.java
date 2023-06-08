@@ -1,6 +1,6 @@
 package model;
 
-public class Contact {
+public class Contacts {
     private long id;
     private String email;
     private String phone;

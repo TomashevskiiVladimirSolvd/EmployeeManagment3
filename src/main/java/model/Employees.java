@@ -1,9 +1,8 @@
 package model;
 
-public class Employee {
+public class Employees {
     private long id;
     private String name;
-    private String hireDate;
     private String position;
 
     public long getId() {
@@ -22,14 +21,6 @@ public class Employee {
         this.name = name;
     }
 
-    public String getHireDate() {
-        return hireDate;
-    }
-
-    public void setHireDate(String hireDate) {
-        this.hireDate = hireDate;
-    }
-
     public String getPosition() {
         return position;
     }
@@ -37,4 +28,5 @@ public class Employee {
     public void setPosition(String position) {
         this.position = position;
     }
+
 }

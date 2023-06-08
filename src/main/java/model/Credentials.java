@@ -1,6 +1,6 @@
 package model;
 
-public class Credential {
+public class Credentials {
     private long id;
     private String login;
     private String password;
