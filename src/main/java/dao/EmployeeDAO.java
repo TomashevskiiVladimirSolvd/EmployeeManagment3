@@ -1,6 +1,6 @@
-package db.dao;
+package dao;
 
-import model.Employee;
+import model.Employees;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -10,10 +10,10 @@ import java.sql.*;
 import java.util.Properties;
 
 public class EmployeeDAO {
-    public Employee getUserById(long id) throws SQLException {
-        Employee employee = new Employee();
+    public Employees getUserById(long id) throws SQLException {
+        Employees employee = new Employees();
         Properties props = new Properties();
-        try (InputStream input = new FileInputStream("./src/resources/db.properties")) {
+        try (InputStream input = new FileInputStream("src/main/resources/db.properties")) {
             props.load(input);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
@@ -30,6 +30,11 @@ public class EmployeeDAO {
             }
         }
         return employee;
+    }
+
+    public static void main(String[] args) throws SQLException {
+        Employees employee= new EmployeeDAO().getUserById(1);
+        System.out.println(employee.toString());
     }
 }
 
