@@ -1,6 +1,6 @@
 package model;
 
-public class EmployessTrainings {
+public class EmployeesTrainings {
     private long id;
     private String status;
 

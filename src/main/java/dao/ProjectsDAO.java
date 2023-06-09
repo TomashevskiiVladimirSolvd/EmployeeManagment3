@@ -1,5 +1,4 @@
 package dao;
-
 import Interfaces.IDao;
 import model.*;
 
@@ -10,21 +9,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CredentialsDAO implements IDao<Credentials, Long> {
+public class ProjectsDAO implements IDao<Projects, Long> {
     private Connection connection;
 
-    public CredentialsDAO(Connection connection) {
+    public ProjectsDAO(Connection connection) {
         this.connection = connection;
     }
 
     @Override
-    public void create(Credentials entity) {
+    public void create(Projects entity) {
         try {
-            String sql = "INSERT INTO Credentials (id, login, password) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO Projects (id, name) VALUES (?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, entity.getId());
-            statement.setString(2, entity.getLogin());
-            statement.setString(3, entity.getPassword());
+            statement.setString(2, entity.getName());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -32,34 +30,32 @@ public class CredentialsDAO implements IDao<Credentials, Long> {
     }
 
     @Override
-    public Credentials read(Long id) {
-        Credentials credentials = null;
+    public Projects read(Long id) {
+        Projects projects = null;
         try {
-            String sql = "SELECT * FROM Credentials WHERE id = ?";
+            String sql = "SELECT * FROM Projects WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                credentials = new Credentials();
-                credentials.setId(resultSet.getLong("id"));
-                credentials.setLogin(resultSet.getString("login"));
-                credentials.setPassword(resultSet.getString("password"));
+                projects = new Projects();
+                projects.setId(resultSet.getLong("id"));
+                projects.setName(resultSet.getString("name"));
             }
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return credentials;
+        return projects;
     }
 
     @Override
-    public void update(Credentials entity) {
+    public void update(Projects entity) {
         try {
-            String sql = "UPDATE Credentials SET login = ?, password = ? WHERE id = ?";
+            String sql = "UPDATE Projects SET name = ? WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, entity.getLogin());
-            statement.setString(2, entity.getPassword());
-            statement.setLong(3, entity.getId());
+            statement.setString(1, entity.getName());
+            statement.setLong(2, entity.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -69,7 +65,7 @@ public class CredentialsDAO implements IDao<Credentials, Long> {
     @Override
     public void delete(Long id) {
         try {
-            String sql = "DELETE FROM Credentials WHERE id = ?";
+            String sql = "DELETE FROM Projects WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, id);
             statement.executeUpdate();
@@ -79,25 +75,23 @@ public class CredentialsDAO implements IDao<Credentials, Long> {
     }
 
     @Override
-    public List<Credentials> getAll() {
-        List<Credentials> credentialsList = new ArrayList<>();
+    public List<Projects> getAll() {
+        List<Projects> projectsList = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Credentials";
+            String sql = "SELECT * FROM Projects";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Credentials credentials = new Credentials();
-                credentials.setId(resultSet.getLong("id"));
-                credentials.setLogin(resultSet.getString("login"));
-                credentials.setPassword(resultSet.getString("password"));
-                credentialsList.add(credentials);
+                Projects projects = new Projects();
+                projects.setId(resultSet.getLong("id"));
+                projects.setName(resultSet.getString("name"));
+                projectsList.add(projects);
             }
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return credentialsList;
+        return projectsList;
     }
 
 }
-

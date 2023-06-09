@@ -1,5 +1,4 @@
 package dao;
-
 import Interfaces.IDao;
 import model.*;
 
@@ -10,21 +9,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CredentialsDAO implements IDao<Credentials, Long> {
+public class EmployeesTasksDAO implements IDao<EmployeesTasks, Long> {
     private Connection connection;
 
-    public CredentialsDAO(Connection connection) {
+    public EmployeesTasksDAO(Connection connection) {
         this.connection = connection;
     }
 
     @Override
-    public void create(Credentials entity) {
+    public void create(EmployeesTasks entity) {
         try {
-            String sql = "INSERT INTO Credentials (id, login, password) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO EmployeesTasks (id, percentage_completed) VALUES (?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, entity.getId());
-            statement.setString(2, entity.getLogin());
-            statement.setString(3, entity.getPassword());
+            statement.setInt(2, entity.getPercentageCompleted());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -32,34 +30,32 @@ public class CredentialsDAO implements IDao<Credentials, Long> {
     }
 
     @Override
-    public Credentials read(Long id) {
-        Credentials credentials = null;
+    public EmployeesTasks read(Long id) {
+        EmployeesTasks employeesTasks = null;
         try {
-            String sql = "SELECT * FROM Credentials WHERE id = ?";
+            String sql = "SELECT * FROM EmployeesTasks WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                credentials = new Credentials();
-                credentials.setId(resultSet.getLong("id"));
-                credentials.setLogin(resultSet.getString("login"));
-                credentials.setPassword(resultSet.getString("password"));
+                employeesTasks = new EmployeesTasks();
+                employeesTasks.setId(resultSet.getLong("id"));
+                employeesTasks.setPercentageCompleted(resultSet.getInt("percentage_completed"));
             }
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return credentials;
+        return employeesTasks;
     }
 
     @Override
-    public void update(Credentials entity) {
+    public void update(EmployeesTasks entity) {
         try {
-            String sql = "UPDATE Credentials SET login = ?, password = ? WHERE id = ?";
+            String sql = "UPDATE EmployeesTasks SET percentage_completed = ? WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, entity.getLogin());
-            statement.setString(2, entity.getPassword());
-            statement.setLong(3, entity.getId());
+            statement.setInt(1, entity.getPercentageCompleted());
+            statement.setLong(2, entity.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -69,7 +65,7 @@ public class CredentialsDAO implements IDao<Credentials, Long> {
     @Override
     public void delete(Long id) {
         try {
-            String sql = "DELETE FROM Credentials WHERE id = ?";
+            String sql = "DELETE FROM EmployeesTasks WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, id);
             statement.executeUpdate();
@@ -79,25 +75,22 @@ public class CredentialsDAO implements IDao<Credentials, Long> {
     }
 
     @Override
-    public List<Credentials> getAll() {
-        List<Credentials> credentialsList = new ArrayList<>();
+    public List<EmployeesTasks> getAll() {
+        List<EmployeesTasks> employeesTasksList = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Credentials";
+            String sql = "SELECT * FROM EmployeesTasks";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Credentials credentials = new Credentials();
-                credentials.setId(resultSet.getLong("id"));
-                credentials.setLogin(resultSet.getString("login"));
-                credentials.setPassword(resultSet.getString("password"));
-                credentialsList.add(credentials);
+                EmployeesTasks employeesTasks = new EmployeesTasks();
+                employeesTasks.setId(resultSet.getLong("id"));
+                employeesTasks.setPercentageCompleted(resultSet.getInt("percentage_completed"));
+                employeesTasksList.add(employeesTasks);
             }
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return credentialsList;
+        return employeesTasksList;
     }
-
 }
-

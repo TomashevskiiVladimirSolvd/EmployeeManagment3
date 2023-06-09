@@ -2,7 +2,7 @@ package model;
 
 public class EmployeesSkills {
     private long id;
-    private String proficiency_level;
+    private String proficiencyLevel;
 
     public long getId() {
         return id;
@@ -12,11 +12,11 @@ public class EmployeesSkills {
         this.id = id;
     }
 
-    public String getProficiency_level() {
-        return proficiency_level;
+    public String getProficiencyLevel() {
+        return proficiencyLevel;
     }
 
-    public void setProficiency_level(String proficiency_level) {
-        this.proficiency_level = proficiency_level;
+    public void setProficiencyLevel(String proficiencyLevel) {
+        this.proficiencyLevel = proficiencyLevel;
     }
 }
