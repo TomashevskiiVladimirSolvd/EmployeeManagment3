@@ -1,4 +1,4 @@
-package Interfaces;
+package com.laba.solvd.db.Interfaces;
 import java.util.List;
 
 public interface IDao<T, ID>  {

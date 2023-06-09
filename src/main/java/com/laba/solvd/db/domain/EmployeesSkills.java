@@ -1,4 +1,4 @@
-package model;
+package com.laba.solvd.db.domain;
 
 public class EmployeesSkills {
     private long id;

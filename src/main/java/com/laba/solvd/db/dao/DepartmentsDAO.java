@@ -1,6 +1,8 @@
-package dao;
-import Interfaces.IDao;
-import model.*;
+package com.laba.solvd.db.dao;
+
+import com.laba.solvd.db.Interfaces.IDao;
+import com.laba.solvd.db.domain.Departments;
+import domain.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,20 +11,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeesTrainingsDAO implements IDao<EmployeesTrainings, Long> {
+public class DepartmentsDAO implements IDao<Departments, Long> {
     private Connection connection;
 
-    public EmployeesTrainingsDAO(Connection connection) {
+    public DepartmentsDAO(Connection connection) {
         this.connection = connection;
     }
 
     @Override
-    public void create(EmployeesTrainings entity) {
+    public void create(Departments entity) {
         try {
-            String sql = "INSERT INTO EmployeesTrainings (id, status) VALUES (?, ?)";
+            String sql = "INSERT INTO Departments (id, name) VALUES (?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, entity.getId());
-            statement.setString(2, entity.getStatus());
+            statement.setString(2, entity.getName());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -30,31 +32,31 @@ public class EmployeesTrainingsDAO implements IDao<EmployeesTrainings, Long> {
     }
 
     @Override
-    public EmployeesTrainings read(Long id) {
-        EmployeesTrainings employeesTrainings = null;
+    public Departments read(Long id) {
+        Departments department = null;
         try {
-            String sql = "SELECT * FROM EmployeesTrainings WHERE id = ?";
+            String sql = "SELECT * FROM Departments WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                employeesTrainings = new EmployeesTrainings();
-                employeesTrainings.setId(resultSet.getLong("id"));
-                employeesTrainings.setStatus(resultSet.getString("status"));
+                department = new Departments();
+                department.setId(resultSet.getLong("id"));
+                department.setName(resultSet.getString("name"));
             }
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return employeesTrainings;
+        return department;
     }
 
     @Override
-    public void update(EmployeesTrainings entity) {
+    public void update(Departments entity) {
         try {
-            String sql = "UPDATE EmployeesTrainings SET status = ? WHERE id = ?";
+            String sql = "UPDATE Departments SET name = ? WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, entity.getStatus());
+            statement.setString(1, entity.getName());
             statement.setLong(2, entity.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -65,7 +67,7 @@ public class EmployeesTrainingsDAO implements IDao<EmployeesTrainings, Long> {
     @Override
     public void delete(Long id) {
         try {
-            String sql = "DELETE FROM EmployeesTrainings WHERE id = ?";
+            String sql = "DELETE FROM Departments WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, id);
             statement.executeUpdate();
@@ -75,22 +77,23 @@ public class EmployeesTrainingsDAO implements IDao<EmployeesTrainings, Long> {
     }
 
     @Override
-    public List<EmployeesTrainings> getAll() {
-        List<EmployeesTrainings> employeesTrainingsList = new ArrayList<>();
+    public List<Departments> getAll() {
+        List<Departments> departmentsList = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM EmployeesTrainings";
+            String sql = "SELECT * FROM Departments";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                EmployeesTrainings employeesTrainings = new EmployeesTrainings();
-                employeesTrainings.setId(resultSet.getLong("id"));
-                employeesTrainings.setStatus(resultSet.getString("status"));
-                employeesTrainingsList.add(employeesTrainings);
+                Departments department = new Departments();
+                department.setId(resultSet.getLong("id"));
+                department.setName(resultSet.getString("name"));
+                departmentsList.add(department);
             }
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return employeesTrainingsList;
+        return departmentsList;
     }
+
 }

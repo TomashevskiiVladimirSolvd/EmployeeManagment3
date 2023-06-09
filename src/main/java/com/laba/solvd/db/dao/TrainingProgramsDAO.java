@@ -1,6 +1,7 @@
-package dao;
-import Interfaces.IDao;
-import model.*;
+package com.laba.solvd.db.dao;
+import com.laba.solvd.db.Interfaces.IDao;
+import com.laba.solvd.db.domain.TrainingPrograms;
+import domain.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,18 +9,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-public class SkillsDAO implements IDao<Skills, Long> {
+public class TrainingProgramsDAO implements IDao<TrainingPrograms, Long> {
     private Connection connection;
 
-    public SkillsDAO(Connection connection) {
+    public TrainingProgramsDAO(Connection connection) {
         this.connection = connection;
     }
 
     @Override
-    public void create(Skills entity) {
+    public void create(TrainingPrograms entity) {
         try {
-            String sql = "INSERT INTO Skills (id, name) VALUES (?, ?)";
+            String sql = "INSERT INTO TrainingPrograms (id, name) VALUES (?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, entity.getId());
             statement.setString(2, entity.getName());
@@ -30,29 +30,29 @@ public class SkillsDAO implements IDao<Skills, Long> {
     }
 
     @Override
-    public Skills read(Long id) {
-        Skills skills = null;
+    public TrainingPrograms read(Long id) {
+        TrainingPrograms trainingPrograms = null;
         try {
-            String sql = "SELECT * FROM Skills WHERE id = ?";
+            String sql = "SELECT * FROM TrainingPrograms WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                skills = new Skills();
-                skills.setId(resultSet.getLong("id"));
-                skills.setName(resultSet.getString("name"));
+                trainingPrograms = new TrainingPrograms();
+                trainingPrograms.setId(resultSet.getLong("id"));
+                trainingPrograms.setName(resultSet.getString("name"));
             }
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return skills;
+        return trainingPrograms;
     }
 
     @Override
-    public void update(Skills entity) {
+    public void update(TrainingPrograms entity) {
         try {
-            String sql = "UPDATE Skills SET name = ? WHERE id = ?";
+            String sql = "UPDATE TrainingPrograms SET name = ? WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, entity.getName());
             statement.setLong(2, entity.getId());
@@ -65,7 +65,7 @@ public class SkillsDAO implements IDao<Skills, Long> {
     @Override
     public void delete(Long id) {
         try {
-            String sql = "DELETE FROM Skills WHERE id = ?";
+            String sql = "DELETE FROM TrainingPrograms WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, id);
             statement.executeUpdate();
@@ -75,22 +75,23 @@ public class SkillsDAO implements IDao<Skills, Long> {
     }
 
     @Override
-    public List<Skills> getAll() {
-        List<Skills> skillsList = new ArrayList<>();
+    public List<TrainingPrograms> getAll() {
+        List<TrainingPrograms> trainingProgramsList = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Skills";
+            String sql = "SELECT * FROM TrainingPrograms";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Skills skills = new Skills();
-                skills.setId(resultSet.getLong("id"));
-                skills.setName(resultSet.getString("name"));
-                skillsList.add(skills);
+                TrainingPrograms trainingPrograms = new TrainingPrograms();
+                trainingPrograms.setId(resultSet.getLong("id"));
+                trainingPrograms.setName(resultSet.getString("name"));
+                trainingProgramsList.add(trainingPrograms);
             }
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return skillsList;
+        return trainingProgramsList;
     }
+
 }

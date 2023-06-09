@@ -1,6 +1,7 @@
-package dao;
-import Interfaces.IDao;
-import model.*;
+package com.laba.solvd.db.dao;
+import com.laba.solvd.db.domain.EmployeesTrainings;
+import com.laba.solvd.db.Interfaces.IDao;
+import domain.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,20 +10,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeesTasksDAO implements IDao<EmployeesTasks, Long> {
+public class EmployeesTrainingsDAO implements IDao<EmployeesTrainings, Long> {
     private Connection connection;
 
-    public EmployeesTasksDAO(Connection connection) {
+    public EmployeesTrainingsDAO(Connection connection) {
         this.connection = connection;
     }
 
     @Override
-    public void create(EmployeesTasks entity) {
+    public void create(EmployeesTrainings entity) {
         try {
-            String sql = "INSERT INTO EmployeesTasks (id, percentage_completed) VALUES (?, ?)";
+            String sql = "INSERT INTO EmployeesTrainings (id, status) VALUES (?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, entity.getId());
-            statement.setInt(2, entity.getPercentageCompleted());
+            statement.setString(2, entity.getStatus());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -30,31 +31,31 @@ public class EmployeesTasksDAO implements IDao<EmployeesTasks, Long> {
     }
 
     @Override
-    public EmployeesTasks read(Long id) {
-        EmployeesTasks employeesTasks = null;
+    public EmployeesTrainings read(Long id) {
+        EmployeesTrainings employeesTrainings = null;
         try {
-            String sql = "SELECT * FROM EmployeesTasks WHERE id = ?";
+            String sql = "SELECT * FROM EmployeesTrainings WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                employeesTasks = new EmployeesTasks();
-                employeesTasks.setId(resultSet.getLong("id"));
-                employeesTasks.setPercentageCompleted(resultSet.getInt("percentage_completed"));
+                employeesTrainings = new EmployeesTrainings();
+                employeesTrainings.setId(resultSet.getLong("id"));
+                employeesTrainings.setStatus(resultSet.getString("status"));
             }
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return employeesTasks;
+        return employeesTrainings;
     }
 
     @Override
-    public void update(EmployeesTasks entity) {
+    public void update(EmployeesTrainings entity) {
         try {
-            String sql = "UPDATE EmployeesTasks SET percentage_completed = ? WHERE id = ?";
+            String sql = "UPDATE EmployeesTrainings SET status = ? WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, entity.getPercentageCompleted());
+            statement.setString(1, entity.getStatus());
             statement.setLong(2, entity.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -65,7 +66,7 @@ public class EmployeesTasksDAO implements IDao<EmployeesTasks, Long> {
     @Override
     public void delete(Long id) {
         try {
-            String sql = "DELETE FROM EmployeesTasks WHERE id = ?";
+            String sql = "DELETE FROM EmployeesTrainings WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, id);
             statement.executeUpdate();
@@ -75,22 +76,22 @@ public class EmployeesTasksDAO implements IDao<EmployeesTasks, Long> {
     }
 
     @Override
-    public List<EmployeesTasks> getAll() {
-        List<EmployeesTasks> employeesTasksList = new ArrayList<>();
+    public List<EmployeesTrainings> getAll() {
+        List<EmployeesTrainings> employeesTrainingsList = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM EmployeesTasks";
+            String sql = "SELECT * FROM EmployeesTrainings";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                EmployeesTasks employeesTasks = new EmployeesTasks();
-                employeesTasks.setId(resultSet.getLong("id"));
-                employeesTasks.setPercentageCompleted(resultSet.getInt("percentage_completed"));
-                employeesTasksList.add(employeesTasks);
+                EmployeesTrainings employeesTrainings = new EmployeesTrainings();
+                employeesTrainings.setId(resultSet.getLong("id"));
+                employeesTrainings.setStatus(resultSet.getString("status"));
+                employeesTrainingsList.add(employeesTrainings);
             }
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return employeesTasksList;
+        return employeesTrainingsList;
     }
 }

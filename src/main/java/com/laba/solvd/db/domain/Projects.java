@@ -1,6 +1,6 @@
-package model;
+package com.laba.solvd.db.domain;
 
-public class TrainingPrograms {
+public class Projects {
     private long id;
     private String name;
 

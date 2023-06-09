@@ -1,6 +1,7 @@
-package dao;
-import Interfaces.IDao;
-import model.*;
+package com.laba.solvd.db.dao;
+import com.laba.solvd.db.domain.EmployeesSkills;
+import com.laba.solvd.db.Interfaces.IDao;
+import domain.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,21 +10,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeesDAO implements IDao<Employees, Long> {
+public class EmployeesSkillsDAO implements IDao<EmployeesSkills, Long> {
     private Connection connection;
 
-    public EmployeesDAO(Connection connection) {
+    public EmployeesSkillsDAO(Connection connection) {
         this.connection = connection;
     }
 
     @Override
-    public void create(Employees entity) {
+    public void create(EmployeesSkills entity) {
         try {
-            String sql = "INSERT INTO Employees (id, name, position) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO EmployeesSkills (id, proficiency_level) VALUES (?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, entity.getId());
-            statement.setString(2, entity.getName());
-            statement.setString(3, entity.getPosition());
+            statement.setString(2, entity.getProficiencyLevel());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -31,34 +31,32 @@ public class EmployeesDAO implements IDao<Employees, Long> {
     }
 
     @Override
-    public Employees read(Long id) {
-        Employees employee = null;
+    public EmployeesSkills read(Long id) {
+        EmployeesSkills employeesSkills = null;
         try {
-            String sql = "SELECT * FROM Employees WHERE id = ?";
+            String sql = "SELECT * FROM EmployeesSkills WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                employee = new Employees();
-                employee.setId(resultSet.getLong("id"));
-                employee.setName(resultSet.getString("name"));
-                employee.setPosition(resultSet.getString("position"));
+                employeesSkills = new EmployeesSkills();
+                employeesSkills.setId(resultSet.getLong("id"));
+                employeesSkills.setProficiencyLevel(resultSet.getString("proficiency_level"));
             }
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return employee;
+        return employeesSkills;
     }
 
     @Override
-    public void update(Employees entity) {
+    public void update(EmployeesSkills entity) {
         try {
-            String sql = "UPDATE Employees SET name = ?, position = ? WHERE id = ?";
+            String sql = "UPDATE EmployeesSkills SET proficiency_level = ? WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, entity.getName());
-            statement.setString(2, entity.getPosition());
-            statement.setLong(3, entity.getId());
+            statement.setString(1, entity.getProficiencyLevel());
+            statement.setLong(2, entity.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -68,7 +66,7 @@ public class EmployeesDAO implements IDao<Employees, Long> {
     @Override
     public void delete(Long id) {
         try {
-            String sql = "DELETE FROM Employees WHERE id = ?";
+            String sql = "DELETE FROM EmployeesSkills WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, id);
             statement.executeUpdate();
@@ -78,26 +76,22 @@ public class EmployeesDAO implements IDao<Employees, Long> {
     }
 
     @Override
-    public List<Employees> getAll() {
-        List<Employees> employeesList = new ArrayList<>();
+    public List<EmployeesSkills> getAll() {
+        List<EmployeesSkills> employeesSkillsList = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Employees";
+            String sql = "SELECT * FROM EmployeesSkills";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Employees employee = new Employees();
-                employee.setId(resultSet.getLong("id"));
-                employee.setName(resultSet.getString("name"));
-                employee.setPosition(resultSet.getString("position"));
-                employeesList.add(employee);
+                EmployeesSkills employeesSkills = new EmployeesSkills();
+                employeesSkills.setId(resultSet.getLong("id"));
+                employeesSkills.setProficiencyLevel(resultSet.getString("proficiency_level"));
+                employeesSkillsList.add(employeesSkills);
             }
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return employeesList;
+        return employeesSkillsList;
     }
-
 }
-
-

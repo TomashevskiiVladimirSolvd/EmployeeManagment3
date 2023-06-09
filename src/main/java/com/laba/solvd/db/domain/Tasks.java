@@ -1,9 +1,9 @@
-package model;
+package com.laba.solvd.db.domain;
 
-public class Employees {
+public class Tasks {
     private long id;
     private String name;
-    private String position;
+    private String priority;
 
     public long getId() {
         return id;
@@ -21,12 +21,11 @@ public class Employees {
         this.name = name;
     }
 
-    public String getPosition() {
-        return position;
+    public String getPriority() {
+        return priority;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
+    public void setPriority(String priority) {
+        this.priority = priority;
     }
-
 }

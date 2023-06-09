@@ -1,8 +1,9 @@
-package model;
+package com.laba.solvd.db.domain;
 
-public class Skills {
+public class Employees {
     private long id;
     private String name;
+    private String position;
 
     public long getId() {
         return id;
@@ -19,4 +20,13 @@ public class Skills {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
 }

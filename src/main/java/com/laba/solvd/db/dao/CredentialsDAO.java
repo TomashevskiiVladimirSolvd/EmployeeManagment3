@@ -1,7 +1,8 @@
-package dao;
+package com.laba.solvd.db.dao;
 
-import Interfaces.IDao;
-import model.*;
+import com.laba.solvd.db.domain.Credentials;
+import com.laba.solvd.db.Interfaces.IDao;
+import domain.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,21 +11,21 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContactsDAO implements IDao<Contacts, Long> {
+public class CredentialsDAO implements IDao<Credentials, Long> {
     private Connection connection;
 
-    public ContactsDAO(Connection connection) {
+    public CredentialsDAO(Connection connection) {
         this.connection = connection;
     }
 
     @Override
-    public void create(Contacts entity) {
+    public void create(Credentials entity) {
         try {
-            String sql = "INSERT INTO Contacts (id, email, phone) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO Credentials (id, login, password) VALUES (?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, entity.getId());
-            statement.setString(2, entity.getEmail());
-            statement.setString(3, entity.getPhone());
+            statement.setString(2, entity.getLogin());
+            statement.setString(3, entity.getPassword());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -32,33 +33,33 @@ public class ContactsDAO implements IDao<Contacts, Long> {
     }
 
     @Override
-    public Contacts read(Long id) {
-        Contacts contact = null;
+    public Credentials read(Long id) {
+        Credentials credentials = null;
         try {
-            String sql = "SELECT * FROM Contacts WHERE id = ?";
+            String sql = "SELECT * FROM Credentials WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                contact = new Contacts();
-                contact.setId(resultSet.getLong("id"));
-                contact.setEmail(resultSet.getString("email"));
-                contact.setPhone(resultSet.getString("phone"));
+                credentials = new Credentials();
+                credentials.setId(resultSet.getLong("id"));
+                credentials.setLogin(resultSet.getString("login"));
+                credentials.setPassword(resultSet.getString("password"));
             }
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return contact;
+        return credentials;
     }
 
     @Override
-    public void update(Contacts entity) {
+    public void update(Credentials entity) {
         try {
-            String sql = "UPDATE Contacts SET email = ?, phone = ? WHERE id = ?";
+            String sql = "UPDATE Credentials SET login = ?, password = ? WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, entity.getEmail());
-            statement.setString(2, entity.getPhone());
+            statement.setString(1, entity.getLogin());
+            statement.setString(2, entity.getPassword());
             statement.setLong(3, entity.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -69,7 +70,7 @@ public class ContactsDAO implements IDao<Contacts, Long> {
     @Override
     public void delete(Long id) {
         try {
-            String sql = "DELETE FROM Contacts WHERE id = ?";
+            String sql = "DELETE FROM Credentials WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, id);
             statement.executeUpdate();
@@ -79,24 +80,25 @@ public class ContactsDAO implements IDao<Contacts, Long> {
     }
 
     @Override
-    public List<Contacts> getAll() {
-        List<Contacts> contactsList = new ArrayList<>();
+    public List<Credentials> getAll() {
+        List<Credentials> credentialsList = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Contacts";
+            String sql = "SELECT * FROM Credentials";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Contacts contact = new Contacts();
-                contact.setId(resultSet.getLong("id"));
-                contact.setEmail(resultSet.getString("email"));
-                contact.setPhone(resultSet.getString("phone"));
-                contactsList.add(contact);
+                Credentials credentials = new Credentials();
+                credentials.setId(resultSet.getLong("id"));
+                credentials.setLogin(resultSet.getString("login"));
+                credentials.setPassword(resultSet.getString("password"));
+                credentialsList.add(credentials);
             }
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return contactsList;
+        return credentialsList;
     }
 
 }
+
