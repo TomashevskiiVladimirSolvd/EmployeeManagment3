@@ -36,10 +36,14 @@ public enum Config {
 
     private static Properties loadProperties() {
         Properties config = new Properties();
-        try {
-            InputStream is = Config.class.getClassLoader().getResourceAsStream(CONFIG_FILE_NAME);
+        try (InputStream is = Config.class.getClassLoader().getResourceAsStream(CONFIG_FILE_NAME)) {
+            if (is != null) {
+                config.load(is);
+            } else {
+                throw new RuntimeException("Unable to find config.properties file");
+            }
         } catch (Exception e) {
-            throw new RuntimeException("Unable to prepare config properties", e);
+            throw new RuntimeException("Error loading config properties", e);
         }
         return config;
     }
