@@ -2,7 +2,6 @@ package com.laba.solvd.db.dao;
 
 import com.laba.solvd.db.domain.Contacts;
 import com.laba.solvd.db.Interfaces.IDao;
-import domain.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
