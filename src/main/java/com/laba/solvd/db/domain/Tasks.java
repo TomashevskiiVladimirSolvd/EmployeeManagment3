@@ -1,9 +1,12 @@
 package com.laba.solvd.db.domain;
 
+import java.util.List;
+
 public class Tasks {
     private long id;
     private String name;
     private String priority;
+    private List<EmployeesTasks> tasks;
 
     public long getId() {
         return id;
