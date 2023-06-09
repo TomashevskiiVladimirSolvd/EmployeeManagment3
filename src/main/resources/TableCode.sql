@@ -88,14 +88,14 @@ VALUES
 (5,3),
 (6,3);
 
-INSERT INTO employees_trainings (program_id,employee_id,status)
+INSERT INTO employees_trainings (programs_id,status,employee_id)
 VALUES 
-   (1,2,'In progress'),
-   (2,3,'Done'),
-   (3,1,'On hold'),
-   (4,5,'Cancelled'),
-   (5,6,'In progress'),
-   (6,4,'Done');
+   (1,'In progress',2),
+   (2,'Done',3),
+   (3,'On hold',1),
+   (4,'Cancelled',5),
+   (5,'In progress',6),
+   (6,'Done',4);
    
 
 INSERT INTO tasks (name,priority,project_id)
@@ -202,7 +202,7 @@ JOIN credentials cr ON e.id =cr.employee_id
 JOIN employees_skills es ON e.id = es.employee_id
 JOIN skills s ON s.id = es.skill_id
 JOIN employees_trainings etr ON e.id = etr.employee_id
-JOIN training_programs tp ON tp.id = etr.program_id
+JOIN training_programs tp ON tp.id = etr.programs_id
 JOIN employees_departments ed ON e.id = ed.employee_id
 JOIN departments d ON d.id = ed.department_id
 JOIN employees_tasks et ON e.id = et.employee_id
@@ -339,8 +339,8 @@ WHERE email = 'Frog55@gmail.com';
 DELETE FROM contacts
 WHERE phone = '+3 956 370 85 96';
 
-DELETE FROM projects
-WHERE id =1;
+DELETE FROM contacts
+WHERE fax = '383945950';
 
 DELETE FROM projects
 WHERE name LIKE '%Research';
