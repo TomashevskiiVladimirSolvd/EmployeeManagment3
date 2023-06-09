@@ -1,6 +1,6 @@
 package com.laba.solvd.db.service;
 
-import com.laba.solvd.db.domain.Employees;
+import com.laba.solvd.db.model.Employees;
 
 public class EmployeesServiceImpl implements EmployeeService {
 

@@ -1,8 +1,14 @@
-package com.laba.solvd.db.domain;
+package com.laba.solvd.db.model;
 
 public class EmployeesTasks {
     private long id;
     private int percentageCompleted;
+    public EmployeesTasks(){};
+
+    public EmployeesTasks(long id,int percentageCompleted){
+        this.id=id;
+        this.percentageCompleted=percentageCompleted;
+    }
 
     public long getId() {
         return id;

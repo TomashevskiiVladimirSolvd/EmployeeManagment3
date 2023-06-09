@@ -1,9 +1,17 @@
-package com.laba.solvd.db.domain;
+package com.laba.solvd.db.model;
 
 public class Contacts {
     private long id;
     private String email;
     private String phone;
+
+    public Contacts(){};
+
+    public Contacts(long id,String email,String phone){
+        this.id=id;
+        this.email=email;
+        this.phone=phone;
+    }
 
     public long getId() {
         return id;

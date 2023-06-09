@@ -1,5 +1,5 @@
 package com.laba.solvd.db.dao;
-import com.laba.solvd.db.domain.Skills;
+import com.laba.solvd.db.model.Skills;
 import com.laba.solvd.db.Interfaces.IDao;
 
 import java.sql.Connection;

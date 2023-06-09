@@ -1,6 +1,6 @@
 package com.laba.solvd.db.dao;
 import com.laba.solvd.db.Interfaces.IDao;
-import com.laba.solvd.db.domain.TrainingPrograms;
+import com.laba.solvd.db.model.TrainingPrograms;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

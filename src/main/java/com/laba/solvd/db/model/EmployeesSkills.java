@@ -1,8 +1,15 @@
-package com.laba.solvd.db.domain;
+package com.laba.solvd.db.model;
 
 public class EmployeesSkills {
     private long id;
     private String proficiencyLevel;
+
+    public EmployeesSkills(){};
+
+    public EmployeesSkills(long id,String proficiencyLevel){
+        this.id=id;
+        this.proficiencyLevel=proficiencyLevel;
+    }
 
     public long getId() {
         return id;

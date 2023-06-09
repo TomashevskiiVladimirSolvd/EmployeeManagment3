@@ -1,9 +1,17 @@
-package com.laba.solvd.db.domain;
+package com.laba.solvd.db.model;
 
 public class Credentials {
     private long id;
     private String login;
     private String password;
+    public Credentials(){};
+
+    public Credentials(long id,String email,String phone){
+        this.id=id;
+        this.login=login;
+        this.password=password;
+    }
+
 
 
     public long getId() {

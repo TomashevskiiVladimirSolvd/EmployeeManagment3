@@ -1,6 +1,6 @@
 package com.laba.solvd.db.dao;
 
-import com.laba.solvd.db.domain.Credentials;
+import com.laba.solvd.db.model.Credentials;
 import com.laba.solvd.db.Interfaces.IDao;
 
 import java.sql.Connection;

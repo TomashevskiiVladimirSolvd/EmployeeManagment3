@@ -1,7 +1,7 @@
 package com.laba.solvd.db.dao;
 
 import com.laba.solvd.db.Interfaces.IDao;
-import com.laba.solvd.db.domain.Departments;
+import com.laba.solvd.db.model.Departments;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

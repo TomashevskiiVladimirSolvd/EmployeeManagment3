@@ -1,8 +1,15 @@
-package com.laba.solvd.db.domain;
+package com.laba.solvd.db.model;
 
 public class EmployeesTrainings {
     private long id;
     private String status;
+
+    public EmployeesTrainings(){};
+
+    public EmployeesTrainings(long id,String status){
+        this.id=id;
+        this.status=status;
+    }
 
     public long getId() {
         return id;

@@ -1,8 +1,17 @@
-package com.laba.solvd.db.domain;
+package com.laba.solvd.db.model;
 
-public class TrainingPrograms {
+import java.util.List;
+
+public class Projects {
     private long id;
     private String name;
+    private List<Tasks> tasks;
+    public Projects(){};
+
+    public Projects(long id,String name){
+        this.id=id;
+        this.name=name;
+    }
 
     public long getId() {
         return id;
