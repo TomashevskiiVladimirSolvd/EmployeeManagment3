@@ -14,6 +14,14 @@ public class Projects {
         this.name=name;
     }
 
+    public List<Tasks> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Tasks> tasks) {
+        this.tasks = tasks;
+    }
+
     public long getId() {
         return id;
     }

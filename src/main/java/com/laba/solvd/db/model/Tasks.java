@@ -1,9 +1,13 @@
 package com.laba.solvd.db.model;
 
+import java.util.List;
+
 public class Tasks {
     private long id;
     private String name;
     private String priority;
+    private List<EmployeesTasks> employees;
+    private Projects projects;
 
     public Tasks(){};
 
@@ -11,6 +15,22 @@ public class Tasks {
         this.id = id;
         this.name = name;
         this.priority = priority;
+    }
+
+    public Projects getProjects() {
+        return projects;
+    }
+
+    public void setProjects(Projects projects) {
+        this.projects = projects;
+    }
+
+    public List<EmployeesTasks> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<EmployeesTasks> employees) {
+        this.employees = employees;
     }
 
     public long getId() {

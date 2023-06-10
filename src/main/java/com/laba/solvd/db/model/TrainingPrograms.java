@@ -1,14 +1,25 @@
 package com.laba.solvd.db.model;
 
+import java.util.List;
+
 public class TrainingPrograms {
     private long id;
     private String name;
+    private List<EmployeesTrainings> employees;
 
     public TrainingPrograms(){};
 
     public TrainingPrograms(long id,String name){
         this.id=id;
         this.name=name;
+    }
+
+    public List<EmployeesTrainings> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<EmployeesTrainings> employees) {
+        this.employees = employees;
     }
 
     public long getId() {
