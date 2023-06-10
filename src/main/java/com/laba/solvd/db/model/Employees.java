@@ -4,6 +4,31 @@ public class Employees {
     private long id;
     private String name;
     private String position;
+    private Contacts contact;
+    private Credentials credentials;
+    public Employees(){};
+
+    public Employees(long id,String name,String position){
+        this.id=id;
+        this.name=name;
+        this.position=position;
+    }
+
+    public Credentials getCredentials() {
+        return credentials;
+    }
+
+    public void setCredentials(Credentials credentials) {
+        this.credentials = credentials;
+    }
+
+    public Contacts getContact() {
+        return contact;
+    }
+
+    public void setContact(Contacts contact) {
+        this.contact = contact;
+    }
 
     public long getId() {
         return id;

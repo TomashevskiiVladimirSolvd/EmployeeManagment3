@@ -4,6 +4,7 @@ public class Contacts {
     private long id;
     private String email;
     private String phone;
+    private Employees employee;
 
     public Contacts(){};
 
@@ -11,6 +12,14 @@ public class Contacts {
         this.id=id;
         this.email=email;
         this.phone=phone;
+    }
+
+    public Employees getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employees employee) {
+        this.employee = employee;
     }
 
     public long getId() {

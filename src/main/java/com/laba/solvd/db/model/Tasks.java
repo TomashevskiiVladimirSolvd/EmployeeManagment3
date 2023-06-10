@@ -5,6 +5,14 @@ public class Tasks {
     private String name;
     private String priority;
 
+    public Tasks(){};
+
+    public Tasks(long id, String name, String priority) {
+        this.id = id;
+        this.name = name;
+        this.priority = priority;
+    }
+
     public long getId() {
         return id;
     }
