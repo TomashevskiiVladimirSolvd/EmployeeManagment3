@@ -2,6 +2,7 @@ package com.laba.solvd.db.model;
 
 import java.util.List;
 
+
 public class Projects {
     private long id;
     private String name;

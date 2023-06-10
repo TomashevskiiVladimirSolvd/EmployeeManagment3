@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import com.laba.solvd.db.model.Employees;
 
 public class EmployeesDAO implements IDao<Employees, Long> {
     private Connection connection;

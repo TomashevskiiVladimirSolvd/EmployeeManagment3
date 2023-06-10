@@ -1,4 +1,4 @@
-package com.laba.solvd.db.domain;
+package com.laba.solvd.db.model;
 
 public class Tasks {
     private long id;
