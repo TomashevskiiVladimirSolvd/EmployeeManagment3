@@ -35,25 +35,32 @@ private Connection createConnections(){
 
     public Connection getConnection() {
         synchronized (connections) {
-            while (connections.isEmpty()) {
+            if (connections.isEmpty()){
                 try {
-                    connections.wait();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException("Unable to get connection", e);
+                    while (connections.isEmpty()){
+                        connections.wait();
+                    }
+                }catch(InterruptedException e){
+                    throw new RuntimeException("Unable to get connection",e);
                 }
             }
 
-            Connection connection = connections.remove(connections.size() - 1);
-            try {
-                if (connection.isClosed()) {
-                    connection = createConnections();
-                }
-            } catch (SQLException e) {
-                throw new RuntimeException("Error checking connection status", e);
-            }
-
-            return connection;
+            return connections.remove(connections.size()-1);
         }
+    }
+
+    public void releaseConnection(Connection connection){
+        synchronized (connections){
+            connections.add(connection);
+            connections.notifyAll();
+        }
+    }
+
+    public static synchronized ConnectionPool getInstance(){
+        if(instance==null){
+            instance=new ConnectionPool();
+        }
+        return instance;
     }
 
 }
