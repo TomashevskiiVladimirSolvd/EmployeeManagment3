@@ -1,5 +1,7 @@
 package com.laba.solvd.db.model;
 
+import java.util.Objects;
+
 public class Credentials {
     private long id;
     private String login;
@@ -43,5 +45,18 @@ public class Credentials {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Credentials that = (Credentials) o;
+        return id == that.id && Objects.equals(login, that.login) && Objects.equals(password, that.password) && Objects.equals(employee, that.employee);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, login, password, employee);
     }
 }

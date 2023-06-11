@@ -1,6 +1,7 @@
 package com.laba.solvd.db.model;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Employees {
     private long id;
@@ -83,4 +84,16 @@ public class Employees {
         this.position = position;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employees employees = (Employees) o;
+        return id == employees.id && Objects.equals(name, employees.name) && Objects.equals(position, employees.position) && Objects.equals(contact, employees.contact) && Objects.equals(credentials, employees.credentials) && Objects.equals(skills, employees.skills) && Objects.equals(tasks, employees.tasks) && Objects.equals(trainings, employees.trainings);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, position, contact, credentials, skills, tasks, trainings);
+    }
 }

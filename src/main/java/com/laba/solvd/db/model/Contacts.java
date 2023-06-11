@@ -1,5 +1,7 @@
 package com.laba.solvd.db.model;
 
+import java.util.Objects;
+
 public class Contacts {
     private long id;
     private String email;
@@ -44,5 +46,18 @@ public class Contacts {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Contacts contacts = (Contacts) o;
+        return id == contacts.id && Objects.equals(email, contacts.email) && Objects.equals(phone, contacts.phone) && Objects.equals(employee, contacts.employee);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, email, phone, employee);
     }
 }
