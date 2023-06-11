@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface EmployeesRepository {
     Employees create(Employees employees);
+    List<Employees> findAll();
 
 }

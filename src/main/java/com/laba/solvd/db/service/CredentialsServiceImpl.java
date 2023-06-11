@@ -10,25 +10,27 @@ import java.util.List;
 import java.util.Optional;
 
 public class CredentialsServiceImpl implements CredentialsRepositoty {
-    private static final ConnectionPool CONNECTION_POOL =ConnectionPool.getInstance();
+    private static final ConnectionPool CONNECTION_POOL = ConnectionPool.getInstance();
 
     @Override
     public void create(Credentials credentials) {
-        Connection connection= CONNECTION_POOL.getConnection();
-        try{
-            PreparedStatement preparedStatement= connection.prepareStatement("Insert into Credentials(id,login,password)values(?,?,?)", Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setLong(1,credentials.getId());
-            preparedStatement.setString(2,credentials.getLogin());
-            preparedStatement.setString(3,credentials.getPassword());
+        Connection connection = CONNECTION_POOL.getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("Insert into Credentials(id,login,password)values(?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setLong(1, credentials.getId());
+            preparedStatement.setString(2, credentials.getLogin());
+            preparedStatement.setString(3, credentials.getPassword());
 
             preparedStatement.executeUpdate();
-            ResultSet resultSet= preparedStatement.getGeneratedKeys();
-        }catch(SQLException e){
-           throw new RuntimeException("Unable to create credentials",e);
-        }finally {
+            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+        } catch (SQLException e) {
+            throw new RuntimeException("Unable to create credentials", e);
+        } finally {
             CONNECTION_POOL.releaseConnection(connection);
-            }
         }
+    }
+
+
 
 
 
