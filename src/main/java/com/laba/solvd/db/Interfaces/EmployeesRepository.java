@@ -6,6 +6,6 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface EmployeesRepository {
-    void create();
+    Employees create(Employees employees);
 
 }
