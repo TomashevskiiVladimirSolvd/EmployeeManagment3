@@ -1,6 +1,6 @@
 package com.laba.solvd.db.service;
 
-import com.laba.solvd.db.Interfaces.CredentialsRepositoty;
+import com.laba.solvd.db.Interfaces.CredentialsRepository;
 import com.laba.solvd.db.dao.ConnectionPool;
 import com.laba.solvd.db.model.Credentials;
 
@@ -9,30 +9,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class CredentialsServiceImpl implements CredentialsRepositoty {
+public class CredentialsServiceImpl implements CredentialsRepository {
     private static final ConnectionPool CONNECTION_POOL = ConnectionPool.getInstance();
 
     @Override
     public void create(Credentials credentials) {
         Connection connection = CONNECTION_POOL.getConnection();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("Insert into Credentials(id,login,password)values(?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Credentials(id, login, password) VALUES (?, ?, ?)");
             preparedStatement.setLong(1, credentials.getId());
             preparedStatement.setString(2, credentials.getLogin());
             preparedStatement.setString(3, credentials.getPassword());
 
             preparedStatement.executeUpdate();
-            ResultSet resultSet = preparedStatement.getGeneratedKeys();
         } catch (SQLException e) {
             throw new RuntimeException("Unable to create credentials", e);
         } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }
     }
-
-
-
-
 
     @Override
     public Optional<Credentials> findById(Long id) {
@@ -58,7 +53,6 @@ public class CredentialsServiceImpl implements CredentialsRepositoty {
 
         return Optional.empty();
     }
-
 
     @Override
     public List<Credentials> findAll() {
@@ -86,7 +80,6 @@ public class CredentialsServiceImpl implements CredentialsRepositoty {
         }
     }
 
-
     @Override
     public void update(Credentials credentials) {
         Connection connection = CONNECTION_POOL.getConnection();
@@ -108,7 +101,6 @@ public class CredentialsServiceImpl implements CredentialsRepositoty {
         }
     }
 
-
     @Override
     public void deleteById(Long id) {
         Connection connection = CONNECTION_POOL.getConnection();
@@ -127,5 +119,5 @@ public class CredentialsServiceImpl implements CredentialsRepositoty {
             CONNECTION_POOL.releaseConnection(connection);
         }
     }
-
 }
+

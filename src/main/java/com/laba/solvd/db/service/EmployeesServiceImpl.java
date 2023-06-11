@@ -11,20 +11,26 @@ import java.util.List;
 
 
 public class EmployeesServiceImpl implements EmployeesRepository {
-
-    private static final ConnectionPool CONNECTION_POOL =ConnectionPool.getInstance();
+    private static final ConnectionPool CONNECTION_POOL = ConnectionPool.getInstance();
 
     @Override
     public Employees create(Employees employees) {
         Connection connection = CONNECTION_POOL.getConnection();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("Insert into Employees(id,name,position)values(?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Employees(id, name, position) VALUES (?, ?, ?)");
+
             preparedStatement.setLong(1, employees.getId());
             preparedStatement.setString(2, employees.getName());
             preparedStatement.setString(3, employees.getPosition());
 
             preparedStatement.executeUpdate();
+
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            if (resultSet.next()) {
+                long generatedId = resultSet.getLong(1);
+                employees.setId(generatedId);
+            }
+
             return employees;
         } catch (SQLException e) {
             throw new RuntimeException("Unable to create employees", e);
@@ -40,7 +46,7 @@ public class EmployeesServiceImpl implements EmployeesRepository {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Employees");
 
             ResultSet resultSet = preparedStatement.executeQuery();
-            List<Employees> employeesLists = new ArrayList<>();
+            List<Employees> employeesList = new ArrayList<>();
 
             while (resultSet.next()) {
                 long id = resultSet.getLong("id");
@@ -48,10 +54,10 @@ public class EmployeesServiceImpl implements EmployeesRepository {
                 String position = resultSet.getString("position");
 
                 Employees employees = new Employees(id, name, position);
-                employeesLists.add(employees);
+                employeesList.add(employees);
             }
 
-            return employeesLists;
+            return employeesList;
         } catch (SQLException e) {
             throw new RuntimeException("Unable to fetch all employees", e);
         } finally {
