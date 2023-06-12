@@ -7,22 +7,20 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        Credentials credentials =new Credentials();
-        credentials.setId(1);
-        credentials.setLogin("log1");
-        credentials.setPassword("12345");
+        EmployeesServiceImpl employeesService = new EmployeesServiceImpl();
+        Employees employee = new Employees();
+        employee.setId(1);
+        employee.setName("John Doe");
+        employee.setPosition("Manager");
 
-        Employees employees=new Employees();
-        employees.setId(1);
-        employees.setName("Ivan Petrov");
-        employees.setPosition("Top manager");
-        employees.setCredentials(credentials);
+        Employees createdEmployee = employeesService.create(employee);
+        System.out.println("Employee created: " + createdEmployee);
 
-        EmployeesServiceImpl employeesService= new EmployeesServiceImpl();
-        employees=employeesService.create(employees);
-
-        List<Employees> empl= employeesService.findAll();
-        System.out.println(employees);
+        List<Employees> allEmployees = employeesService.findAll();
+        System.out.println("All Employees:");
+        for (Employees emp : allEmployees) {
+            System.out.println(emp);
+        }
 
 
 
