@@ -1,11 +1,13 @@
 package com.laba.solvd.db.model;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Task {
     private long id;
     private String name;
     private String priority;
+    private List<EmployeeTask> employees;
 
     public Task() {
     }
@@ -42,16 +44,24 @@ public class Task {
         this.priority = priority;
     }
 
+    public List<EmployeeTask> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<EmployeeTask> employees) {
+        this.employees = employees;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-        return id == task.id && Objects.equals(name, task.name) && Objects.equals(priority, task.priority);
+        return id == task.id && Objects.equals(name, task.name) && Objects.equals(priority, task.priority) && Objects.equals(employees, task.employees);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, priority);
+        return Objects.hash(id, name, priority, employees);
     }
 }
