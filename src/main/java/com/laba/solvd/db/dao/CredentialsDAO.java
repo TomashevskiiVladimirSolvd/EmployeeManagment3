@@ -1,6 +1,6 @@
 package com.laba.solvd.db.dao;
 
-import com.laba.solvd.db.model.Credentials;
+import com.laba.solvd.db.model.Credential;
 import com.laba.solvd.db.Interfaces.IDao;
 
 import java.sql.Connection;
@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CredentialsDAO implements IDao<Credentials, Long> {
+public class CredentialsDAO implements IDao<Credential, Long> {
     private Connection connection;
 
     public CredentialsDAO(Connection connection) {
@@ -18,7 +18,7 @@ public class CredentialsDAO implements IDao<Credentials, Long> {
     }
 
     @Override
-    public void create(Credentials entity) {
+    public void create(Credential entity) {
         try {
             String sql = "INSERT INTO Credentials (id, login, password) VALUES (?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -32,28 +32,28 @@ public class CredentialsDAO implements IDao<Credentials, Long> {
     }
 
     @Override
-    public Credentials read(Long id) {
-        Credentials credentials = null;
+    public Credential read(Long id) {
+        Credential credential = null;
         try {
             String sql = "SELECT * FROM Credentials WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                credentials = new Credentials();
-                credentials.setId(resultSet.getLong("id"));
-                credentials.setLogin(resultSet.getString("login"));
-                credentials.setPassword(resultSet.getString("password"));
+                credential = new Credential();
+                credential.setId(resultSet.getLong("id"));
+                credential.setLogin(resultSet.getString("login"));
+                credential.setPassword(resultSet.getString("password"));
             }
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return credentials;
+        return credential;
     }
 
     @Override
-    public void update(Credentials entity) {
+    public void update(Credential entity) {
         try {
             String sql = "UPDATE Credentials SET login = ?, password = ? WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -79,24 +79,24 @@ public class CredentialsDAO implements IDao<Credentials, Long> {
     }
 
     @Override
-    public List<Credentials> getAll() {
-        List<Credentials> credentialsList = new ArrayList<>();
+    public List<Credential> getAll() {
+        List<Credential> credentialList = new ArrayList<>();
         try {
             String sql = "SELECT * FROM Credentials";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Credentials credentials = new Credentials();
-                credentials.setId(resultSet.getLong("id"));
-                credentials.setLogin(resultSet.getString("login"));
-                credentials.setPassword(resultSet.getString("password"));
-                credentialsList.add(credentials);
+                Credential credential = new Credential();
+                credential.setId(resultSet.getLong("id"));
+                credential.setLogin(resultSet.getString("login"));
+                credential.setPassword(resultSet.getString("password"));
+                credentialList.add(credential);
             }
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return credentialsList;
+        return credentialList;
     }
 
 }

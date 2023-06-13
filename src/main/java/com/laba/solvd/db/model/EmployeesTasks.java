@@ -1,31 +1,15 @@
 package com.laba.solvd.db.model;
 
+import java.util.Objects;
+
 public class EmployeesTasks {
     private long id;
     private int percentageCompleted;
-    private Employees employee;
-    private Tasks tasks;
     public EmployeesTasks(){};
 
     public EmployeesTasks(long id,int percentageCompleted){
         this.id=id;
         this.percentageCompleted=percentageCompleted;
-    }
-
-    public Tasks getTasks() {
-        return tasks;
-    }
-
-    public void setTasks(Tasks tasks) {
-        this.tasks = tasks;
-    }
-
-    public Employees getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employees employee) {
-        this.employee = employee;
     }
 
     public long getId() {
@@ -42,5 +26,18 @@ public class EmployeesTasks {
 
     public void setPercentageCompleted(int percentageCompleted) {
         this.percentageCompleted = percentageCompleted;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EmployeesTasks that = (EmployeesTasks) o;
+        return id == that.id && percentageCompleted == that.percentageCompleted;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, percentageCompleted);
     }
 }

@@ -1,14 +1,16 @@
 package com.laba.solvd.db.model;
 
+import java.util.List;
 import java.util.Objects;
 
-public class Departments {
+public class Department {
     private long id;
     private String name;
+    List<Employee> employees;
 
-    public Departments(){};
+    public Department(){};
 
-    public Departments(long id,String name){
+    public Department(long id, String name){
         this.id=id;
         this.name=name;
     }
@@ -33,7 +35,7 @@ public class Departments {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Departments that = (Departments) o;
+        Department that = (Department) o;
         return id == that.id && Objects.equals(name, that.name);
     }
 

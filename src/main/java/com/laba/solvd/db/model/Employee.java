@@ -3,18 +3,18 @@ package com.laba.solvd.db.model;
 import java.util.List;
 import java.util.Objects;
 
-public class Employees {
+public class Employee {
     private long id;
     private String name;
     private String position;
-    private Contacts contact;
-    private Credentials credentials;
-    private List<EmployeesSkills> skills;
+    private Contact contact;
+    private Credential credential;
+    private List<EmployeeSkill> skills;
     private List<EmployeesTasks> tasks;
     private List<EmployeesTrainings> trainings;
-    public Employees(){};
+    public Employee(){};
 
-    public Employees(long id,String name,String position){
+    public Employee(long id, String name, String position){
         this.id=id;
         this.name=name;
         this.position=position;
@@ -36,27 +36,27 @@ public class Employees {
         this.trainings = trainings;
     }
 
-    public List<EmployeesSkills> getSkills() {
+    public List<EmployeeSkill> getSkills() {
         return skills;
     }
 
-    public void setSkills(List<EmployeesSkills> skills) {
+    public void setSkills(List<EmployeeSkill> skills) {
         this.skills = skills;
     }
 
-    public Credentials getCredentials() {
-        return credentials;
+    public Credential getCredentials() {
+        return credential;
     }
 
-    public void setCredentials(Credentials credentials) {
-        this.credentials = credentials;
+    public void setCredentials(Credential credential) {
+        this.credential = credential;
     }
 
-    public Contacts getContact() {
+    public Contact getContact() {
         return contact;
     }
 
-    public void setContact(Contacts contact) {
+    public void setContact(Contact contact) {
         this.contact = contact;
     }
 
@@ -88,12 +88,12 @@ public class Employees {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Employees employees = (Employees) o;
-        return id == employees.id && Objects.equals(name, employees.name) && Objects.equals(position, employees.position) && Objects.equals(contact, employees.contact) && Objects.equals(credentials, employees.credentials) && Objects.equals(skills, employees.skills) && Objects.equals(tasks, employees.tasks) && Objects.equals(trainings, employees.trainings);
+        Employee employee = (Employee) o;
+        return id == employee.id && Objects.equals(name, employee.name) && Objects.equals(position, employee.position) && Objects.equals(contact, employee.contact) && Objects.equals(credential, employee.credential) && Objects.equals(skills, employee.skills) && Objects.equals(tasks, employee.tasks) && Objects.equals(trainings, employee.trainings);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, position, contact, credentials, skills, tasks, trainings);
+        return Objects.hash(id, name, position, contact, credential, skills, tasks, trainings);
     }
 }

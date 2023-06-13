@@ -1,6 +1,6 @@
 package com.laba.solvd.db.dao;
 
-import com.laba.solvd.db.model.Contacts;
+import com.laba.solvd.db.model.Contact;
 import com.laba.solvd.db.Interfaces.IDao;
 
 import java.sql.Connection;
@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContactsDAO implements IDao<Contacts, Long> {
+public class ContactsDAO implements IDao<Contact, Long> {
     private Connection connection;
 
     public ContactsDAO(Connection connection) {
@@ -18,7 +18,7 @@ public class ContactsDAO implements IDao<Contacts, Long> {
     }
 
     @Override
-    public void create(Contacts entity) {
+    public void create(Contact entity) {
         try {
             String sql = "INSERT INTO Contacts (id, email, phone) VALUES (?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -32,15 +32,15 @@ public class ContactsDAO implements IDao<Contacts, Long> {
     }
 
     @Override
-    public Contacts read(Long id) {
-        Contacts contact = null;
+    public Contact read(Long id) {
+        Contact contact = null;
         try {
             String sql = "SELECT * FROM Contacts WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                contact = new Contacts();
+                contact = new Contact();
                 contact.setId(resultSet.getLong("id"));
                 contact.setEmail(resultSet.getString("email"));
                 contact.setPhone(resultSet.getString("phone"));
@@ -53,7 +53,7 @@ public class ContactsDAO implements IDao<Contacts, Long> {
     }
 
     @Override
-    public void update(Contacts entity) {
+    public void update(Contact entity) {
         try {
             String sql = "UPDATE Contacts SET email = ?, phone = ? WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -79,24 +79,24 @@ public class ContactsDAO implements IDao<Contacts, Long> {
     }
 
     @Override
-    public List<Contacts> getAll() {
-        List<Contacts> contactsList = new ArrayList<>();
+    public List<Contact> getAll() {
+        List<Contact> contactList = new ArrayList<>();
         try {
             String sql = "SELECT * FROM Contacts";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Contacts contact = new Contacts();
+                Contact contact = new Contact();
                 contact.setId(resultSet.getLong("id"));
                 contact.setEmail(resultSet.getString("email"));
                 contact.setPhone(resultSet.getString("phone"));
-                contactsList.add(contact);
+                contactList.add(contact);
             }
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return contactsList;
+        return contactList;
     }
 
 }

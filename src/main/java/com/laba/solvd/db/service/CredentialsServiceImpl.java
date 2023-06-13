@@ -2,7 +2,7 @@ package com.laba.solvd.db.service;
 
 import com.laba.solvd.db.Interfaces.CredentialsRepository;
 import com.laba.solvd.db.dao.ConnectionPool;
-import com.laba.solvd.db.model.Credentials;
+import com.laba.solvd.db.model.Credential;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,13 +13,13 @@ public class CredentialsServiceImpl implements CredentialsRepository {
     private static final ConnectionPool CONNECTION_POOL = ConnectionPool.getInstance();
 
     @Override
-    public void create(Credentials credentials) {
+    public void create(Credential credential) {
         Connection connection = CONNECTION_POOL.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Credentials(id, login, password) VALUES (?, ?, ?)");
-            preparedStatement.setLong(1, credentials.getId());
-            preparedStatement.setString(2, credentials.getLogin());
-            preparedStatement.setString(3, credentials.getPassword());
+            preparedStatement.setLong(1, credential.getId());
+            preparedStatement.setString(2, credential.getLogin());
+            preparedStatement.setString(3, credential.getPassword());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -30,7 +30,7 @@ public class CredentialsServiceImpl implements CredentialsRepository {
     }
 
     @Override
-    public Optional<Credentials> findById(Long id) {
+    public Optional<Credential> findById(Long id) {
         Connection connection = CONNECTION_POOL.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Credentials WHERE id = ?");
@@ -42,8 +42,8 @@ public class CredentialsServiceImpl implements CredentialsRepository {
                 String login = resultSet.getString("login");
                 String password = resultSet.getString("password");
 
-                Credentials credentials = new Credentials(foundId, login, password);
-                return Optional.of(credentials);
+                Credential credential = new Credential(foundId, login, password);
+                return Optional.of(credential);
             }
         } catch (SQLException e) {
             throw new RuntimeException("Unable to find credentials by ID", e);
@@ -55,24 +55,24 @@ public class CredentialsServiceImpl implements CredentialsRepository {
     }
 
     @Override
-    public List<Credentials> findAll() {
+    public List<Credential> findAll() {
         Connection connection = CONNECTION_POOL.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Credentials");
 
             ResultSet resultSet = preparedStatement.executeQuery();
-            List<Credentials> credentialsList = new ArrayList<>();
+            List<Credential> credentialList = new ArrayList<>();
 
             while (resultSet.next()) {
                 long id = resultSet.getLong("id");
                 String login = resultSet.getString("login");
                 String password = resultSet.getString("password");
 
-                Credentials credentials = new Credentials(id, login, password);
-                credentialsList.add(credentials);
+                Credential credential = new Credential(id, login, password);
+                credentialList.add(credential);
             }
 
-            return credentialsList;
+            return credentialList;
         } catch (SQLException e) {
             throw new RuntimeException("Unable to fetch all credentials", e);
         } finally {
@@ -81,18 +81,18 @@ public class CredentialsServiceImpl implements CredentialsRepository {
     }
 
     @Override
-    public void update(Credentials credentials) {
+    public void update(Credential credential) {
         Connection connection = CONNECTION_POOL.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Credentials SET login = ?, password = ? WHERE id = ?");
-            preparedStatement.setString(1, credentials.getLogin());
-            preparedStatement.setString(2, credentials.getPassword());
-            preparedStatement.setLong(3, credentials.getId());
+            preparedStatement.setString(1, credential.getLogin());
+            preparedStatement.setString(2, credential.getPassword());
+            preparedStatement.setLong(3, credential.getId());
 
             int rowsUpdated = preparedStatement.executeUpdate();
 
             if (rowsUpdated == 0) {
-                throw new RuntimeException("Failed to update credentials. No matching record found for ID: " + credentials.getId());
+                throw new RuntimeException("Failed to update credentials. No matching record found for ID: " + credential.getId());
             }
         } catch (SQLException e) {
             throw new RuntimeException("Unable to update credentials", e);

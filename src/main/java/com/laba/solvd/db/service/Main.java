@@ -1,7 +1,7 @@
 package com.laba.solvd.db.service;
 
-import com.laba.solvd.db.model.Credentials;
-import com.laba.solvd.db.model.Employees;
+import com.laba.solvd.db.model.Credential;
+import com.laba.solvd.db.model.Employee;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,40 +10,40 @@ public class Main {
     public static void main(String[] args) {
         CredentialsServiceImpl credentialsService = new CredentialsServiceImpl();
 
-        Credentials credentials = new Credentials();
-        credentials.setId(1);
-        credentials.setLogin("john.doe");
-        credentials.setPassword("password");
+        Credential credential = new Credential();
+        credential.setId(1);
+        credential.setLogin("john.doe");
+        credential.setPassword("password");
 
-        credentialsService.create(credentials);
+        credentialsService.create(credential);
 
         long credentialsId = 1;
-        Optional<Credentials> foundCredentials = credentialsService.findById(credentialsId);
+        Optional<Credential> foundCredentials = credentialsService.findById(credentialsId);
         foundCredentials.ifPresent(c -> System.out.println("Found credentials: " + c));
 
-        Credentials credentialsToUpdate = foundCredentials.orElseThrow(() -> new RuntimeException("Credentials not found"));
-        credentialsToUpdate.setLogin("newlogin");
-        credentialsToUpdate.setPassword("newpassword");
+        Credential credentialToUpdate = foundCredentials.orElseThrow(() -> new RuntimeException("Credentials not found"));
+        credentialToUpdate.setLogin("newlogin");
+        credentialToUpdate.setPassword("newpassword");
 
-        credentialsService.update(credentialsToUpdate);
+        credentialsService.update(credentialToUpdate);
 
         long credentialsIdToDelete = 1;
         credentialsService.deleteById(credentialsIdToDelete);
 
 
         EmployeesServiceImpl employeesService = new EmployeesServiceImpl();
-        Employees employee = new Employees();
+        Employee employee = new Employee();
         employee.setId(1);
         employee.setName("John Doe");
         employee.setPosition("Manager");
-        employee.setCredentials(credentials);
+        employee.setCredentials(credential);
 
-        Employees createdEmployee = employeesService.create(employee);
+        Employee createdEmployee = employeesService.create(employee);
         System.out.println("Employee created: " + createdEmployee);
 
-        List<Employees> allEmployees = employeesService.findAll();
+        List<Employee> allEmployees = employeesService.findAll();
         System.out.println("All Employees:");
-        for (Employees emp : allEmployees) {
+        for (Employee emp : allEmployees) {
             System.out.println(emp);
         }
 

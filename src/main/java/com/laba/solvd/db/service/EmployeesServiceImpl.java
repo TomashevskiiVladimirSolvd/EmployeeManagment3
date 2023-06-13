@@ -2,7 +2,7 @@ package com.laba.solvd.db.service;
 
 import com.laba.solvd.db.Interfaces.EmployeesRepository;
 import com.laba.solvd.db.dao.ConnectionPool;
-import com.laba.solvd.db.model.Employees;
+import com.laba.solvd.db.model.Employee;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,24 +13,24 @@ public class EmployeesServiceImpl implements EmployeesRepository {
     private static final ConnectionPool CONNECTION_POOL = ConnectionPool.getInstance();
 
     @Override
-    public Employees create(Employees employees) {
+    public Employee create(Employee employee) {
         Connection connection = CONNECTION_POOL.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Employees(id, name, position) VALUES (?, ?, ?)");
 
-            preparedStatement.setLong(1, employees.getId());
-            preparedStatement.setString(2, employees.getName());
-            preparedStatement.setString(3, employees.getPosition());
+            preparedStatement.setLong(1, employee.getId());
+            preparedStatement.setString(2, employee.getName());
+            preparedStatement.setString(3, employee.getPosition());
 
             preparedStatement.executeUpdate();
 
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
             if (resultSet.next()) {
                 long generatedId = resultSet.getLong(1);
-                employees.setId(generatedId);
+                employee.setId(generatedId);
             }
 
-            return employees;
+            return employee;
         } catch (SQLException e) {
             throw new RuntimeException("Unable to create employees", e);
         } finally {
@@ -39,24 +39,24 @@ public class EmployeesServiceImpl implements EmployeesRepository {
     }
 
     @Override
-    public List<Employees> findAll() {
+    public List<Employee> findAll() {
         Connection connection = CONNECTION_POOL.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Employees");
 
             ResultSet resultSet = preparedStatement.executeQuery();
-            List<Employees> employeesList = new ArrayList<>();
+            List<Employee> employeeList = new ArrayList<>();
 
             while (resultSet.next()) {
                 long id = resultSet.getLong("id");
                 String name = resultSet.getString("name");
                 String position = resultSet.getString("position");
 
-                Employees employees = new Employees(id, name, position);
-                employeesList.add(employees);
+                Employee employee = new Employee(id, name, position);
+                employeeList.add(employee);
             }
 
-            return employeesList;
+            return employeeList;
         } catch (SQLException e) {
             throw new RuntimeException("Unable to fetch all employees", e);
         } finally {

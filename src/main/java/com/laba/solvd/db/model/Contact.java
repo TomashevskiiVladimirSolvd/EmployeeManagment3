@@ -2,26 +2,17 @@ package com.laba.solvd.db.model;
 
 import java.util.Objects;
 
-public class Contacts {
+public class Contact {
     private long id;
     private String email;
     private String phone;
-    private Employees employee;
 
-    public Contacts(){};
+    public Contact(){};
 
-    public Contacts(long id,String email,String phone){
+    public Contact(long id, String email, String phone){
         this.id=id;
         this.email=email;
         this.phone=phone;
-    }
-
-    public Employees getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employees employee) {
-        this.employee = employee;
     }
 
     public long getId() {
@@ -52,12 +43,12 @@ public class Contacts {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Contacts contacts = (Contacts) o;
-        return id == contacts.id && Objects.equals(email, contacts.email) && Objects.equals(phone, contacts.phone) && Objects.equals(employee, contacts.employee);
+        Contact contact = (Contact) o;
+        return id == contact.id && Objects.equals(email, contact.email) && Objects.equals(phone, contact.phone) ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, phone, employee);
+        return Objects.hash(id, email, phone);
     }
 }

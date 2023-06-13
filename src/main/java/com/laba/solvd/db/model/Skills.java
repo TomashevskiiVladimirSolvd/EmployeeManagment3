@@ -5,7 +5,7 @@ import java.util.List;
 public class Skills {
     private long id;
     private String name;
-    private List<EmployeesSkills> employees;
+    private List<EmployeeSkill> employees;
 
     public Skills(){};
 
@@ -14,11 +14,11 @@ public class Skills {
         this.name=name;
     }
 
-    public List<EmployeesSkills> getEmployees() {
+    public List<EmployeeSkill> getEmployees() {
         return employees;
     }
 
-    public void setEmployees(List<EmployeesSkills> employees) {
+    public void setEmployees(List<EmployeeSkill> employees) {
         this.employees = employees;
     }
 
