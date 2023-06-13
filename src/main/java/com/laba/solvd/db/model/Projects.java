@@ -1,12 +1,13 @@
 package com.laba.solvd.db.model;
 
 import java.util.List;
+import java.util.Objects;
 
 
 public class Projects {
     private long id;
     private String name;
-    private List<Tasks> tasks;
+    private List<Task> tasks;
     public Projects(){};
 
     public Projects(long id,String name){
@@ -14,11 +15,11 @@ public class Projects {
         this.name=name;
     }
 
-    public List<Tasks> getTasks() {
+    public List<Task> getTasks() {
         return tasks;
     }
 
-    public void setTasks(List<Tasks> tasks) {
+    public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
     }
 
@@ -36,5 +37,18 @@ public class Projects {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Projects projects = (Projects) o;
+        return id == projects.id && Objects.equals(name, projects.name) && Objects.equals(tasks, projects.tasks);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, tasks);
     }
 }

@@ -1,5 +1,5 @@
 package com.laba.solvd.db.dao;
-import com.laba.solvd.db.model.Skills;
+import com.laba.solvd.db.model.Skill;
 import com.laba.solvd.db.Interfaces.IDao;
 
 import java.sql.Connection;
@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SkillsDAO implements IDao<Skills, Long> {
+public class SkillsDAO implements IDao<Skill, Long> {
     private Connection connection;
 
     public SkillsDAO(Connection connection) {
@@ -17,7 +17,7 @@ public class SkillsDAO implements IDao<Skills, Long> {
     }
 
     @Override
-    public void create(Skills entity) {
+    public void create(Skill entity) {
         try {
             String sql = "INSERT INTO Skills (id, name) VALUES (?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -30,27 +30,27 @@ public class SkillsDAO implements IDao<Skills, Long> {
     }
 
     @Override
-    public Skills read(Long id) {
-        Skills skills = null;
+    public Skill read(Long id) {
+        Skill skill = null;
         try {
             String sql = "SELECT * FROM Skills WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                skills = new Skills();
-                skills.setId(resultSet.getLong("id"));
-                skills.setName(resultSet.getString("name"));
+                skill = new Skill();
+                skill.setId(resultSet.getLong("id"));
+                skill.setName(resultSet.getString("name"));
             }
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return skills;
+        return skill;
     }
 
     @Override
-    public void update(Skills entity) {
+    public void update(Skill entity) {
         try {
             String sql = "UPDATE Skills SET name = ? WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -75,22 +75,22 @@ public class SkillsDAO implements IDao<Skills, Long> {
     }
 
     @Override
-    public List<Skills> getAll() {
-        List<Skills> skillsList = new ArrayList<>();
+    public List<Skill> getAll() {
+        List<Skill> skillList = new ArrayList<>();
         try {
             String sql = "SELECT * FROM Skills";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Skills skills = new Skills();
-                skills.setId(resultSet.getLong("id"));
-                skills.setName(resultSet.getString("name"));
-                skillsList.add(skills);
+                Skill skill = new Skill();
+                skill.setId(resultSet.getLong("id"));
+                skill.setName(resultSet.getString("name"));
+                skillList.add(skill);
             }
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return skillsList;
+        return skillList;
     }
 }

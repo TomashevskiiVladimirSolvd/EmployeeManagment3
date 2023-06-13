@@ -10,8 +10,8 @@ public class Employee {
     private Contact contact;
     private Credential credential;
     private List<EmployeeSkill> skills;
-    private List<EmployeesTasks> tasks;
-    private List<EmployeesTrainings> trainings;
+    private List<EmployeeTask> tasks;
+    private List<EmployeeTraining> trainings;
     public Employee(){};
 
     public Employee(long id, String name, String position){
@@ -20,19 +20,19 @@ public class Employee {
         this.position=position;
     }
 
-    public List<EmployeesTasks> getTasks() {
+    public List<EmployeeTask> getTasks() {
         return tasks;
     }
 
-    public void setTasks(List<EmployeesTasks> tasks) {
+    public void setTasks(List<EmployeeTask> tasks) {
         this.tasks = tasks;
     }
 
-    public List<EmployeesTrainings> getTrainings() {
+    public List<EmployeeTraining> getTrainings() {
         return trainings;
     }
 
-    public void setTrainings(List<EmployeesTrainings> trainings) {
+    public void setTrainings(List<EmployeeTraining> trainings) {
         this.trainings = trainings;
     }
 

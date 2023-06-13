@@ -1,6 +1,6 @@
 package com.laba.solvd.db.dao;
 import com.laba.solvd.db.Interfaces.IDao;
-import com.laba.solvd.db.model.EmployeesTasks;
+import com.laba.solvd.db.model.EmployeeTask;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeesTasksDAO implements IDao<EmployeesTasks, Long> {
+public class EmployeesTasksDAO implements IDao<EmployeeTask, Long> {
     private Connection connection;
 
     public EmployeesTasksDAO(Connection connection) {
@@ -17,7 +17,7 @@ public class EmployeesTasksDAO implements IDao<EmployeesTasks, Long> {
     }
 
     @Override
-    public void create(EmployeesTasks entity) {
+    public void create(EmployeeTask entity) {
         try {
             String sql = "INSERT INTO EmployeesTasks (id, percentage_completed) VALUES (?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -30,27 +30,27 @@ public class EmployeesTasksDAO implements IDao<EmployeesTasks, Long> {
     }
 
     @Override
-    public EmployeesTasks read(Long id) {
-        EmployeesTasks employeesTasks = null;
+    public EmployeeTask read(Long id) {
+        EmployeeTask employeeTask = null;
         try {
             String sql = "SELECT * FROM EmployeesTasks WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                employeesTasks = new EmployeesTasks();
-                employeesTasks.setId(resultSet.getLong("id"));
-                employeesTasks.setPercentageCompleted(resultSet.getInt("percentage_completed"));
+                employeeTask = new EmployeeTask();
+                employeeTask.setId(resultSet.getLong("id"));
+                employeeTask.setPercentageCompleted(resultSet.getInt("percentage_completed"));
             }
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return employeesTasks;
+        return employeeTask;
     }
 
     @Override
-    public void update(EmployeesTasks entity) {
+    public void update(EmployeeTask entity) {
         try {
             String sql = "UPDATE EmployeesTasks SET percentage_completed = ? WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -75,22 +75,22 @@ public class EmployeesTasksDAO implements IDao<EmployeesTasks, Long> {
     }
 
     @Override
-    public List<EmployeesTasks> getAll() {
-        List<EmployeesTasks> employeesTasksList = new ArrayList<>();
+    public List<EmployeeTask> getAll() {
+        List<EmployeeTask> employeeTaskList = new ArrayList<>();
         try {
             String sql = "SELECT * FROM EmployeesTasks";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                EmployeesTasks employeesTasks = new EmployeesTasks();
-                employeesTasks.setId(resultSet.getLong("id"));
-                employeesTasks.setPercentageCompleted(resultSet.getInt("percentage_completed"));
-                employeesTasksList.add(employeesTasks);
+                EmployeeTask employeeTask = new EmployeeTask();
+                employeeTask.setId(resultSet.getLong("id"));
+                employeeTask.setPercentageCompleted(resultSet.getInt("percentage_completed"));
+                employeeTaskList.add(employeeTask);
             }
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return employeesTasksList;
+        return employeeTaskList;
     }
 }

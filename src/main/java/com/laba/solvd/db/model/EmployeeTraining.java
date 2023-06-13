@@ -2,12 +2,12 @@ package com.laba.solvd.db.model;
 
 import java.util.Objects;
 
-public class EmployeesTrainings {
+public class EmployeeTraining {
     private long id;
     private String status;
-    public EmployeesTrainings(){};
+    public EmployeeTraining(){};
 
-    public EmployeesTrainings(long id,String status){
+    public EmployeeTraining(long id, String status){
         this.id=id;
         this.status=status;
     }
@@ -32,7 +32,7 @@ public class EmployeesTrainings {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        EmployeesTrainings that = (EmployeesTrainings) o;
+        EmployeeTraining that = (EmployeeTraining) o;
         return id == that.id && Objects.equals(status, that.status);
     }
 

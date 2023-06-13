@@ -1,5 +1,5 @@
 package com.laba.solvd.db.dao;
-import com.laba.solvd.db.model.EmployeesTrainings;
+import com.laba.solvd.db.model.EmployeeTraining;
 import com.laba.solvd.db.Interfaces.IDao;
 
 import java.sql.Connection;
@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeesTrainingsDAO implements IDao<EmployeesTrainings, Long> {
+public class EmployeesTrainingsDAO implements IDao<EmployeeTraining, Long> {
     private Connection connection;
 
     public EmployeesTrainingsDAO(Connection connection) {
@@ -17,7 +17,7 @@ public class EmployeesTrainingsDAO implements IDao<EmployeesTrainings, Long> {
     }
 
     @Override
-    public void create(EmployeesTrainings entity) {
+    public void create(EmployeeTraining entity) {
         try {
             String sql = "INSERT INTO EmployeesTrainings (id, status) VALUES (?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -30,27 +30,27 @@ public class EmployeesTrainingsDAO implements IDao<EmployeesTrainings, Long> {
     }
 
     @Override
-    public EmployeesTrainings read(Long id) {
-        EmployeesTrainings employeesTrainings = null;
+    public EmployeeTraining read(Long id) {
+        EmployeeTraining employeeTraining = null;
         try {
             String sql = "SELECT * FROM EmployeesTrainings WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                employeesTrainings = new EmployeesTrainings();
-                employeesTrainings.setId(resultSet.getLong("id"));
-                employeesTrainings.setStatus(resultSet.getString("status"));
+                employeeTraining = new EmployeeTraining();
+                employeeTraining.setId(resultSet.getLong("id"));
+                employeeTraining.setStatus(resultSet.getString("status"));
             }
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return employeesTrainings;
+        return employeeTraining;
     }
 
     @Override
-    public void update(EmployeesTrainings entity) {
+    public void update(EmployeeTraining entity) {
         try {
             String sql = "UPDATE EmployeesTrainings SET status = ? WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -75,22 +75,22 @@ public class EmployeesTrainingsDAO implements IDao<EmployeesTrainings, Long> {
     }
 
     @Override
-    public List<EmployeesTrainings> getAll() {
-        List<EmployeesTrainings> employeesTrainingsList = new ArrayList<>();
+    public List<EmployeeTraining> getAll() {
+        List<EmployeeTraining> employeeTrainingList = new ArrayList<>();
         try {
             String sql = "SELECT * FROM EmployeesTrainings";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                EmployeesTrainings employeesTrainings = new EmployeesTrainings();
-                employeesTrainings.setId(resultSet.getLong("id"));
-                employeesTrainings.setStatus(resultSet.getString("status"));
-                employeesTrainingsList.add(employeesTrainings);
+                EmployeeTraining employeeTraining = new EmployeeTraining();
+                employeeTraining.setId(resultSet.getLong("id"));
+                employeeTraining.setStatus(resultSet.getString("status"));
+                employeeTrainingList.add(employeeTraining);
             }
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return employeesTrainingsList;
+        return employeeTrainingList;
     }
 }
