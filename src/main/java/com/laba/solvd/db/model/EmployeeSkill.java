@@ -6,11 +6,14 @@ public class EmployeeSkill {
     private long id;
     private String proficiencyLevel;
 
-    public EmployeeSkill(){};
+    public EmployeeSkill() {
+    }
 
-    public EmployeeSkill(long id, String proficiencyLevel){
-        this.id=id;
-        this.proficiencyLevel=proficiencyLevel;
+    ;
+
+    public EmployeeSkill(long id, String proficiencyLevel) {
+        this.id = id;
+        this.proficiencyLevel = proficiencyLevel;
     }
 
 
@@ -35,7 +38,7 @@ public class EmployeeSkill {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EmployeeSkill that = (EmployeeSkill) o;
-        return id == that.id && Objects.equals(proficiencyLevel, that.proficiencyLevel) ;
+        return id == that.id && Objects.equals(proficiencyLevel, that.proficiencyLevel);
     }
 
     @Override

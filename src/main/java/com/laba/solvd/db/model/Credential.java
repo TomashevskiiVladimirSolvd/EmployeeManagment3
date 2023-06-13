@@ -6,12 +6,16 @@ public class Credential {
     private long id;
     private String login;
     private String password;
-    public Credential(){};
 
-    public Credential(long id, String login, String password){
-        this.id=id;
-        this.login=login;
-        this.password=password;
+    public Credential() {
+    }
+
+    ;
+
+    public Credential(long id, String login, String password) {
+        this.id = id;
+        this.login = login;
+        this.password = password;
     }
 
     public long getId() {
@@ -43,7 +47,7 @@ public class Credential {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Credential that = (Credential) o;
-        return id == that.id && Objects.equals(login, that.login) && Objects.equals(password, that.password) ;
+        return id == that.id && Objects.equals(login, that.login) && Objects.equals(password, that.password);
     }
 
     @Override

@@ -5,11 +5,15 @@ import java.util.Objects;
 public class EmployeeTraining {
     private long id;
     private String status;
-    public EmployeeTraining(){};
 
-    public EmployeeTraining(long id, String status){
-        this.id=id;
-        this.status=status;
+    public EmployeeTraining() {
+    }
+
+    ;
+
+    public EmployeeTraining(long id, String status) {
+        this.id = id;
+        this.status = status;
     }
 
     public long getId() {

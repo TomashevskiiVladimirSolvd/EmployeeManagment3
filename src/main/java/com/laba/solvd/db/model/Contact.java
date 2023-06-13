@@ -7,12 +7,15 @@ public class Contact {
     private String email;
     private String phone;
 
-    public Contact(){};
+    public Contact() {
+    }
 
-    public Contact(long id, String email, String phone){
-        this.id=id;
-        this.email=email;
-        this.phone=phone;
+    ;
+
+    public Contact(long id, String email, String phone) {
+        this.id = id;
+        this.email = email;
+        this.phone = phone;
     }
 
     public long getId() {
@@ -44,7 +47,7 @@ public class Contact {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Contact contact = (Contact) o;
-        return id == contact.id && Objects.equals(email, contact.email) && Objects.equals(phone, contact.phone) ;
+        return id == contact.id && Objects.equals(email, contact.email) && Objects.equals(phone, contact.phone);
     }
 
     @Override

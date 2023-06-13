@@ -8,11 +8,14 @@ public class Skill {
     private String name;
     private List<EmployeeSkill> employees;
 
-    public Skill(){};
+    public Skill() {
+    }
 
-    public Skill(long id, String name){
-        this.id=id;
-        this.name=name;
+    ;
+
+    public Skill(long id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
     public List<EmployeeSkill> getEmployees() {

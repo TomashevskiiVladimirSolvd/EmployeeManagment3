@@ -7,11 +7,14 @@ public class TrainingPrograms {
     private long id;
     private String name;
 
-    public TrainingPrograms(){};
+    public TrainingPrograms() {
+    }
 
-    public TrainingPrograms(long id,String name){
-        this.id=id;
-        this.name=name;
+    ;
+
+    public TrainingPrograms(long id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
     public long getId() {

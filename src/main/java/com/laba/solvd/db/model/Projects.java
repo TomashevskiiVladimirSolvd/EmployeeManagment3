@@ -8,11 +8,15 @@ public class Projects {
     private long id;
     private String name;
     private List<Task> tasks;
-    public Projects(){};
 
-    public Projects(long id,String name){
-        this.id=id;
-        this.name=name;
+    public Projects() {
+    }
+
+    ;
+
+    public Projects(long id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
     public List<Task> getTasks() {

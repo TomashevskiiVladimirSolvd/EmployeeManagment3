@@ -1,7 +1,7 @@
 package com.laba.solvd.db.dao;
 
-import com.laba.solvd.db.model.Contact;
-import com.laba.solvd.db.Interfaces.IDao;
+import com.laba.solvd.db.dao.Interfaces.IDao;
+import com.laba.solvd.db.model.Task;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,21 +10,21 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContactsDAO implements IDao<Contact, Long> {
+public class TaskDAO implements IDao<Task, Long> {
     private Connection connection;
 
-    public ContactsDAO(Connection connection) {
+    public TaskDAO(Connection connection) {
         this.connection = connection;
     }
 
     @Override
-    public void create(Contact entity) {
+    public void create(Task entity) {
         try {
-            String sql = "INSERT INTO Contacts (id, email, phone) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO Tasks (id, name, priority) VALUES (?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, entity.getId());
-            statement.setString(2, entity.getEmail());
-            statement.setString(3, entity.getPhone());
+            statement.setString(2, entity.getName());
+            statement.setString(3, entity.getPriority());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -32,33 +32,33 @@ public class ContactsDAO implements IDao<Contact, Long> {
     }
 
     @Override
-    public Contact read(Long id) {
-        Contact contact = null;
+    public Task read(Long id) {
+        Task task = null;
         try {
-            String sql = "SELECT * FROM Contacts WHERE id = ?";
+            String sql = "SELECT * FROM Tasks WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                contact = new Contact();
-                contact.setId(resultSet.getLong("id"));
-                contact.setEmail(resultSet.getString("email"));
-                contact.setPhone(resultSet.getString("phone"));
+                task = new Task();
+                task.setId(resultSet.getLong("id"));
+                task.setName(resultSet.getString("name"));
+                task.setPriority(resultSet.getString("priority"));
             }
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return contact;
+        return task;
     }
 
     @Override
-    public void update(Contact entity) {
+    public void update(Task entity) {
         try {
-            String sql = "UPDATE Contacts SET email = ?, phone = ? WHERE id = ?";
+            String sql = "UPDATE Tasks SET name = ?, priority = ? WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, entity.getEmail());
-            statement.setString(2, entity.getPhone());
+            statement.setString(1, entity.getName());
+            statement.setString(2, entity.getPriority());
             statement.setLong(3, entity.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -69,7 +69,7 @@ public class ContactsDAO implements IDao<Contact, Long> {
     @Override
     public void delete(Long id) {
         try {
-            String sql = "DELETE FROM Contacts WHERE id = ?";
+            String sql = "DELETE FROM Tasks WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, id);
             statement.executeUpdate();
@@ -79,24 +79,23 @@ public class ContactsDAO implements IDao<Contact, Long> {
     }
 
     @Override
-    public List<Contact> getAll() {
-        List<Contact> contactList = new ArrayList<>();
+    public List<Task> getAll() {
+        List<Task> taskList = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Contacts";
+            String sql = "SELECT * FROM Tasks";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Contact contact = new Contact();
-                contact.setId(resultSet.getLong("id"));
-                contact.setEmail(resultSet.getString("email"));
-                contact.setPhone(resultSet.getString("phone"));
-                contactList.add(contact);
+                Task task = new Task();
+                task.setId(resultSet.getLong("id"));
+                task.setName(resultSet.getString("name"));
+                task.setPriority(resultSet.getString("priority"));
+                taskList.add(task);
             }
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return contactList;
+        return taskList;
     }
-
 }

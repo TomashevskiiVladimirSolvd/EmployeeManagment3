@@ -5,11 +5,15 @@ import java.util.Objects;
 public class EmployeeTask {
     private long id;
     private int percentageCompleted;
-    public EmployeeTask(){};
 
-    public EmployeeTask(long id, int percentageCompleted){
-        this.id=id;
-        this.percentageCompleted=percentageCompleted;
+    public EmployeeTask() {
+    }
+
+    ;
+
+    public EmployeeTask(long id, int percentageCompleted) {
+        this.id = id;
+        this.percentageCompleted = percentageCompleted;
     }
 
     public long getId() {

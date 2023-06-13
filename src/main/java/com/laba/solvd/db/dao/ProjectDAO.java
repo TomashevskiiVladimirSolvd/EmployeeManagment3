@@ -1,6 +1,7 @@
 package com.laba.solvd.db.dao;
-import com.laba.solvd.db.model.Skill;
-import com.laba.solvd.db.Interfaces.IDao;
+
+import com.laba.solvd.db.dao.Interfaces.IDao;
+import com.laba.solvd.db.model.Projects;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,17 +10,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SkillsDAO implements IDao<Skill, Long> {
+public class ProjectDAO implements IDao<Projects, Long> {
     private Connection connection;
 
-    public SkillsDAO(Connection connection) {
+    public ProjectDAO(Connection connection) {
         this.connection = connection;
     }
 
     @Override
-    public void create(Skill entity) {
+    public void create(Projects entity) {
         try {
-            String sql = "INSERT INTO Skills (id, name) VALUES (?, ?)";
+            String sql = "INSERT INTO Projects (id, name) VALUES (?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, entity.getId());
             statement.setString(2, entity.getName());
@@ -30,29 +31,29 @@ public class SkillsDAO implements IDao<Skill, Long> {
     }
 
     @Override
-    public Skill read(Long id) {
-        Skill skill = null;
+    public Projects read(Long id) {
+        Projects projects = null;
         try {
-            String sql = "SELECT * FROM Skills WHERE id = ?";
+            String sql = "SELECT * FROM Projects WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                skill = new Skill();
-                skill.setId(resultSet.getLong("id"));
-                skill.setName(resultSet.getString("name"));
+                projects = new Projects();
+                projects.setId(resultSet.getLong("id"));
+                projects.setName(resultSet.getString("name"));
             }
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return skill;
+        return projects;
     }
 
     @Override
-    public void update(Skill entity) {
+    public void update(Projects entity) {
         try {
-            String sql = "UPDATE Skills SET name = ? WHERE id = ?";
+            String sql = "UPDATE Projects SET name = ? WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, entity.getName());
             statement.setLong(2, entity.getId());
@@ -65,7 +66,7 @@ public class SkillsDAO implements IDao<Skill, Long> {
     @Override
     public void delete(Long id) {
         try {
-            String sql = "DELETE FROM Skills WHERE id = ?";
+            String sql = "DELETE FROM Projects WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, id);
             statement.executeUpdate();
@@ -75,22 +76,23 @@ public class SkillsDAO implements IDao<Skill, Long> {
     }
 
     @Override
-    public List<Skill> getAll() {
-        List<Skill> skillList = new ArrayList<>();
+    public List<Projects> getAll() {
+        List<Projects> projectsList = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Skills";
+            String sql = "SELECT * FROM Projects";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Skill skill = new Skill();
-                skill.setId(resultSet.getLong("id"));
-                skill.setName(resultSet.getString("name"));
-                skillList.add(skill);
+                Projects projects = new Projects();
+                projects.setId(resultSet.getLong("id"));
+                projects.setName(resultSet.getString("name"));
+                projectsList.add(projects);
             }
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return skillList;
+        return projectsList;
     }
+
 }

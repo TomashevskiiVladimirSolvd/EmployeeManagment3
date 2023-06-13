@@ -1,6 +1,6 @@
 package com.laba.solvd.db.service;
 
-import com.laba.solvd.db.Interfaces.CredentialsRepository;
+import com.laba.solvd.db.service.Interfaces.CredentialsRepository;
 import com.laba.solvd.db.dao.ConnectionPool;
 import com.laba.solvd.db.model.Credential;
 

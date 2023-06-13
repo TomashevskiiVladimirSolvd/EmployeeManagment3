@@ -12,12 +12,16 @@ public class Employee {
     private List<EmployeeSkill> skills;
     private List<EmployeeTask> tasks;
     private List<EmployeeTraining> trainings;
-    public Employee(){};
 
-    public Employee(long id, String name, String position){
-        this.id=id;
-        this.name=name;
-        this.position=position;
+    public Employee() {
+    }
+
+    ;
+
+    public Employee(long id, String name, String position) {
+        this.id = id;
+        this.name = name;
+        this.position = position;
     }
 
     public List<EmployeeTask> getTasks() {

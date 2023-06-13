@@ -8,11 +8,14 @@ public class Department {
     private String name;
     List<Employee> employees;
 
-    public Department(){};
+    public Department() {
+    }
 
-    public Department(long id, String name){
-        this.id=id;
-        this.name=name;
+    ;
+
+    public Department(long id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
     public long getId() {

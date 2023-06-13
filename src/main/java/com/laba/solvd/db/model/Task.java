@@ -7,7 +7,10 @@ public class Task {
     private String name;
     private String priority;
 
-    public Task(){};
+    public Task() {
+    }
+
+    ;
 
     public Task(long id, String name, String priority) {
         this.id = id;
