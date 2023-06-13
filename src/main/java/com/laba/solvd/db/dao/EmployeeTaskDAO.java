@@ -1,6 +1,6 @@
 package com.laba.solvd.db.dao;
 
-import com.laba.solvd.db.dao.Interfaces.IDao;
+import com.laba.solvd.db.dao.Interfaces.IDAOEmployeeTask;
 import com.laba.solvd.db.model.EmployeeTask;
 
 import java.sql.Connection;
@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeTaskDAO implements IDao<EmployeeTask, Long> {
+public class EmployeeTaskDAO implements IDAOEmployeeTask {
     private Connection connection;
 
     public EmployeeTaskDAO(Connection connection) {
@@ -18,37 +18,18 @@ public class EmployeeTaskDAO implements IDao<EmployeeTask, Long> {
     }
 
     @Override
-    public void create(EmployeeTask entity) {
+    public void create(EmployeeTask employeeTask) {
         try {
             String sql = "INSERT INTO EmployeesTasks (id, percentage_completed) VALUES (?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setLong(1, entity.getId());
-            statement.setInt(2, entity.getPercentageCompleted());
+            statement.setLong(1, employeeTask.getId());
+            statement.setInt(2, employeeTask.getPercentageCompleted());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    @Override
-    public EmployeeTask read(Long id) {
-        EmployeeTask employeeTask = null;
-        try {
-            String sql = "SELECT * FROM EmployeesTasks WHERE id = ?";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setLong(1, id);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                employeeTask = new EmployeeTask();
-                employeeTask.setId(resultSet.getLong("id"));
-                employeeTask.setPercentageCompleted(resultSet.getInt("percentage_completed"));
-            }
-            resultSet.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return employeeTask;
-    }
 
     @Override
     public void update(EmployeeTask entity) {
@@ -57,18 +38,6 @@ public class EmployeeTaskDAO implements IDao<EmployeeTask, Long> {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, entity.getPercentageCompleted());
             statement.setLong(2, entity.getId());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void delete(Long id) {
-        try {
-            String sql = "DELETE FROM EmployeesTasks WHERE id = ?";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setLong(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

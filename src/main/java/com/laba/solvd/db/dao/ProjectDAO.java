@@ -1,7 +1,8 @@
 package com.laba.solvd.db.dao;
 
+import com.laba.solvd.db.dao.Interfaces.IDAOProject;
 import com.laba.solvd.db.dao.Interfaces.IDao;
-import com.laba.solvd.db.model.Projects;
+import com.laba.solvd.db.model.Project;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProjectDAO implements IDao<Projects, Long> {
+public class ProjectDAO implements IDAOProject {
     private Connection connection;
 
     public ProjectDAO(Connection connection) {
@@ -18,7 +19,7 @@ public class ProjectDAO implements IDao<Projects, Long> {
     }
 
     @Override
-    public void create(Projects entity) {
+    public void create(Project entity) {
         try {
             String sql = "INSERT INTO Projects (id, name) VALUES (?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -31,27 +32,27 @@ public class ProjectDAO implements IDao<Projects, Long> {
     }
 
     @Override
-    public Projects read(Long id) {
-        Projects projects = null;
+    public Project read(Long id) {
+        Project project = null;
         try {
             String sql = "SELECT * FROM Projects WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                projects = new Projects();
-                projects.setId(resultSet.getLong("id"));
-                projects.setName(resultSet.getString("name"));
+                project = new Project();
+                project.setId(resultSet.getLong("id"));
+                project.setName(resultSet.getString("name"));
             }
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return projects;
+        return project;
     }
 
     @Override
-    public void update(Projects entity) {
+    public void update(Project entity) {
         try {
             String sql = "UPDATE Projects SET name = ? WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -61,38 +62,6 @@ public class ProjectDAO implements IDao<Projects, Long> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void delete(Long id) {
-        try {
-            String sql = "DELETE FROM Projects WHERE id = ?";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setLong(1, id);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public List<Projects> getAll() {
-        List<Projects> projectsList = new ArrayList<>();
-        try {
-            String sql = "SELECT * FROM Projects";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                Projects projects = new Projects();
-                projects.setId(resultSet.getLong("id"));
-                projects.setName(resultSet.getString("name"));
-                projectsList.add(projects);
-            }
-            resultSet.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return projectsList;
     }
 
 }

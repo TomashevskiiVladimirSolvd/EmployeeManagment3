@@ -1,6 +1,6 @@
 package com.laba.solvd.db.dao;
 
-import com.laba.solvd.db.dao.Interfaces.IDao;
+import com.laba.solvd.db.dao.Interfaces.IDAOTask;
 import com.laba.solvd.db.model.Task;
 
 import java.sql.Connection;
@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskDAO implements IDao<Task, Long> {
+public class TaskDAO implements IDAOTask {
     private Connection connection;
 
     public TaskDAO(Connection connection) {
@@ -18,13 +18,13 @@ public class TaskDAO implements IDao<Task, Long> {
     }
 
     @Override
-    public void create(Task entity) {
+    public void create(Task task) {
         try {
             String sql = "INSERT INTO Tasks (id, name, priority) VALUES (?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setLong(1, entity.getId());
-            statement.setString(2, entity.getName());
-            statement.setString(3, entity.getPriority());
+            statement.setLong(1, task.getId());
+            statement.setString(2, task.getName());
+            statement.setString(3, task.getPriority());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -66,17 +66,6 @@ public class TaskDAO implements IDao<Task, Long> {
         }
     }
 
-    @Override
-    public void delete(Long id) {
-        try {
-            String sql = "DELETE FROM Tasks WHERE id = ?";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setLong(1, id);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public List<Task> getAll() {

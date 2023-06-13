@@ -4,17 +4,17 @@ import java.util.List;
 import java.util.Objects;
 
 
-public class Projects {
+public class Project {
     private long id;
     private String name;
     private List<Task> tasks;
 
-    public Projects() {
+    public Project() {
     }
 
     ;
 
-    public Projects(long id, String name) {
+    public Project(long id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -47,8 +47,8 @@ public class Projects {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Projects projects = (Projects) o;
-        return id == projects.id && Objects.equals(name, projects.name) && Objects.equals(tasks, projects.tasks);
+        Project project = (Project) o;
+        return id == project.id && Objects.equals(name, project.name) && Objects.equals(tasks, project.tasks);
     }
 
     @Override
