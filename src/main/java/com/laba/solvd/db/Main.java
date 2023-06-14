@@ -1,17 +1,8 @@
 package com.laba.solvd.db;
 
-import com.laba.solvd.db.dao.CredentialDAO;
-import com.laba.solvd.db.dao.EmployeeDAO;
-import com.laba.solvd.db.dao.EmployeeTaskDAO;
-import com.laba.solvd.db.dao.TaskDAO;
-import com.laba.solvd.db.model.EmployeeTask;
-import com.laba.solvd.db.service.CredentialsServiceImpl;
-import com.laba.solvd.db.service.EmployeeTaskServiceImpl;
-import com.laba.solvd.db.service.EmployeesServiceImpl;
-import com.laba.solvd.db.service.TaskServiceImpl;
-import com.laba.solvd.db.model.Employee;
-import com.laba.solvd.db.model.Credential;
-import com.laba.solvd.db.model.Task;
+import com.laba.solvd.db.dao.*;
+import com.laba.solvd.db.model.*;
+import com.laba.solvd.db.service.*;
 
 import java.util.List;
 
@@ -21,11 +12,13 @@ public class Main {
         EmployeeDAO employeeDAO = new EmployeeDAO();
         EmployeeTaskDAO employeeTaskDAO = new EmployeeTaskDAO();
         TaskDAO taskDAO = new TaskDAO();
+        ProjectDAO projectDAO = new ProjectDAO();
 
         CredentialsServiceImpl credentialsService = new CredentialsServiceImpl(credentialDAO);
         EmployeesServiceImpl employeesService = new EmployeesServiceImpl(employeeDAO);
         EmployeeTaskServiceImpl employeeTaskService = new EmployeeTaskServiceImpl(employeeTaskDAO);
         TaskServiceImpl taskService = new TaskServiceImpl(taskDAO);
+        ProjectServiceImpl projectService = new ProjectServiceImpl(projectDAO);
 
         Long credentialId = 1L;
         Credential credential = credentialsService.read(credentialId);
@@ -44,6 +37,12 @@ public class Main {
 
         System.out.println("Retrieved Task:");
         System.out.println(retrievedTask);
+
+        Project project1 = new Project(1L, "Project1");
+        projectService.create(project1);
+        Project retrievedProject = projectService.readAll(1L);
+        System.out.println("Retrieved Project:");
+        System.out.println(retrievedProject);
 
         credentialDAO.close();
         employeeDAO.close();

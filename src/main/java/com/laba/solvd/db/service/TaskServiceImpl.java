@@ -5,11 +5,12 @@ import com.laba.solvd.db.model.Task;
 import com.laba.solvd.db.service.Interfaces.TaskRepository;
 
 public class TaskServiceImpl implements TaskRepository {
-    private  TaskDAO taskDAO ;
+    private TaskDAO taskDAO;
 
-    public TaskServiceImpl(TaskDAO taskDAO){
-        this.taskDAO=taskDAO;
+    public TaskServiceImpl(TaskDAO taskDAO) {
+        this.taskDAO = taskDAO;
     }
+
     @Override
     public void create(Task task) {
         taskDAO.create(task);

@@ -10,6 +10,9 @@ import java.sql.SQLException;
 
 public class ProjectDAO implements IDAOProject {
     private Connection connection;
+    private String sqlAll = "SELECT pr.name as project,t.name as task,t.priority\n" +
+            "FROM projects pr\n" +
+            "JOIN tasks t ON pr.id = t.project_id;";
 
     public ProjectDAO() {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
@@ -33,8 +36,7 @@ public class ProjectDAO implements IDAOProject {
     public Project read(Long id) {
         Project project = null;
         try {
-            String sql = "SELECT * FROM Projects WHERE id = ?";
-            PreparedStatement statement = connection.prepareStatement(sql);
+            PreparedStatement statement = connection.prepareStatement(sqlAll);
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
