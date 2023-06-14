@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public class CredentialsServiceImpl implements CredentialsRepository {
 
-    public CredentialsServiceImpl(){
+    public CredentialsServiceImpl() {
 
     }
 

@@ -88,6 +88,7 @@ public class TaskDAO implements IDAOTask {
         }
         return taskList;
     }
+
     public void close() {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         connectionPool.releaseConnection(connection);
