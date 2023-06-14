@@ -18,15 +18,15 @@ public class Employee {
 
     ;
 
-    public Employee(long id, String name, String position,Contact contact,Credential credential,List<EmployeeSkill> skills,
-     List<EmployeeTask> tasks,  List<EmployeeTraining> trainings) {
+    public Employee(long id, String name, String position, Contact contact, Credential credential, List<EmployeeSkill> skills,
+                    List<EmployeeTask> tasks, List<EmployeeTraining> trainings) {
         this.id = id;
         this.name = name;
         this.position = position;
-        this.contact=contact;
-        this.credential=credential;
-        this.tasks=tasks;
-        this.trainings=trainings;
+        this.contact = contact;
+        this.credential = credential;
+        this.tasks = tasks;
+        this.trainings = trainings;
     }
 
     public List<EmployeeTask> getTasks() {

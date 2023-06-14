@@ -13,10 +13,10 @@ public class TrainingPrograms {
 
     ;
 
-    public TrainingPrograms(long id, String name,List<EmployeeTraining> employees) {
+    public TrainingPrograms(long id, String name, List<EmployeeTraining> employees) {
         this.id = id;
         this.name = name;
-        this.employees=employees;
+        this.employees = employees;
     }
 
     public long getId() {

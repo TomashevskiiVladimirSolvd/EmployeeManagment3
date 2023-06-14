@@ -13,7 +13,7 @@ import java.util.List;
 
 public class CredentialDAO implements IDAOCredential {
     private Connection connection;
-    private String sqlEmpCr="SELECT e.id,e.name,e.position,cr.login,cr.password FROM employees e INNER JOIN credentials cr ON e.id = cr.employee_id;";
+    private String sqlEmpCr = "SELECT e.id,e.name,e.position,cr.login,cr.password FROM employees e INNER JOIN credentials cr ON e.id = cr.employee_id;";
 
     public CredentialDAO() {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
