@@ -16,23 +16,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
+import java.util.List;
+
 public class EmployeesServiceImpl implements EmployeesRepository {
+    private EmployeeDAO employeeDAO;
 
-
-    public EmployeesServiceImpl() {
-
-
-    }
-
-
-    @Override
-    public Employee create(Employee employee) {
-        return null;
+    public EmployeesServiceImpl(EmployeeDAO employeeDAO) {
+        this.employeeDAO = employeeDAO;
     }
 
     @Override
     public List<Employee> findAll() {
-        return null;
+        return employeeDAO.getAll();
     }
 }
+
 

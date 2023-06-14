@@ -1,15 +1,12 @@
 package com.laba.solvd.db.dao;
 
 import com.laba.solvd.db.dao.Interfaces.IDAOProject;
-import com.laba.solvd.db.dao.Interfaces.IDao;
 import com.laba.solvd.db.model.Project;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ProjectDAO implements IDAOProject {
     private Connection connection;

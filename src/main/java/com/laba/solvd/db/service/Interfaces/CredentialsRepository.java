@@ -7,8 +7,6 @@ import java.util.Optional;
 
 public interface CredentialsRepository {
 
-    List<Credential> findAll();
-
-    void update(Credential credential);
+    Credential read(Long id);
 
 }

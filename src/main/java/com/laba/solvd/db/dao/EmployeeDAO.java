@@ -12,6 +12,18 @@ import java.util.List;
 
 public class EmployeeDAO implements IDao<Employee, Long> {
     private Connection connection;
+    String sqlAll = "Select * FROM contacts;\n" +
+            "Select * FROM  departments ;\n" +
+            "Select * FROM employees_departments;\n" +
+            "Select * FROM employees;\n" +
+            "Select * FROM employees_tasks ;\n" +
+            "Select * FROM employees_skills ;\n" +
+            "Select * FROM projects;\n" +
+            "Select * FROM credentials;\n" +
+            "Select * FROM tasks;\n" +
+            "Select * FROM skills;\n" +
+            "Select * FROM training_programs;\n" +
+            "Select * FROM employees_trainings;";
 
     public EmployeeDAO() {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
@@ -32,26 +44,6 @@ public class EmployeeDAO implements IDao<Employee, Long> {
         }
     }
 
-    @Override
-    public Employee read(Long id) {
-        Employee employee = null;
-        try {
-            String sql = "SELECT * FROM Employees WHERE id = ?";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setLong(1, id);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                employee = new Employee();
-                employee.setId(resultSet.getLong("id"));
-                employee.setName(resultSet.getString("name"));
-                employee.setPosition(resultSet.getString("position"));
-            }
-            resultSet.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return employee;
-    }
 
     @Override
     public void update(Employee entity) {
@@ -83,8 +75,7 @@ public class EmployeeDAO implements IDao<Employee, Long> {
     public List<Employee> getAll() {
         List<Employee> employeeList = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Employees";
-            PreparedStatement statement = connection.prepareStatement(sql);
+            PreparedStatement statement = connection.prepareStatement(sqlAll);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Employee employee = new Employee();

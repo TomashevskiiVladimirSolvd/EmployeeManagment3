@@ -13,6 +13,7 @@ import java.util.List;
 
 public class CredentialDAO implements IDAOCredential {
     private Connection connection;
+    private String sqlEmpCr="SELECT e.id,e.name,e.position,cr.login,cr.password FROM employees e INNER JOIN credentials cr ON e.id = cr.employee_id;";
 
     public CredentialDAO() {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
@@ -37,8 +38,7 @@ public class CredentialDAO implements IDAOCredential {
     public Credential read(Long id) {
         Credential credential = null;
         try {
-            String sql = "SELECT * FROM Credentials WHERE id = ?";
-            PreparedStatement statement = connection.prepareStatement(sql);
+            PreparedStatement statement = connection.prepareStatement(sqlEmpCr);
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
