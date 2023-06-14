@@ -13,9 +13,10 @@ public class Department {
 
     ;
 
-    public Department(long id, String name) {
+    public Department(long id, String name,List<Employee> employees) {
         this.id = id;
         this.name = name;
+        this.employees=employees;
     }
 
     public long getId() {

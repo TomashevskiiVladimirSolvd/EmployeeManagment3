@@ -14,10 +14,11 @@ public class Task {
 
     ;
 
-    public Task(long id, String name, String priority) {
+    public Task(long id, String name, String priority,List<EmployeeTask> employees) {
         this.id = id;
         this.name = name;
         this.priority = priority;
+        this.employees=employees;
     }
 
     public long getId() {

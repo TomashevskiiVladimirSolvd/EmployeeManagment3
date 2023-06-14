@@ -13,9 +13,10 @@ public class Skill {
 
     ;
 
-    public Skill(long id, String name) {
+    public Skill(long id, String name,List<EmployeeSkill> employees) {
         this.id = id;
         this.name = name;
+        this.employees=employees;
     }
 
     public List<EmployeeSkill> getEmployees() {

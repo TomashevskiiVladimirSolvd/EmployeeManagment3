@@ -14,9 +14,10 @@ public class Project {
 
     ;
 
-    public Project(long id, String name) {
+    public Project(long id, String name,List<Task> tasks) {
         this.id = id;
         this.name = name;
+        this.tasks=tasks;
     }
 
     public List<Task> getTasks() {
