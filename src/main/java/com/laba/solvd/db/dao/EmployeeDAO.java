@@ -13,8 +13,9 @@ import java.util.List;
 public class EmployeeDAO implements IDao<Employee, Long> {
     private Connection connection;
 
-    public EmployeeDAO(Connection connection) {
-        this.connection = connection;
+    public EmployeeDAO() {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        this.connection = connectionPool.getConnection();
     }
 
     @Override
@@ -99,6 +100,12 @@ public class EmployeeDAO implements IDao<Employee, Long> {
         return employeeList;
     }
 
+    public void close() {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        connectionPool.releaseConnection(connection);
+        connection = null;
+    }
 }
+
 
 

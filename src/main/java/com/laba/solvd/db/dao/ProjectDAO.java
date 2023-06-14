@@ -14,8 +14,9 @@ import java.util.List;
 public class ProjectDAO implements IDAOProject {
     private Connection connection;
 
-    public ProjectDAO(Connection connection) {
-        this.connection = connection;
+    public ProjectDAO() {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        this.connection = connectionPool.getConnection();
     }
 
     @Override
@@ -64,4 +65,9 @@ public class ProjectDAO implements IDAOProject {
         }
     }
 
+    public void close() {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        connectionPool.releaseConnection(connection);
+        connection = null;
+    }
 }

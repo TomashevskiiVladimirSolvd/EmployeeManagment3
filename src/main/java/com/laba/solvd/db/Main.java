@@ -1,7 +1,9 @@
-package com.laba.solvd.db.service;
+package com.laba.solvd.db;
 
 import com.laba.solvd.db.model.Credential;
 import com.laba.solvd.db.model.Employee;
+import com.laba.solvd.db.service.CredentialsServiceImpl;
+import com.laba.solvd.db.service.EmployeesServiceImpl;
 
 import java.util.List;
 import java.util.Optional;

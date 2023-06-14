@@ -14,8 +14,9 @@ import java.util.List;
 public class CredentialDAO implements IDAOCredential {
     private Connection connection;
 
-    public CredentialDAO(Connection connection) {
-        this.connection = connection;
+    public CredentialDAO() {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        this.connection = connectionPool.getConnection();
     }
 
     @Override
@@ -67,5 +68,10 @@ public class CredentialDAO implements IDAOCredential {
         }
     }
 
-}
+    public void close() {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        connectionPool.releaseConnection(connection);
+        connection = null; // to avoid accidental use after releasing
+    }
 
+}

@@ -13,8 +13,9 @@ import java.util.List;
 public class EmployeeTaskDAO implements IDAOEmployeeTask {
     private Connection connection;
 
-    public EmployeeTaskDAO(Connection connection) {
-        this.connection = connection;
+    public EmployeeTaskDAO() {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        this.connection = connectionPool.getConnection();
     }
 
     @Override
@@ -29,7 +30,6 @@ public class EmployeeTaskDAO implements IDAOEmployeeTask {
             e.printStackTrace();
         }
     }
-
 
     @Override
     public void update(EmployeeTask entity) {
@@ -62,5 +62,11 @@ public class EmployeeTaskDAO implements IDAOEmployeeTask {
             e.printStackTrace();
         }
         return employeeTaskList;
+    }
+
+    public void close() {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        connectionPool.releaseConnection(connection);
+        connection = null;
     }
 }

@@ -13,8 +13,9 @@ import java.util.List;
 public class TaskDAO implements IDAOTask {
     private Connection connection;
 
-    public TaskDAO(Connection connection) {
-        this.connection = connection;
+    public TaskDAO() {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        this.connection = connectionPool.getConnection();
     }
 
     @Override
@@ -86,5 +87,10 @@ public class TaskDAO implements IDAOTask {
             e.printStackTrace();
         }
         return taskList;
+    }
+    public void close() {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        connectionPool.releaseConnection(connection);
+        connection = null;
     }
 }
