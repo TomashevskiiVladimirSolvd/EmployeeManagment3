@@ -16,16 +16,6 @@ public class CredentialsServiceImpl implements CredentialsRepository {
     }
 
     @Override
-    public void create(Credential credential) {
-
-    }
-
-    @Override
-    public Optional<Credential> findById(Long id) {
-        return Optional.empty();
-    }
-
-    @Override
     public List<Credential> findAll() {
         return null;
     }
@@ -35,9 +25,5 @@ public class CredentialsServiceImpl implements CredentialsRepository {
 
     }
 
-    @Override
-    public void deleteById(Long id) {
-
-    }
 }
 
