@@ -10,6 +10,10 @@ public enum Config {
     USERNAME("username"),
     PASSWORD("password"),
     POOL_SIZE("poolsize", String.valueOf(1));
+    //if the poolsize property is not found or not specified in the
+    // config.properties file, the default value to be used is 1.
+    //The specific default value to use depends on the requirements
+    // and logic of  application.
 
     private static final String CONFIG_FILE_NAME = "config.properties";
     private static final Properties PROPERTIES;
