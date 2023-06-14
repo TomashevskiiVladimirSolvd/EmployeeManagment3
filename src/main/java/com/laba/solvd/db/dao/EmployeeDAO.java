@@ -12,18 +12,19 @@ import java.util.List;
 
 public class EmployeeDAO implements IDao<Employee, Long> {
     private Connection connection;
-    String sqlAll = "Select * FROM contacts;\n" +
-            "Select * FROM  departments ;\n" +
-            "Select * FROM employees_departments;\n" +
-            "Select * FROM employees;\n" +
-            "Select * FROM employees_tasks ;\n" +
-            "Select * FROM employees_skills ;\n" +
-            "Select * FROM projects;\n" +
-            "Select * FROM credentials;\n" +
-            "Select * FROM tasks;\n" +
-            "Select * FROM skills;\n" +
-            "Select * FROM training_programs;\n" +
-            "Select * FROM employees_trainings;";
+    String sqlAll = "SELECT *\n" +
+            "FROM employees e\n" +
+            "JOIN contacts c ON e.id=c.employee_id\n" +
+            "JOIN credentials cr ON e.id =cr.employee_id\n" +
+            "JOIN employees_skills es ON e.id = es.employee_id\n" +
+            "JOIN skills s ON s.id = es.skill_id\n" +
+            "JOIN employees_trainings etr ON e.id = etr.employee_id\n" +
+            "JOIN training_programs tp ON tp.id = etr.programs_id\n" +
+            "JOIN employees_departments ed ON e.id = ed.employee_id\n" +
+            "JOIN departments d ON d.id = ed.department_id\n" +
+            "JOIN employees_tasks et ON e.id = et.employee_id\n" +
+            "JOIN tasks t ON t.id = et.task_id\n" +
+            "JOIN projects p ON p.id = t.project_id;";
 
     public EmployeeDAO() {
         ConnectionPool connectionPool = ConnectionPool.getInstance();

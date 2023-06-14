@@ -12,6 +12,8 @@ import java.util.List;
 
 public class EmployeeTaskDAO implements IDAOEmployeeTask {
     private Connection connection;
+    private String sqlAll = "SELECT * FROM employees e JOIN employees_tasks et ON e.id = et.employee_id\n" +
+            "JOIN tasks t ON t.id = et.task_id";
 
     public EmployeeTaskDAO() {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
@@ -48,8 +50,7 @@ public class EmployeeTaskDAO implements IDAOEmployeeTask {
     public List<EmployeeTask> getAll() {
         List<EmployeeTask> employeeTaskList = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM EmployeesTasks";
-            PreparedStatement statement = connection.prepareStatement(sql);
+            PreparedStatement statement = connection.prepareStatement(sqlAll);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 EmployeeTask employeeTask = new EmployeeTask();
