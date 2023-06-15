@@ -40,7 +40,7 @@ public class Main {
 
         Project project1 = new Project(1L, "Project1");
         projectService.create(project1);
-        Project retrievedProject = projectService.readAll(1L);
+        Project retrievedProject = projectService.get(1L);
         System.out.println("Retrieved Project:");
         System.out.println(retrievedProject);
 

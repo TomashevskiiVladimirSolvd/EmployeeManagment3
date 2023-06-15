@@ -17,7 +17,7 @@ public class ProjectServiceImpl implements ProjectRepository {
     }
 
     @Override
-    public Project readAll(Long id) {
+    public Project get(Long id) {
         return projectDAO.read(id);
     }
 }
