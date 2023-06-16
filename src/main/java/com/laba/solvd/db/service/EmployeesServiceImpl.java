@@ -10,15 +10,29 @@ import java.util.List;
 
 
 public class EmployeesServiceImpl implements EmployeesRepository {
-    private EmployeeDAO employeeDAO;
+    private EmployeeDAO employeeRepository;
+    private CredentialsServiceImpl credentialService;
 
-    public EmployeesServiceImpl(EmployeeDAO employeeDAO) {
-        this.employeeDAO = employeeDAO;
+    public EmployeesServiceImpl() {
+        this.employeeRepository = new EmployeeDAO();
+        this.credentialService = new CredentialsServiceImpl();
+    }
+
+
+    @Override
+    public Employee create(Employee employee) {
+        employee.setId(null);
+        employeeRepository.create(employee);
+
+        if(employee.getCredentials()!=null){
+
+        }
+        return employee;
     }
 
     @Override
-    public List<Employee> findAll() {
-        return employeeDAO.getAll();
+    public List<Employee> getAll() {
+        return null;
     }
 }
 

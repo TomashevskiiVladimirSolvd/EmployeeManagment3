@@ -6,7 +6,6 @@ import java.util.Objects;
 public class Skill {
     private long id;
     private String name;
-    private List<EmployeeSkill> employees;
 
     public Skill() {
     }
@@ -16,15 +15,6 @@ public class Skill {
     public Skill(long id, String name, List<EmployeeSkill> employees) {
         this.id = id;
         this.name = name;
-        this.employees = employees;
-    }
-
-    public List<EmployeeSkill> getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(List<EmployeeSkill> employees) {
-        this.employees = employees;
     }
 
     public long getId() {
@@ -48,11 +38,11 @@ public class Skill {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Skill skill = (Skill) o;
-        return id == skill.id && Objects.equals(name, skill.name) && Objects.equals(employees, skill.employees);
+        return id == skill.id && Objects.equals(name, skill.name) ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, employees);
+        return Objects.hash(id, name);
     }
 }

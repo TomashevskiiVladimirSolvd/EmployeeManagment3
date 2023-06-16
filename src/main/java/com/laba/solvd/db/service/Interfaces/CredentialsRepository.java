@@ -7,6 +7,8 @@ import java.util.Optional;
 
 public interface CredentialsRepository {
 
-    Credential read(Long id);
+    void create(Credential credential);
+
+    List<Credential> getAll();
 
 }

@@ -19,6 +19,14 @@ public class Department {
         this.employees = employees;
     }
 
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
+    }
+
     public long getId() {
         return id;
     }
@@ -40,11 +48,11 @@ public class Department {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Department that = (Department) o;
-        return id == that.id && Objects.equals(name, that.name);
+        return id == that.id && Objects.equals(name, that.name) && Objects.equals(employees, that.employees);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(id, name, employees);
     }
 }
