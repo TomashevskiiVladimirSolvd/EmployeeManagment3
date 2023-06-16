@@ -1,6 +1,6 @@
 package com.laba.solvd.db.dao;
 
-import com.laba.solvd.db.dao.Interfaces.IDao;
+import com.laba.solvd.db.dao.Interfaces.IDaoEmployee;
 import com.laba.solvd.db.model.Employee;
 
 import java.sql.Connection;
@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeDAO implements IDao<Employee, Long> {
+public class EmployeeDAO implements IDaoEmployee {
     private Connection connection;
     String sqlAll = "SELECT *\n" +
             "FROM employees e\n" +
@@ -21,10 +21,7 @@ public class EmployeeDAO implements IDao<Employee, Long> {
             "JOIN employees_trainings etr ON e.id = etr.employee_id\n" +
             "JOIN training_programs tp ON tp.id = etr.programs_id\n" +
             "JOIN employees_departments ed ON e.id = ed.employee_id\n" +
-            "JOIN departments d ON d.id = ed.department_id\n" +
-            "JOIN employees_tasks et ON e.id = et.employee_id\n" +
-            "JOIN tasks t ON t.id = et.task_id\n" +
-            "JOIN projects p ON p.id = t.project_id;";
+            "JOIN departments d ON d.id = ed.department_id\n" ;
 
     public EmployeeDAO() {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
@@ -34,38 +31,10 @@ public class EmployeeDAO implements IDao<Employee, Long> {
     @Override
     public void create(Employee entity) {
         try {
-            String sql = "INSERT INTO Employees (id, name, position) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO Employees ( name, position) VALUES ( ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setLong(1, entity.getId());
             statement.setString(2, entity.getName());
             statement.setString(3, entity.getPosition());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    @Override
-    public void update(Employee entity) {
-        try {
-            String sql = "UPDATE Employees SET name = ?, position = ? WHERE id = ?";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, entity.getName());
-            statement.setString(2, entity.getPosition());
-            statement.setLong(3, entity.getId());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void delete(Long id) {
-        try {
-            String sql = "DELETE FROM Employees WHERE id = ?";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setLong(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

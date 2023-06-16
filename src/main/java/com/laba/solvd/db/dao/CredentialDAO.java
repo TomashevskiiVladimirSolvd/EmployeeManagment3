@@ -2,14 +2,11 @@ package com.laba.solvd.db.dao;
 
 import com.laba.solvd.db.dao.Interfaces.IDAOCredential;
 import com.laba.solvd.db.model.Credential;
-import com.laba.solvd.db.dao.Interfaces.IDao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class CredentialDAO implements IDAOCredential {
     private Connection connection;
