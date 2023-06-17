@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface DepartmentRepository {
     void create(Department department);
-
     List<Department> getAll();
+
 }

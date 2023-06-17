@@ -11,7 +11,7 @@ import java.util.List;
 public class EmployeeRepositoryImpl implements EmployeeRepository {
     private static final Logger log = Logger.getLogger(EmployeeRepositoryImpl.class.getName());
     private static final ConnectionPool CONNECTIONPOOL = ConnectionPool.getInstance();
-    private final String sqlAll = "SELECT e.id as employee_id ,e.name as name,e.position as position ,\n" +
+    private final String sqlAll = "SELECT e.id as employee_id ,e.name as employee_name,e.position as employee_position ,\n" +
             "cr.login as login ,cr.password as password,c.email as email,c .phone as phone\n" +
             "FROM employees e \n" +
             "LEFT JOIN credentials cr ON e.id = cr.employee_id\n" +
@@ -59,6 +59,35 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
             CONNECTIONPOOL.releaseConnection(connection);
         }
         return employeeList;
+    }
+
+    public static List<Employee> mapRow(ResultSet resultSet,List<Employee> employees)throws SQLException{
+        long id =resultSet.getLong("employee_id");
+
+        if(id !=0){
+            if (employees==null){
+                employees= new ArrayList<>();
+            }
+
+            Employee employee=findById(id,employees);
+            employee.setName(resultSet.getString("employee_name"));
+            employee.setPosition(resultSet.getString("employee_position"));
+
+            employee.setCredentials(CredentialRepositoryImpl.mapRow(ResultSet));
+
+        }
+        return employees;
+    }
+
+    public static Employee findById(Long id,List<Employee> employees){
+        return  employees.stream()
+                .filter(employee -> employee.getId().equals(id))
+                .findFirst().orElseGet(()->{
+                    Employee createdEmployee = new Employee();
+                    createdEmployee.setId(id);
+                    employees.add(createdEmployee);
+                    return createdEmployee;
+                });
     }
 }
 

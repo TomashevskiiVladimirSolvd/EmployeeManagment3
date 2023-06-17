@@ -12,7 +12,7 @@ import java.util.List;
 public class CredentialRepositoryImpl implements CredentialRepository {
     Logger log = Logger.getLogger(CredentialRepositoryImpl.class.getName());
     private static final ConnectionPool CONNECTIONPOOL = ConnectionPool.getInstance();
-    private String sqlEmpCr = "SELECT * FROM credentials";
+    private String sqlEmpCr = "SELECT c.id as credential_id,c.login as credential_id,c.password as credential_password  FROM credentials c";
 
 
     @Override
@@ -55,6 +55,24 @@ public class CredentialRepositoryImpl implements CredentialRepository {
             CONNECTIONPOOL.releaseConnection(connection);
         }
         return credentialList;
+    }
+
+
+    public static Credential mapRow(ResultSet resultSet)throws SQLException{
+        Credential credential=null;
+
+        long id = resultSet.getLong("credential_id");
+        if(id!=0){
+            credential=new Credential();
+            credential.setId(resultSet.getLong("credential_id"));
+            credential.setLogin(resultSet.getString("credential_login"));
+            credential.setPassword(resultSet.getString("credential_password"));
+        }
+
+        return credential;
+    }
+    public static void mapRow(ResultSet resultSet,List<Credential> credentials) throws SQLException{
+        credentials.add(mapRow(resultSet));
     }
 
 
