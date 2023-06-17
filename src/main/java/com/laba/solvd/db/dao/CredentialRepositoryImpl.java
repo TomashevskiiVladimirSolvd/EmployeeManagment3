@@ -12,7 +12,7 @@ import java.util.List;
 public class CredentialRepositoryImpl implements CredentialRepository {
     Logger log = Logger.getLogger(CredentialRepositoryImpl.class.getName());
     private static final ConnectionPool CONNECTIONPOOL = ConnectionPool.getInstance();
-    private String sqlEmpCr = "SELECT c.id as credential_id,c.login as credential_id,c.password as credential_password  FROM credentials c";
+    private final String sqlAll = "SELECT c.id as credential_id,c.login as credential_login,c.password as credential_password  FROM credentials c";
 
 
     @Override
@@ -39,14 +39,14 @@ public class CredentialRepositoryImpl implements CredentialRepository {
     public List<Credential> getAll() {
         Connection connection = CONNECTIONPOOL.getConnection();
         List<Credential> credentialList = new ArrayList<>();
-        try (PreparedStatement statement = connection.prepareStatement(sqlEmpCr);
+        try (PreparedStatement statement = connection.prepareStatement(sqlAll);
              ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
                 Credential credential = new Credential();
-                credential.setId(resultSet.getLong("id"));
-                credential.setPassword(resultSet.getString("password"));
-                credential.setLogin(resultSet.getString("login"));
+                credential.setId(resultSet.getLong("credential_id"));
+                credential.setPassword(resultSet.getString("credential_password"));
+                credential.setLogin(resultSet.getString("credential_login"));
                 credentialList.add(credential);
             }
         } catch (SQLException e) {

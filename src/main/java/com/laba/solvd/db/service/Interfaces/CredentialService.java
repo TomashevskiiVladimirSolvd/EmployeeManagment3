@@ -4,7 +4,7 @@ import com.laba.solvd.db.model.Credential;
 
 import java.util.List;
 
-public interface CredentialsService {
+public interface CredentialService {
 
     Credential create(Credential credential);
 

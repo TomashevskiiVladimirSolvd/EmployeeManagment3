@@ -48,9 +48,9 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
             while (resultSet.next()) {
                 Employee employee = new Employee();
-                employee.setId(resultSet.getLong("id"));
-                employee.setName(resultSet.getString("name"));
-                employee.setPosition(resultSet.getString("position"));
+                employee.setId(resultSet.getLong("employee_id"));
+                employee.setName(resultSet.getString("employee_name"));
+                employee.setPosition(resultSet.getString("employee_position"));
                 employeeList.add(employee);
             }
         } catch (SQLException e) {
@@ -62,7 +62,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     }
 
     public static List<Employee> mapRow(ResultSet resultSet,List<Employee> employees)throws SQLException{
-        long id =resultSet.getLong("employee_id");
+        long id =resultSet.getLong("id");
 
         if(id !=0){
             if (employees==null){
@@ -70,8 +70,8 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
             }
 
             Employee employee=findById(id,employees);
-            employee.setName(resultSet.getString("employee_name"));
-            employee.setPosition(resultSet.getString("employee_position"));
+            employee.setName(resultSet.getString("name"));
+            employee.setPosition(resultSet.getString("position"));
 
             employee.setCredentials(CredentialRepositoryImpl.mapRow(resultSet));
 

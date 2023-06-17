@@ -5,7 +5,7 @@ import com.laba.solvd.db.dao.EmployeeRepositoryImpl;
 
 import com.laba.solvd.db.dao.Interfaces.EmployeeRepository;
 import com.laba.solvd.db.model.Credential;
-import com.laba.solvd.db.service.Interfaces.CredentialsService;
+import com.laba.solvd.db.service.Interfaces.CredentialService;
 import com.laba.solvd.db.service.Interfaces.EmployeeService;
 import com.laba.solvd.db.model.Employee;
 
@@ -14,11 +14,11 @@ import java.util.List;
 
 public class EmployeesServiceImpl implements EmployeeService {
     private EmployeeRepository employeeRepository;
-    private CredentialsService credentialService;
+    private CredentialService credentialService;
 
     public EmployeesServiceImpl() {
         this.employeeRepository =new EmployeeRepositoryImpl();
-        this.credentialService = new CredentialsServiceImpl();
+        this.credentialService = new CredentialServiceImpl();
     }
 
 
