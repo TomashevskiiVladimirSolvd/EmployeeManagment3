@@ -4,18 +4,14 @@ import com.laba.solvd.db.dao.Interfaces.EmployeeRepository;
 import com.laba.solvd.db.model.Employee;
 import org.apache.log4j.Logger;
 
-import java.beans.Statement;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeRepositoryImpl implements EmployeeRepository {
     private static final Logger log = Logger.getLogger(EmployeeRepositoryImpl.class.getName());
     private static final ConnectionPool CONNECTIONPOOL = ConnectionPool.getInstance();
-    private final String sqlAll = "SELECT * FROM employees e";
+    private final String sqlAll = "SELECT e.id ,e.name,e.position,cr.login,cr.password FROM employees e LEFT JOIN credentials cr ON e.id = cr.employee_id;";
 
     @Override
     public void create(Employee employee) {
@@ -61,10 +57,6 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
         return employeeList;
     }
 
-    public void close() {
-        Connection connection = CONNECTIONPOOL.getConnection();
-        CONNECTIONPOOL.releaseConnection(connection);
-    }
 }
 
 

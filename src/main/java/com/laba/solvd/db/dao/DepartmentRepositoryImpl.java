@@ -4,18 +4,21 @@ import com.laba.solvd.db.dao.Interfaces.DepartmentRepository;
 import com.laba.solvd.db.model.Department;
 import org.apache.log4j.Logger;
 
-import java.beans.Statement;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DepartmentRepositoryImpl implements DepartmentRepository {
     Logger log = Logger.getLogger(DepartmentRepositoryImpl.class.getName());
     private static final ConnectionPool CONNECTIONPOOL = ConnectionPool.getInstance();
-    private final String sqlAll = "SELECT * FROM departments";
+    private final String sqlAll = "SELECT d.id as department_id, d.name as department,e.id as employee_id ,\n" +
+            "e.name as employee,e.position as position,cr.id as credential_id,cr.login as login ,cr.password as password,\n" +
+            "c.id as contact_id,c.email as email,c.phone as phone \n" +
+            "From departments d\n" +
+            "LEFT JOIN employees_departments ed ON d.id =ed.department_id\n" +
+            "LEFT JOIN employees e ON e.id = ed.employee_id\n" +
+            "LEFT JOIN contacts c ON e.id =c.employee_id\n" +
+            "LEFT JOIN credentials cr ON e.id =cr.employee_id;\n ";
 
     @Override
     public void create(Department department) {

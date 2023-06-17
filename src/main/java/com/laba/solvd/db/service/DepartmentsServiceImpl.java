@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class DepartmentsServiceImpl implements DepartmentService {
 
     private DepartmentRepository departmentRepository;
-    private EmployeesServiceImpl employeeService;
+    private EmployeeService employeeService;
 
     public DepartmentsServiceImpl() {
         this.departmentRepository = new DepartmentRepositoryImpl();
