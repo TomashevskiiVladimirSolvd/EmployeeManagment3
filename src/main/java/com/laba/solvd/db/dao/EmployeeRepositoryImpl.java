@@ -11,7 +11,11 @@ import java.util.List;
 public class EmployeeRepositoryImpl implements EmployeeRepository {
     private static final Logger log = Logger.getLogger(EmployeeRepositoryImpl.class.getName());
     private static final ConnectionPool CONNECTIONPOOL = ConnectionPool.getInstance();
-    private final String sqlAll = "SELECT e.id ,e.name,e.position,cr.login,cr.password FROM employees e LEFT JOIN credentials cr ON e.id = cr.employee_id;";
+    private final String sqlAll = "SELECT e.id as employee_id ,e.name as name,e.position as position ,\n" +
+            "cr.login as login ,cr.password as password,c.email as email,c .phone as phone\n" +
+            "FROM employees e \n" +
+            "LEFT JOIN credentials cr ON e.id = cr.employee_id\n" +
+            "LEFT JOIN contacts c ON e.id =c.employee_id;";
 
     @Override
     public void create(Employee employee) {
@@ -56,7 +60,6 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
         }
         return employeeList;
     }
-
 }
 
 
