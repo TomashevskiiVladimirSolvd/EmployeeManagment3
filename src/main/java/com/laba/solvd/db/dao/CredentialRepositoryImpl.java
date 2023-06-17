@@ -57,6 +57,9 @@ public class CredentialRepositoryImpl implements CredentialRepository {
         return credentialList;
     }
 
+    public static void mapRow(ResultSet resultSet,List<Credential> credentials) throws SQLException{
+        credentials.add(mapRow(resultSet));
+    }
 
     public static Credential mapRow(ResultSet resultSet)throws SQLException{
         Credential credential=null;
@@ -71,10 +74,4 @@ public class CredentialRepositoryImpl implements CredentialRepository {
 
         return credential;
     }
-    public static void mapRow(ResultSet resultSet,List<Credential> credentials) throws SQLException{
-        credentials.add(mapRow(resultSet));
-    }
-
-
-
 }

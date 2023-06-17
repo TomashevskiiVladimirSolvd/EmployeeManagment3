@@ -75,7 +75,7 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
             Department department = findById(id,departments);
             department.setName(resultSet.getString("department_name"));
 
-            List<Employee> employees=EmployeeRepositoryImpl.mapRow(resultSet,resultSet.getEmployees());
+            List<Employee> employees=EmployeeRepositoryImpl.mapRow(resultSet,department.getEmployees());
         department.setEmployees(employees);
         }
         return departments;
