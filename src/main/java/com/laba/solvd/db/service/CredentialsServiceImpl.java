@@ -11,8 +11,8 @@ import java.util.List;
 public class CredentialsServiceImpl implements CredentialsService {
     private CredentialRepository credentialRepository;
 
-    public CredentialsServiceImpl(CredentialRepositoryImpl credentialRepositoryImpl) {
-        this.credentialRepository = credentialRepositoryImpl;
+    public CredentialsServiceImpl() {
+        this.credentialRepository = new CredentialRepositoryImpl();
     }
 
 

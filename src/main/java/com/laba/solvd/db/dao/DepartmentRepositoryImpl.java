@@ -43,10 +43,10 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
 
     @Override
     public List<Department> getAll() {
-        List<Department> departments ;
+        List<Department> departments = null;
         Connection connection = CONNECTIONPOOL.getConnection();
-        try (PreparedStatement statement = connection.prepareStatement(sqlAll);{
-             ResultSet resultSet = statement.executeQuery());
+        try (PreparedStatement statement = connection.prepareStatement(sqlAll)){
+             ResultSet resultSet = statement.executeQuery();
              departments=mapDepartments(resultSet);
 
         } catch (SQLException e) {
@@ -57,16 +57,18 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
         return departments;
     }
 
-    private static Department findById(Long id,List<Department> departments){
+    private static Department findById(Long id, List<Department> departments) {
         return departments.stream()
                 .filter(department -> department.getId().equals(id))
-                .findFirst().orElseGet(()->{
+                .findFirst()
+                .orElseGet(() -> {
                     Department createdDepartment = new Department();
                     createdDepartment.setId(id);
                     departments.add(createdDepartment);
                     return createdDepartment;
                 });
     }
+
 
     private static List<Department> mapDepartments(ResultSet resultSet)throws SQLException{
         List<Department> departments = new ArrayList<>();

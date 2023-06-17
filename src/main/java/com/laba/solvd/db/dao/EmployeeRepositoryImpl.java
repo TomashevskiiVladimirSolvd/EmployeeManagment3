@@ -18,7 +18,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
             "LEFT JOIN contacts c ON e.id =c.employee_id;";
 
     @Override
-    public void create(Employee employee) {
+    public void create(Employee employee, Long departmentId) {
         Connection connection = CONNECTIONPOOL.getConnection();
         PreparedStatement preparedStatement = null;
         try {

@@ -2,6 +2,7 @@ package com.laba.solvd.db;
 
 import com.laba.solvd.db.model.*;
 import com.laba.solvd.db.service.DepartmentsServiceImpl;
+import com.laba.solvd.db.service.Interfaces.DepartmentService;
 
 import java.util.Arrays;
 import java.util.List;

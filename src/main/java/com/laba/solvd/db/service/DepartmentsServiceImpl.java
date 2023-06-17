@@ -5,6 +5,7 @@ import com.laba.solvd.db.dao.Interfaces.DepartmentRepository;
 import com.laba.solvd.db.model.Department;
 import com.laba.solvd.db.model.Employee;
 import com.laba.solvd.db.service.Interfaces.DepartmentService;
+import com.laba.solvd.db.service.Interfaces.EmployeeService;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,13 +29,14 @@ public class DepartmentsServiceImpl implements DepartmentService {
             List<Employee> employees = department.getEmployees().stream().
                     map(employee -> employeeService.create(employee, department.getId()))
                     .collect(Collectors.toList());
+            department.setEmployees(employees);
         }
-        department.setEmployees(employees);
+
         return department;
     }
 
     @Override
     public List<Department> getAll() {
-        return null;
+        return departmentRepository.getAll();
     }
 }

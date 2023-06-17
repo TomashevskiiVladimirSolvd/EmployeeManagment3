@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Department {
-    private long id;
+    private Long id;
     private String name;
     List<Employee> employees;
 
@@ -13,7 +13,7 @@ public class Department {
 
     ;
 
-    public Department(long id, String name) {
+    public Department(Long id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -26,7 +26,7 @@ public class Department {
         this.employees = employees;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

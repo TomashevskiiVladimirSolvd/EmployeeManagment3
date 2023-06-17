@@ -17,7 +17,7 @@ public class EmployeesServiceImpl implements EmployeeService {
     private CredentialsService credentialService;
 
     public EmployeesServiceImpl() {
-        this.employeeRepository = new EmployeeRepositoryImpl();
+        this.employeeRepository =new EmployeeRepositoryImpl();
         this.credentialService = new CredentialsServiceImpl();
     }
 
@@ -36,7 +36,7 @@ public class EmployeesServiceImpl implements EmployeeService {
 
     @Override
     public List<Employee> getAll() {
-        return null;
+        return employeeRepository.getAll();
     }
 }
 

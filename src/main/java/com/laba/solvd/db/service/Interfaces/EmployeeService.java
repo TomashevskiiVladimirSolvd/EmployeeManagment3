@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface EmployeeService {
 
-    Employee create(Employee employee);
+    Employee create(Employee employee, Long departmentId);;
 
     List<Employee> getAll();
 
