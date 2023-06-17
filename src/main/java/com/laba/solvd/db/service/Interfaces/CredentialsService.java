@@ -1,12 +1,13 @@
-package com.laba.solvd.db.dao.Interfaces;
+package com.laba.solvd.db.service.Interfaces;
 
 import com.laba.solvd.db.model.Credential;
-import com.laba.solvd.db.model.Employee;
 
 import java.util.List;
 
-public interface IDAOCredential {
+public interface CredentialsService {
+
     void create(Credential credential);
 
     List<Credential> getAll();
+
 }

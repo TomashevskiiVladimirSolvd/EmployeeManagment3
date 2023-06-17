@@ -4,7 +4,7 @@ import com.laba.solvd.db.model.Employee;
 
 import java.util.List;
 
-public interface IDaoEmployee {
+public interface EmployeeRepository {
 
     void create(Employee employee);
 

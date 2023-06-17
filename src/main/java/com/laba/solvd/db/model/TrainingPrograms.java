@@ -38,7 +38,7 @@ public class TrainingPrograms {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TrainingPrograms that = (TrainingPrograms) o;
-        return id == that.id && Objects.equals(name, that.name) ;
+        return id == that.id && Objects.equals(name, that.name);
     }
 
     @Override

@@ -1,14 +1,11 @@
-package com.laba.solvd.db.service.Interfaces;
+package com.laba.solvd.db.dao.Interfaces;
 
 import com.laba.solvd.db.model.Credential;
 
 import java.util.List;
-import java.util.Optional;
 
-public interface CredentialsRepository {
-
+public interface CredentialRepository {
     void create(Credential credential);
 
     List<Credential> getAll();
-
 }

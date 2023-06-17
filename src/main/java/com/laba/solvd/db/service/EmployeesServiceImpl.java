@@ -1,20 +1,20 @@
 package com.laba.solvd.db.service;
 
-import com.laba.solvd.db.dao.EmployeeDAO;
+import com.laba.solvd.db.dao.EmployeeRepositoryImpl;
 
 
-import com.laba.solvd.db.service.Interfaces.EmployeesRepository;
+import com.laba.solvd.db.service.Interfaces.EmployeeService;
 import com.laba.solvd.db.model.Employee;
 
 import java.util.List;
 
 
-public class EmployeesServiceImpl implements EmployeesRepository {
-    private EmployeeDAO employeeRepository;
+public class EmployeesServiceImpl implements EmployeeService {
+    private EmployeeRepositoryImpl employeeRepository;
     private CredentialsServiceImpl credentialService;
 
     public EmployeesServiceImpl() {
-        this.employeeRepository = new EmployeeDAO();
+        this.employeeRepository = new EmployeeRepositoryImpl();
         this.credentialService = new CredentialsServiceImpl();
     }
 
@@ -24,7 +24,7 @@ public class EmployeesServiceImpl implements EmployeesRepository {
         employee.setId(null);
         employeeRepository.create(employee);
 
-        if(employee.getCredentials()!=null){
+        if (employee.getCredentials() != null) {
 
         }
         return employee;
