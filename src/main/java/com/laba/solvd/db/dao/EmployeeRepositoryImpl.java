@@ -60,7 +60,8 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
         }
         return employeeList;
     }
-    public static Employee findById(Long id, List<Employee> employees) {
+
+    private static Employee findById(Long id, List<Employee> employees) {
         return employees.stream()
                 .filter(employee -> employee.getId().equals(id))
                 .findFirst().orElseGet(() -> {
