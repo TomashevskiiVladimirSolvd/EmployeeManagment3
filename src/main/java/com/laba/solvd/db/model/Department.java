@@ -6,7 +6,7 @@ import java.util.Objects;
 public class Department {
     private Long id;
     private String name;
-    List<Employee> employees;
+    private List<Employee> employees;
 
     public Department() {
     }
