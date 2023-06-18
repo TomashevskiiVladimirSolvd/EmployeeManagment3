@@ -60,6 +60,16 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
         }
         return employeeList;
     }
+    public static Employee findById(Long id, List<Employee> employees) {
+        return employees.stream()
+                .filter(employee -> employee.getId().equals(id))
+                .findFirst().orElseGet(() -> {
+                    Employee createdEmployee = new Employee();
+                    createdEmployee.setId(id);
+                    employees.add(createdEmployee);
+                    return createdEmployee;
+                });
+    }
 
     public static List<Employee> mapRow(ResultSet resultSet, List<Employee> employees) throws SQLException {
         long id = resultSet.getLong("id");
@@ -79,16 +89,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
         return employees;
     }
 
-    public static Employee findById(Long id, List<Employee> employees) {
-        return employees.stream()
-                .filter(employee -> employee.getId().equals(id))
-                .findFirst().orElseGet(() -> {
-                    Employee createdEmployee = new Employee();
-                    createdEmployee.setId(id);
-                    employees.add(createdEmployee);
-                    return createdEmployee;
-                });
-    }
+
 }
 
 
