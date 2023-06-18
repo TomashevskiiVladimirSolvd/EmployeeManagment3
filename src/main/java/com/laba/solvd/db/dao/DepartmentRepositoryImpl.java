@@ -25,7 +25,7 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
     public void create(Department department) {
         Connection connection = CONNECTIONPOOL.getConnection();
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO departments (name) VALUES (?)", Statement.RETURN_GENERATED_KEYS)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO departments (name) VALUES (?)", Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, department.getName());
             preparedStatement.executeUpdate();
 
@@ -45,9 +45,9 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
     public List<Department> getAll() {
         List<Department> departments = null;
         Connection connection = CONNECTIONPOOL.getConnection();
-        try (PreparedStatement statement = connection.prepareStatement(sqlAll)){
-             ResultSet resultSet = statement.executeQuery();
-             departments=mapDepartments(resultSet);
+        try (PreparedStatement statement = connection.prepareStatement(sqlAll)) {
+            ResultSet resultSet = statement.executeQuery();
+            departments = mapDepartments(resultSet);
 
         } catch (SQLException e) {
             log.info("Unable to find all departments", e);
@@ -70,15 +70,15 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
     }
 
 
-    private static List<Department> mapDepartments(ResultSet resultSet)throws SQLException{
+    private static List<Department> mapDepartments(ResultSet resultSet) throws SQLException {
         List<Department> departments = new ArrayList<>();
-        while (resultSet.next()){
+        while (resultSet.next()) {
             Long id = resultSet.getLong("department_id");
-            Department department = findById(id,departments);
+            Department department = findById(id, departments);
             department.setName(resultSet.getString("department_name"));
 
-            List<Employee> employees=EmployeeRepositoryImpl.mapRow(resultSet,department.getEmployees());
-        department.setEmployees(employees);
+            List<Employee> employees = EmployeeRepositoryImpl.mapRow(resultSet, department.getEmployees());
+            department.setEmployees(employees);
         }
         return departments;
     }

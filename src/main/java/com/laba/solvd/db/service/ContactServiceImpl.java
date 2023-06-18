@@ -10,9 +10,10 @@ import java.util.List;
 public class ContactServiceImpl implements ContactService {
     private ContactRepository contactRepository;
 
-    public ContactServiceImpl(){
-        this.contactRepository= new ContactRepositoryImpl();
+    public ContactServiceImpl() {
+        this.contactRepository = new ContactRepositoryImpl();
     }
+
     @Override
     public Contact create(Contact contact) {
         contact.setId(null);

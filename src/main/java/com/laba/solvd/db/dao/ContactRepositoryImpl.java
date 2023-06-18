@@ -25,12 +25,12 @@ public class ContactRepositoryImpl implements ContactRepository {
 
             preparedStatement.executeUpdate();
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 contact.setId(resultSet.getLong(1));
             }
         } catch (SQLException e) {
             log.info("Unable to create contacts", e);
-        }finally {
+        } finally {
             CONNECTIONPOOL.releaseConnection(connection);
         }
     }
@@ -57,16 +57,16 @@ public class ContactRepositoryImpl implements ContactRepository {
         return contactList;
     }
 
-    public static void mapRow(ResultSet resultSet,List<Contact> contacts) throws SQLException{
+    public static void mapRow(ResultSet resultSet, List<Contact> contacts) throws SQLException {
         contacts.add(mapRow(resultSet));
     }
 
-    public static Contact mapRow(ResultSet resultSet)throws SQLException{
-        Contact contact=null;
+    public static Contact mapRow(ResultSet resultSet) throws SQLException {
+        Contact contact = null;
 
         long id = resultSet.getLong("contact_id");
-        if(id!=0){
-            contact=new Contact();
+        if (id != 0) {
+            contact = new Contact();
             contact.setId(resultSet.getLong("contact_id"));
             contact.setEmail(resultSet.getString("contact_email"));
             contact.setPhone(resultSet.getString("contact_phone"));

@@ -17,19 +17,19 @@ public class EmployeesServiceImpl implements EmployeeService {
     private CredentialService credentialService;
 
     public EmployeesServiceImpl() {
-        this.employeeRepository =new EmployeeRepositoryImpl();
+        this.employeeRepository = new EmployeeRepositoryImpl();
         this.credentialService = new CredentialServiceImpl();
     }
 
 
     @Override
-    public Employee create(Employee employee,Long departmentId) {
+    public Employee create(Employee employee, Long departmentId) {
         employee.setId(null);
-        if(employee.getCredentials()!=null){
-            Credential credential =credentialService.create(employee.getCredentials());
+        if (employee.getCredentials() != null) {
+            Credential credential = credentialService.create(employee.getCredentials());
             employee.setCredentials(credential);
         }
-        employeeRepository.create(employee,departmentId);
+        employeeRepository.create(employee, departmentId);
 
         return employee;
     }

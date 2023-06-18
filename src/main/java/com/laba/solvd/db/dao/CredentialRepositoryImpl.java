@@ -25,12 +25,12 @@ public class CredentialRepositoryImpl implements CredentialRepository {
 
             preparedStatement.executeUpdate();
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 credential.setId(resultSet.getLong(1));
             }
         } catch (SQLException e) {
             log.info("Unable to create credentials", e);
-        }finally {
+        } finally {
             CONNECTIONPOOL.releaseConnection(connection);
         }
     }
@@ -57,16 +57,16 @@ public class CredentialRepositoryImpl implements CredentialRepository {
         return credentialList;
     }
 
-    public static void mapRow(ResultSet resultSet,List<Credential> credentials) throws SQLException{
+    public static void mapRow(ResultSet resultSet, List<Credential> credentials) throws SQLException {
         credentials.add(mapRow(resultSet));
     }
 
-    public static Credential mapRow(ResultSet resultSet)throws SQLException{
-        Credential credential=null;
+    public static Credential mapRow(ResultSet resultSet) throws SQLException {
+        Credential credential = null;
 
         long id = resultSet.getLong("credential_id");
-        if(id!=0){
-            credential=new Credential();
+        if (id != 0) {
+            credential = new Credential();
             credential.setId(resultSet.getLong("credential_id"));
             credential.setLogin(resultSet.getString("credential_login"));
             credential.setPassword(resultSet.getString("credential_password"));

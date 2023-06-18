@@ -61,15 +61,15 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
         return employeeList;
     }
 
-    public static List<Employee> mapRow(ResultSet resultSet,List<Employee> employees)throws SQLException{
-        long id =resultSet.getLong("id");
+    public static List<Employee> mapRow(ResultSet resultSet, List<Employee> employees) throws SQLException {
+        long id = resultSet.getLong("id");
 
-        if(id !=0){
-            if (employees==null){
-                employees= new ArrayList<>();
+        if (id != 0) {
+            if (employees == null) {
+                employees = new ArrayList<>();
             }
 
-            Employee employee=findById(id,employees);
+            Employee employee = findById(id, employees);
             employee.setName(resultSet.getString("name"));
             employee.setPosition(resultSet.getString("position"));
 
@@ -79,10 +79,10 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
         return employees;
     }
 
-    public static Employee findById(Long id,List<Employee> employees){
-        return  employees.stream()
+    public static Employee findById(Long id, List<Employee> employees) {
+        return employees.stream()
                 .filter(employee -> employee.getId().equals(id))
-                .findFirst().orElseGet(()->{
+                .findFirst().orElseGet(() -> {
                     Employee createdEmployee = new Employee();
                     createdEmployee.setId(id);
                     employees.add(createdEmployee);
