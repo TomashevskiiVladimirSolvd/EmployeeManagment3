@@ -30,7 +30,6 @@ public class EmployeesServiceImpl implements EmployeeService {
             employee.setCredentials(credential);
         }
         employeeRepository.create(employee, departmentId);
-
         return employee;
     }
 

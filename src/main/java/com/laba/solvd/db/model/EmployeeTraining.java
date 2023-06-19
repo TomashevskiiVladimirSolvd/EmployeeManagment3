@@ -44,4 +44,12 @@ public class EmployeeTraining {
     public int hashCode() {
         return Objects.hash(id, status);
     }
+
+    @Override
+    public String toString() {
+        return "EmployeeTraining{" +
+                "id=" + id +
+                ", status='" + status + '\'' +
+                '}';
+    }
 }

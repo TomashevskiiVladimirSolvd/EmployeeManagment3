@@ -54,4 +54,13 @@ public class Contact {
     public int hashCode() {
         return Objects.hash(id, email, phone);
     }
+
+    @Override
+    public String toString() {
+        return "Contact{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                '}';
+    }
 }

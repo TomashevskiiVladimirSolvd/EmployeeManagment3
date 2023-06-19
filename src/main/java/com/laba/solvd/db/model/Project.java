@@ -55,4 +55,13 @@ public class Project {
     public int hashCode() {
         return Objects.hash(id, name, tasks);
     }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", tasks=" + tasks +
+                '}';
+    }
 }

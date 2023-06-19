@@ -5,7 +5,6 @@ import com.laba.solvd.db.service.DepartmentsServiceImpl;
 import com.laba.solvd.db.service.Interfaces.DepartmentService;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -44,9 +43,7 @@ public class Main {
         DepartmentService departmentService = new DepartmentsServiceImpl();
         department = departmentService.create(department);
 
-        List<Department> departments = departmentService.getAll();
         System.out.println(department);
-
 
     }
 }

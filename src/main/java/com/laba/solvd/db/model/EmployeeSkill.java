@@ -45,4 +45,12 @@ public class EmployeeSkill {
     public int hashCode() {
         return Objects.hash(id, proficiencyLevel);
     }
+
+    @Override
+    public String toString() {
+        return "EmployeeSkill{" +
+                "id=" + id +
+                ", proficiencyLevel='" + proficiencyLevel + '\'' +
+                '}';
+    }
 }

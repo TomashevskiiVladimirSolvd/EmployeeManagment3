@@ -31,7 +31,6 @@ public class DepartmentsServiceImpl implements DepartmentService {
                     .collect(Collectors.toList());
             department.setEmployees(employees);
         }
-
         return department;
     }
 
