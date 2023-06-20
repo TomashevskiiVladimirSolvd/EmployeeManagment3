@@ -1,17 +1,4 @@
 USE `EmployeeManagementSystem`;
--- SELEST ALL FOR  TABLES:
-Select * FROM contacts;
-Select * FROM  departments ;
-Select * FROM employees_departments;
-Select * FROM employees;
-Select * FROM employees_tasks ;
-Select * FROM employees_skills ;
-Select * FROM projects;
-Select * FROM credentials;
-Select * FROM tasks;
-Select * FROM skills;
-Select * FROM training_programs;
-Select * FROM employees_trainings;
 
 -- INSERT FOR  TABLES:
 
@@ -213,15 +200,22 @@ JOIN projects p ON p.id = t.project_id;
 
 -- 5 JOIN:
 
--- EMPLOYEE CONTACT LIST:
-SELECT e.id,e.name,e.position,c.email,c.phone,c.fax
-FROM contacts c
-JOIN employees e ON e.id = c.employee_id ;
+-- DEPARTMENT HAS EMPLOYEES WITH CONTACTS ANT CREDENTIALS LIST:
+SELECT d.id as department_id, d.name as department,e.id as employee_id ,
+e.name as employee,e.position as position,cr.id as credential_id,cr.login as login ,cr.password as password,
+c.id as contact_id,c.email as email,c.phone as phone 
+From departments d
+LEFT JOIN employees_departments ed ON d.id =ed.department_id
+LEFT JOIN employees e ON e.id = ed.employee_id
+LEFT JOIN contacts c ON e.id =c.employee_id
+LEFT JOIN credentials cr ON e.id =cr.employee_id;
 
--- EMPLOYEE TASK COMPLETION LIST:
-SELECT  e.id,e.name,e.position,et.task_id,et.percentage_completed as '% completed'
-FROM employees e
-LEFT JOIN  employees_tasks et ON e.id = et.employee_id;
+-- EMPLOYEES HAVE CREDENTIALS AND CONTACTS LIST:
+SELECT e.id as employee_id ,e.name as name,e.position as position ,
+cr.login as login ,cr.password as password,c.email as email,c .phone as phone
+FROM employees e 
+LEFT JOIN credentials cr ON e.id = cr.employee_id
+LEFT JOIN contacts c ON e.id =c.employee_id;
 
 -- EMPLOYEE TRAINING STATUS LIST:
 SELECT e.id,e.name,e.position,et.program_id,et.status
@@ -362,7 +356,6 @@ WHERE status = 'Cancelled' AND employee_id = 5;
 
 DELETE FROM employees
 WHERE name REGEXP 'John';
-
 
 
 
