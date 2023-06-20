@@ -3,16 +3,16 @@ package com.laba.solvd.db.model;
 import java.util.List;
 import java.util.Objects;
 
-public class TrainingPrograms {
+public class TrainingProgram {
     private long id;
     private String name;
 
-    public TrainingPrograms() {
+    public TrainingProgram() {
     }
 
     ;
 
-    public TrainingPrograms(long id, String name, List<EmployeeTraining> employees) {
+    public TrainingProgram(long id, String name, List<EmployeeTraining> employees) {
         this.id = id;
         this.name = name;
     }
@@ -37,7 +37,7 @@ public class TrainingPrograms {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TrainingPrograms that = (TrainingPrograms) o;
+        TrainingProgram that = (TrainingProgram) o;
         return id == that.id && Objects.equals(name, that.name);
     }
 

@@ -5,6 +5,7 @@ import java.util.Objects;
 public class EmployeeSkill {
     private long id;
     private String proficiencyLevel;
+    private Skill skill;
 
     public EmployeeSkill() {
     }
@@ -16,6 +17,13 @@ public class EmployeeSkill {
         this.proficiencyLevel = proficiencyLevel;
     }
 
+    public Skill getSkill() {
+        return skill;
+    }
+
+    public void setSkill(Skill skill) {
+        this.skill = skill;
+    }
 
     public long getId() {
         return id;
@@ -38,12 +46,12 @@ public class EmployeeSkill {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EmployeeSkill that = (EmployeeSkill) o;
-        return id == that.id && Objects.equals(proficiencyLevel, that.proficiencyLevel);
+        return id == that.id && Objects.equals(proficiencyLevel, that.proficiencyLevel) && Objects.equals(skill, that.skill);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, proficiencyLevel);
+        return Objects.hash(id, proficiencyLevel, skill);
     }
 
     @Override
@@ -51,6 +59,7 @@ public class EmployeeSkill {
         return "EmployeeSkill{" +
                 "id=" + id +
                 ", proficiencyLevel='" + proficiencyLevel + '\'' +
+                ", skill=" + skill +
                 '}';
     }
 }
