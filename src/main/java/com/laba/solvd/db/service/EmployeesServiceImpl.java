@@ -4,7 +4,9 @@ import com.laba.solvd.db.dao.EmployeeRepositoryImpl;
 
 
 import com.laba.solvd.db.dao.Interfaces.EmployeeRepository;
+import com.laba.solvd.db.model.Contact;
 import com.laba.solvd.db.model.Credential;
+import com.laba.solvd.db.service.Interfaces.ContactService;
 import com.laba.solvd.db.service.Interfaces.CredentialService;
 import com.laba.solvd.db.service.Interfaces.EmployeeService;
 import com.laba.solvd.db.model.Employee;
@@ -15,10 +17,12 @@ import java.util.List;
 public class EmployeesServiceImpl implements EmployeeService {
     private EmployeeRepository employeeRepository;
     private CredentialService credentialService;
+    private ContactService contactService;
 
     public EmployeesServiceImpl() {
         this.employeeRepository = new EmployeeRepositoryImpl();
         this.credentialService = new CredentialServiceImpl();
+        this.contactService = new ContactServiceImpl();
     }
 
 
@@ -28,6 +32,10 @@ public class EmployeesServiceImpl implements EmployeeService {
         if (employee.getCredentials() != null) {
             Credential credential = credentialService.create(employee.getCredentials());
             employee.setCredentials(credential);
+        }
+        if (employee.getContact() != null) {
+            Contact contact = contactService.create(employee.getContact());
+            employee.setContact(contact);
         }
         employeeRepository.create(employee, departmentId);
         return employee;
