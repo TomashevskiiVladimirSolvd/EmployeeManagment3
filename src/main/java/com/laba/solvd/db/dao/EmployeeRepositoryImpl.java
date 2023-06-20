@@ -85,6 +85,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
             employee.setPosition(resultSet.getString("position"));
 
             employee.setCredentials(CredentialRepositoryImpl.mapRow(resultSet));
+            employee.setContact(ContactRepositoryImpl.mapRow(resultSet));
 
         }
         return employees;
