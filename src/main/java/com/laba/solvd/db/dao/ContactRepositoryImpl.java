@@ -3,6 +3,7 @@ package com.laba.solvd.db.dao;
 import com.laba.solvd.db.dao.Interfaces.ContactRepository;
 import com.laba.solvd.db.model.Contact;
 import com.laba.solvd.db.model.Credential;
+import com.laba.solvd.db.model.Employee;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
@@ -55,6 +56,24 @@ public class ContactRepositoryImpl implements ContactRepository {
             CONNECTIONPOOL.releaseConnection(connection);
         }
         return contactList;
+    }
+
+    @Override
+    public void setContact(Contact contact, Employee employee) {
+        Connection connection = null;
+        String sql = "INSERT INTO contacts (id,employee_id) VALUES(?,?)";
+        try{
+            connection = CONNECTIONPOOL.getConnection();
+            PreparedStatement statement =connection.prepareStatement(sql);
+            statement.setLong(1,contact.getId());
+            statement.setLong(2,employee.getId());
+            statement.executeUpdate();
+            statement.close();
+        }catch(SQLException e) {
+            log.info("Failed to connect", e);
+        }finally {
+            CONNECTIONPOOL.releaseConnection(connection);
+        }
     }
 
     public static void mapRow(ResultSet resultSet, List<Contact> contacts) throws SQLException {

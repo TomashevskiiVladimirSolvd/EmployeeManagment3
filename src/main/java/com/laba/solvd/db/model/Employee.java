@@ -57,7 +57,7 @@ public class Employee {
         return credential;
     }
 
-    public void setCredentials(Credential credential) {
+    public void setCredential(Credential credential) {
         this.credential = credential;
     }
 

@@ -1,6 +1,7 @@
 package com.laba.solvd.db.dao;
 
 import com.laba.solvd.db.dao.Interfaces.EmployeeRepository;
+import com.laba.solvd.db.model.Department;
 import com.laba.solvd.db.model.Employee;
 import org.apache.log4j.Logger;
 
@@ -18,7 +19,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
             "LEFT JOIN contacts c ON e.id =c.employee_id;";
 
     @Override
-    public void create(Employee employee, Long departmentId) {
+    public void create(Employee employee) {
         Connection connection = CONNECTIONPOOL.getConnection();
         PreparedStatement preparedStatement = null;
         try {
@@ -84,11 +85,29 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
             employee.setName(resultSet.getString("name"));
             employee.setPosition(resultSet.getString("position"));
 
-            employee.setCredentials(CredentialRepositoryImpl.mapRow(resultSet));
+            employee.setCredential(CredentialRepositoryImpl.mapRow(resultSet));
             employee.setContact(ContactRepositoryImpl.mapRow(resultSet));
 
         }
         return employees;
+    }
+    @Override
+    public void setEmployee( Employee employee,Department department) {
+        Connection connection = null;
+        String sql = "INSERT INTO employees_departments (employee_id,department_id) VALUES(?,?)";
+        try{
+            connection = CONNECTIONPOOL.getConnection();
+            PreparedStatement statement =connection.prepareStatement(sql);
+            statement.setLong(1,employee.getId());
+            statement.setLong(2,department.getId());
+            statement.executeUpdate();
+            statement.close();
+
+        }catch(SQLException e) {
+            log.info("Failed to connect", e);
+        }finally {
+            CONNECTIONPOOL.releaseConnection(connection);
+        }
     }
 
 

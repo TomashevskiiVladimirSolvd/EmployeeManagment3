@@ -18,7 +18,7 @@ public class Department {
         this.name = name;
     }
 
-    public List<Employee> getEmployees() {
+    public List<Employee> getEmployee() {
         return employees;
     }
 

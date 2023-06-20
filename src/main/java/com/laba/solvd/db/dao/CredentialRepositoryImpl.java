@@ -57,6 +57,24 @@ public class CredentialRepositoryImpl implements CredentialRepository {
         return credentialList;
     }
 
+    @Override
+    public void setCredential(Credential credential, Employee employee) {
+        Connection connection = null;
+        String sql = "INSERT INTO credentials (id,employee_id) VALUES(?,?) ";
+        try{
+            connection = CONNECTIONPOOL.getConnection();
+            PreparedStatement statement =connection.prepareStatement(sql);
+            statement.setLong(1,credential.getId());
+            statement.setLong(2,employee.getId());
+            statement.executeUpdate();
+            statement.close();
+        }catch(SQLException e) {
+            log.info("Failed to connect", e);
+        }finally {
+            CONNECTIONPOOL.releaseConnection(connection);
+        }
+    }
+
     public static void mapRow(ResultSet resultSet, List<Credential> credentials) throws SQLException {
         credentials.add(mapRow(resultSet));
     }

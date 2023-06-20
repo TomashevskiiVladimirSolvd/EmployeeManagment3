@@ -19,7 +19,7 @@ public class Main {
         Employee employee1 = new Employee();
         employee1.setName("Joe Jonson");
         employee1.setPosition("Manager");
-        employee1.setCredentials(credential1);
+        employee1.setCredential(credential1);
         employee1.setContact(contact1);
 
         Credential credential2 = new Credential();
@@ -33,7 +33,7 @@ public class Main {
         Employee employee2 = new Employee();
         employee2.setName("Bob Tornton");
         employee2.setPosition("Senior Manager");
-        employee2.setCredentials(credential2);
+        employee2.setCredential(credential2);
         employee2.setContact(contact2);
 
         Department department = new Department();
