@@ -83,5 +83,4 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
         return departments;
     }
 
-
 }

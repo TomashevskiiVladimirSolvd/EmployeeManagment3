@@ -10,6 +10,7 @@ public interface EmployeeRepository {
     void create(Employee employee);
 
     List<Employee> getAll();
-    void setEmployee( Employee employee,Department department);
+
+    void setEmployee(Employee employee, Department department);
 
 }

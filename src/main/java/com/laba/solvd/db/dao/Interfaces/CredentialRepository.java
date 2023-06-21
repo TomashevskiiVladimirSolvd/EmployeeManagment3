@@ -10,5 +10,6 @@ public interface CredentialRepository {
     void create(Credential credential);
 
     List<Credential> getAll();
+
     void setCredential(Credential credential, Employee employee);
 }

@@ -91,21 +91,22 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
         }
         return employees;
     }
+
     @Override
-    public void setEmployee( Employee employee,Department department) {
+    public void setEmployee(Employee employee, Department department) {
         Connection connection = null;
         String sql = "INSERT INTO employees_departments (employee_id,department_id) VALUES(?,?)";
-        try{
+        try {
             connection = CONNECTIONPOOL.getConnection();
-            PreparedStatement statement =connection.prepareStatement(sql);
-            statement.setLong(1,employee.getId());
-            statement.setLong(2,department.getId());
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setLong(1, employee.getId());
+            statement.setLong(2, department.getId());
             statement.executeUpdate();
             statement.close();
 
-        }catch(SQLException e) {
+        } catch (SQLException e) {
             log.info("Failed to connect", e);
-        }finally {
+        } finally {
             CONNECTIONPOOL.releaseConnection(connection);
         }
     }

@@ -40,11 +40,11 @@ public class EmployeesServiceImpl implements EmployeeService {
         employeeRepository.create(employee);
         if (employee.getCredentials() != null) {
             Credential credential = credentialService.create(employee.getCredentials());
-            credentialRepository.setCredential(credential,employee);
+            credentialRepository.setCredential(credential, employee);
         }
         if (employee.getContact() != null) {
             Contact contact = contactService.create(employee.getContact());
-            contactRepository.setContact(contact,employee);
+            contactRepository.setContact(contact, employee);
         }
         return employee;
     }

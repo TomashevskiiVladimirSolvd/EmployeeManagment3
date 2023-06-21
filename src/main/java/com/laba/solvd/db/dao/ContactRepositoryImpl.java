@@ -62,16 +62,16 @@ public class ContactRepositoryImpl implements ContactRepository {
     public void setContact(Contact contact, Employee employee) {
         Connection connection = null;
         String sql = "INSERT INTO contacts (id,employee_id) VALUES(?,?)";
-        try{
+        try {
             connection = CONNECTIONPOOL.getConnection();
-            PreparedStatement statement =connection.prepareStatement(sql);
-            statement.setLong(1,contact.getId());
-            statement.setLong(2,employee.getId());
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setLong(1, contact.getId());
+            statement.setLong(2, employee.getId());
             statement.executeUpdate();
             statement.close();
-        }catch(SQLException e) {
+        } catch (SQLException e) {
             log.info("Failed to connect", e);
-        }finally {
+        } finally {
             CONNECTIONPOOL.releaseConnection(connection);
         }
     }

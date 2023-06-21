@@ -33,8 +33,8 @@ public class DepartmentsServiceImpl implements DepartmentService {
             List<Employee> employees = department.getEmployee().stream().
                     map(employee -> employeeService.create(employee))
                     .collect(Collectors.toList());
-            for(Employee employee:employees){
-                employeeRepository.setEmployee(employee,department);
+            for (Employee employee : employees) {
+                employeeRepository.setEmployee(employee, department);
             }
         }
         return department;

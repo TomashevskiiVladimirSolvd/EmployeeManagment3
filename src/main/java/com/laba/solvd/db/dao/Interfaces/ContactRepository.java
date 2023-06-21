@@ -10,5 +10,6 @@ public interface ContactRepository {
     void create(Contact contact);
 
     List<Contact> getAll();
+
     void setContact(Contact contact, Employee employee);
 }
