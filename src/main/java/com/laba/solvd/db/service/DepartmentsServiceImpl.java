@@ -1,5 +1,6 @@
 package com.laba.solvd.db.service;
 
+import com.laba.solvd.db.dao.DepartmentMapperImpl;
 import com.laba.solvd.db.dao.DepartmentRepositoryImpl;
 import com.laba.solvd.db.dao.EmployeeRepositoryImpl;
 import com.laba.solvd.db.dao.Interfaces.DepartmentRepository;
@@ -20,8 +21,10 @@ public class DepartmentsServiceImpl implements DepartmentService {
 
     public DepartmentsServiceImpl() {
         this.departmentRepository = new DepartmentRepositoryImpl();
+       // this.departmentRepository= new DepartmentMapperImpl();
         this.employeeService = new EmployeesServiceImpl();
         this.employeeRepository = new EmployeeRepositoryImpl();
+
     }
 
     @Override

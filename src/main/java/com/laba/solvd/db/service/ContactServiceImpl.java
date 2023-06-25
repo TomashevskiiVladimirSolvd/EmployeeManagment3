@@ -1,5 +1,6 @@
 package com.laba.solvd.db.service;
 
+import com.laba.solvd.db.dao.ContactMapperImpl;
 import com.laba.solvd.db.dao.ContactRepositoryImpl;
 import com.laba.solvd.db.dao.Interfaces.ContactRepository;
 import com.laba.solvd.db.model.Contact;
@@ -12,6 +13,7 @@ public class ContactServiceImpl implements ContactService {
 
     public ContactServiceImpl() {
         this.contactRepository = new ContactRepositoryImpl();
+        //this.contactRepository=new ContactMapperImpl();
     }
 
     @Override

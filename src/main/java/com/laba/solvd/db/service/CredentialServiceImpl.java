@@ -1,5 +1,6 @@
 package com.laba.solvd.db.service;
 
+import com.laba.solvd.db.dao.CredentialMapperImpl;
 import com.laba.solvd.db.dao.CredentialRepositoryImpl;
 import com.laba.solvd.db.dao.Interfaces.CredentialRepository;
 import com.laba.solvd.db.service.Interfaces.CredentialService;
@@ -13,6 +14,7 @@ public class CredentialServiceImpl implements CredentialService {
 
     public CredentialServiceImpl() {
         this.credentialRepository = new CredentialRepositoryImpl();
+       // this.credentialRepository=new CredentialMapperImpl();
     }
 
 

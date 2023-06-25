@@ -2,6 +2,7 @@ package com.laba.solvd.db.service;
 
 import com.laba.solvd.db.dao.ContactRepositoryImpl;
 import com.laba.solvd.db.dao.CredentialRepositoryImpl;
+import com.laba.solvd.db.dao.EmployeeMapperImpl;
 import com.laba.solvd.db.dao.EmployeeRepositoryImpl;
 
 
@@ -27,10 +28,13 @@ public class EmployeesServiceImpl implements EmployeeService {
 
     public EmployeesServiceImpl() {
         this.employeeRepository = new EmployeeRepositoryImpl();
+       // this.employeeRepository = new EmployeeMapperImpl();
         this.credentialService = new CredentialServiceImpl();
         this.contactService = new ContactServiceImpl();
         this.credentialRepository = new CredentialRepositoryImpl();
+        // this.credentialRepository=new CredentialMapperImpl();
         this.contactRepository = new ContactRepositoryImpl();
+        //this.contactRepository=new ContactMapperImpl();
     }
 
 
