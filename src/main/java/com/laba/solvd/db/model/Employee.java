@@ -16,8 +16,6 @@ public class Employee {
     public Employee() {
     }
 
-    ;
-
     public Employee(Long id, String name, String position, Contact contact, Credential credential, List<EmployeeSkill> skills,
                     List<EmployeeTask> tasks, List<EmployeeTraining> trainings) {
         this.id = id;

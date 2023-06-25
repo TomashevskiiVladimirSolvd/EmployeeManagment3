@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DepartmentRepositoryImpl implements DepartmentRepository {
-    Logger log = Logger.getLogger(DepartmentRepositoryImpl.class.getName());
     private static final ConnectionPool CONNECTIONPOOL = ConnectionPool.getInstance();
     private final String sqlAll = "SELECT d.id as department_id, d.name as department_name,e.id as employee_id ,\n" +
             "e.name as employee,e.position as position,cr.id as credential_id,cr.login as login ,cr.password as password,\n" +
@@ -20,6 +19,32 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
             "LEFT JOIN employees e ON e.id = ed.employee_id\n" +
             "LEFT JOIN contacts c ON e.id =c.employee_id\n" +
             "LEFT JOIN credentials cr ON e.id =cr.employee_id;\n ";
+    Logger log = Logger.getLogger(DepartmentRepositoryImpl.class.getName());
+
+    private static Department findById(Long id, List<Department> departments) {
+        return departments.stream()
+                .filter(department -> department.getId().equals(id))
+                .findFirst()
+                .orElseGet(() -> {
+                    Department createdDepartment = new Department();
+                    createdDepartment.setId(id);
+                    departments.add(createdDepartment);
+                    return createdDepartment;
+                });
+    }
+
+    private static List<Department> mapDepartments(ResultSet resultSet) throws SQLException {
+        List<Department> departments = new ArrayList<>();
+        while (resultSet.next()) {
+            Long id = resultSet.getLong("department_id");
+            Department department = findById(id, departments);
+            department.setName(resultSet.getString("department_name"));
+
+            List<Employee> employees = EmployeeRepositoryImpl.mapRow(resultSet, department.getEmployee());
+            department.setEmployees(employees);
+        }
+        return departments;
+    }
 
     @Override
     public void create(Department department) {
@@ -53,32 +78,6 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
             log.info("Unable to find all departments", e);
         } finally {
             CONNECTIONPOOL.releaseConnection(connection);
-        }
-        return departments;
-    }
-
-    private static Department findById(Long id, List<Department> departments) {
-        return departments.stream()
-                .filter(department -> department.getId().equals(id))
-                .findFirst()
-                .orElseGet(() -> {
-                    Department createdDepartment = new Department();
-                    createdDepartment.setId(id);
-                    departments.add(createdDepartment);
-                    return createdDepartment;
-                });
-    }
-
-
-    private static List<Department> mapDepartments(ResultSet resultSet) throws SQLException {
-        List<Department> departments = new ArrayList<>();
-        while (resultSet.next()) {
-            Long id = resultSet.getLong("department_id");
-            Department department = findById(id, departments);
-            department.setName(resultSet.getString("department_name"));
-
-            List<Employee> employees = EmployeeRepositoryImpl.mapRow(resultSet, department.getEmployee());
-            department.setEmployees(employees);
         }
         return departments;
     }

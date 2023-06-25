@@ -7,11 +7,12 @@ import org.apache.ibatis.session.SqlSession;
 import java.util.List;
 
 public class DepartmentMapperImpl implements DepartmentRepository {
-    private SqlSession sqlSession;
+    private final SqlSession sqlSession;
 
     public DepartmentMapperImpl() {
         this.sqlSession = MyBatisInitializer.getSqlSession();
     }
+
     @Override
     public void create(Department department) {
         try {

@@ -11,8 +11,6 @@ public class EmployeeTraining {
     public EmployeeTraining() {
     }
 
-    ;
-
     public EmployeeTraining(long id, String status) {
         this.id = id;
         this.status = status;

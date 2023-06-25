@@ -1,6 +1,9 @@
 package com.laba.solvd.db;
 
-import com.laba.solvd.db.model.*;
+import com.laba.solvd.db.model.Contact;
+import com.laba.solvd.db.model.Credential;
+import com.laba.solvd.db.model.Department;
+import com.laba.solvd.db.model.Employee;
 import com.laba.solvd.db.service.DepartmentsServiceImpl;
 import com.laba.solvd.db.service.Interfaces.DepartmentService;
 

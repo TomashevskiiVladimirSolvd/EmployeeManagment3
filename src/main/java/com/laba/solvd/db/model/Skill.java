@@ -10,8 +10,6 @@ public class Skill {
     public Skill() {
     }
 
-    ;
-
     public Skill(long id, String name, List<EmployeeSkill> employees) {
         this.id = id;
         this.name = name;

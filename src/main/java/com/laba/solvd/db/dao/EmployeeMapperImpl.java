@@ -8,14 +8,15 @@ import org.apache.ibatis.session.SqlSession;
 import java.util.List;
 
 public class EmployeeMapperImpl implements EmployeeRepository {
-    private SqlSession sqlSession;
+    private final SqlSession sqlSession;
+
     public EmployeeMapperImpl(SqlSession sqlSession) {
         this.sqlSession = sqlSession;
     }
 
     @Override
     public void create(Employee employee) {
-        sqlSession.insert("create",employee);
+        sqlSession.insert("create", employee);
     }
 
     @Override
@@ -31,7 +32,7 @@ public class EmployeeMapperImpl implements EmployeeRepository {
     public void setEmployee(Employee employee, Department department) {
         try (SqlSession session = MyBatisInitializer.getSqlSession()) {
             EmployeeRepository employeeRepository = session.getMapper(EmployeeRepository.class);
-            employeeRepository.setEmployee(employee,department);
+            employeeRepository.setEmployee(employee, department);
             session.commit();
         }
     }

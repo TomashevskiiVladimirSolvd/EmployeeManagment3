@@ -11,8 +11,6 @@ public class EmployeeTask {
     public EmployeeTask() {
     }
 
-    ;
-
     public EmployeeTask(long id, int percentageCompleted) {
         this.id = id;
         this.percentageCompleted = percentageCompleted;

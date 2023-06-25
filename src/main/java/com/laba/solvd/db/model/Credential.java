@@ -10,8 +10,6 @@ public class Credential {
     public Credential() {
     }
 
-    ;
-
     public Credential(Long id, String login, String password) {
         this.id = id;
         this.login = login;

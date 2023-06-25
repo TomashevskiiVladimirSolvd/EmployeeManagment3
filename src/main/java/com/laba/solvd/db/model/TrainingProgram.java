@@ -10,8 +10,6 @@ public class TrainingProgram {
     public TrainingProgram() {
     }
 
-    ;
-
     public TrainingProgram(long id, String name, List<EmployeeTraining> employees) {
         this.id = id;
         this.name = name;

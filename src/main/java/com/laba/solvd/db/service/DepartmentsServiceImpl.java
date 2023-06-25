@@ -1,6 +1,5 @@
 package com.laba.solvd.db.service;
 
-import com.laba.solvd.db.dao.DepartmentMapperImpl;
 import com.laba.solvd.db.dao.DepartmentRepositoryImpl;
 import com.laba.solvd.db.dao.EmployeeRepositoryImpl;
 import com.laba.solvd.db.dao.Interfaces.DepartmentRepository;
@@ -15,13 +14,13 @@ import java.util.stream.Collectors;
 
 public class DepartmentsServiceImpl implements DepartmentService {
 
-    private DepartmentRepository departmentRepository;
-    private EmployeeRepository employeeRepository;
-    private EmployeeService employeeService;
+    private final DepartmentRepository departmentRepository;
+    private final EmployeeRepository employeeRepository;
+    private final EmployeeService employeeService;
 
     public DepartmentsServiceImpl() {
         this.departmentRepository = new DepartmentRepositoryImpl();
-       // this.departmentRepository= new DepartmentMapperImpl();
+        // this.departmentRepository= new DepartmentMapperImpl();
         this.employeeService = new EmployeesServiceImpl();
         this.employeeRepository = new EmployeeRepositoryImpl();
 

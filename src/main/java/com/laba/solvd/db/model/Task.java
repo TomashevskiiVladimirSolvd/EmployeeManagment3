@@ -1,6 +1,5 @@
 package com.laba.solvd.db.model;
 
-import java.util.List;
 import java.util.Objects;
 
 public class Task {
@@ -10,8 +9,6 @@ public class Task {
 
     public Task() {
     }
-
-    ;
 
     public Task(long id, String name, String priority) {
         this.id = id;

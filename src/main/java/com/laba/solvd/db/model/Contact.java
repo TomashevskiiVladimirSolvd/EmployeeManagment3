@@ -10,8 +10,6 @@ public class Contact {
     public Contact() {
     }
 
-    ;
-
     public Contact(Long id, String email, String phone) {
         this.id = id;
         this.email = email;

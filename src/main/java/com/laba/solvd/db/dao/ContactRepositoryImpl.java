@@ -2,7 +2,6 @@ package com.laba.solvd.db.dao;
 
 import com.laba.solvd.db.dao.Interfaces.ContactRepository;
 import com.laba.solvd.db.model.Contact;
-import com.laba.solvd.db.model.Credential;
 import com.laba.solvd.db.model.Employee;
 import org.apache.log4j.Logger;
 
@@ -11,10 +10,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ContactRepositoryImpl implements ContactRepository {
-    Logger log = Logger.getLogger(ContactRepositoryImpl.class.getName());
     private static final ConnectionPool CONNECTIONPOOL = ConnectionPool.getInstance();
-
     private final String sqlAll = "SELECT c.id as contact_id,c.email as contact_email,c.phone as contact_phone  FROM contacts c";
+    Logger log = Logger.getLogger(ContactRepositoryImpl.class.getName());
+
+    public static void mapRow(ResultSet resultSet, List<Contact> contacts) throws SQLException {
+        contacts.add(mapRow(resultSet));
+    }
+
+    public static Contact mapRow(ResultSet resultSet) throws SQLException {
+        Contact contact = null;
+
+        long id = resultSet.getLong("contact_id");
+        if (id != 0) {
+            contact = new Contact();
+            contact.setId(resultSet.getLong("contact_id"));
+            contact.setEmail(resultSet.getString("contact_email"));
+            contact.setPhone(resultSet.getString("contact_phone"));
+        }
+
+        return contact;
+    }
 
     @Override
     public void create(Contact contact) {
@@ -74,23 +90,5 @@ public class ContactRepositoryImpl implements ContactRepository {
         } finally {
             CONNECTIONPOOL.releaseConnection(connection);
         }
-    }
-
-    public static void mapRow(ResultSet resultSet, List<Contact> contacts) throws SQLException {
-        contacts.add(mapRow(resultSet));
-    }
-
-    public static Contact mapRow(ResultSet resultSet) throws SQLException {
-        Contact contact = null;
-
-        long id = resultSet.getLong("contact_id");
-        if (id != 0) {
-            contact = new Contact();
-            contact.setId(resultSet.getLong("contact_id"));
-            contact.setEmail(resultSet.getString("contact_email"));
-            contact.setPhone(resultSet.getString("contact_phone"));
-        }
-
-        return contact;
     }
 }

@@ -25,6 +25,13 @@ public class ConnectionPool {
                 .forEach(index -> connections.add(createConnections()));
     }
 
+    public static synchronized ConnectionPool getInstance() {
+        if (instance == null) {
+            instance = new ConnectionPool();
+        }
+        return instance;
+    }
+
     private Connection createConnections() {
         Connection connection;
         try {
@@ -56,13 +63,6 @@ public class ConnectionPool {
             connections.add(connection);
             connections.notifyAll();
         }
-    }
-
-    public static synchronized ConnectionPool getInstance() {
-        if (instance == null) {
-            instance = new ConnectionPool();
-        }
-        return instance;
     }
 
 }

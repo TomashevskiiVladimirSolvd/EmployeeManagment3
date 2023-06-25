@@ -1,6 +1,5 @@
 package com.laba.solvd.db.dao;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
@@ -34,10 +33,6 @@ public enum Config {
         this.key = key;
     }
 
-    public String getValue() {
-        return PROPERTIES.getProperty(key, defaultValue);
-    }
-
     private static Properties loadProperties() {
         Properties config = new Properties();
         try (InputStream is = Config.class.getClassLoader().getResourceAsStream(CONFIG_FILE_NAME)) {
@@ -50,5 +45,9 @@ public enum Config {
             throw new RuntimeException("Error loading config properties", e);
         }
         return config;
+    }
+
+    public String getValue() {
+        return PROPERTIES.getProperty(key, defaultValue);
     }
 }

@@ -10,8 +10,6 @@ public class EmployeeSkill {
     public EmployeeSkill() {
     }
 
-    ;
-
     public EmployeeSkill(long id, String proficiencyLevel) {
         this.id = id;
         this.proficiencyLevel = proficiencyLevel;

@@ -18,50 +18,6 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
             "LEFT JOIN credentials cr ON e.id = cr.employee_id\n" +
             "LEFT JOIN contacts c ON e.id =c.employee_id;";
 
-    @Override
-    public void create(Employee employee) {
-        Connection connection = CONNECTIONPOOL.getConnection();
-        PreparedStatement preparedStatement = null;
-        try {
-            preparedStatement = connection.prepareStatement("INSERT INTO Employees (name, position) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setString(1, employee.getName());
-            preparedStatement.setString(2, employee.getPosition());
-            preparedStatement.executeUpdate();
-
-            ResultSet ResultSet = preparedStatement.getGeneratedKeys();
-            while (ResultSet.next()) {
-                employee.setId(ResultSet.getLong("id"));
-            }
-        } catch (SQLException e) {
-            log.info("Error executing SQL statement", e);
-        } finally {
-            CONNECTIONPOOL.releaseConnection(connection);
-        }
-    }
-
-
-    @Override
-    public List<Employee> getAll() {
-        Connection connection = CONNECTIONPOOL.getConnection();
-        List<Employee> employeeList = new ArrayList<>();
-        try (PreparedStatement statement = connection.prepareStatement(sqlAll);
-             ResultSet resultSet = statement.executeQuery()) {
-
-            while (resultSet.next()) {
-                Employee employee = new Employee();
-                employee.setId(resultSet.getLong("employee_id"));
-                employee.setName(resultSet.getString("employee_name"));
-                employee.setPosition(resultSet.getString("employee_position"));
-                employeeList.add(employee);
-            }
-        } catch (SQLException e) {
-            log.info("Error executing SQL statement", e);
-        } finally {
-            CONNECTIONPOOL.releaseConnection(connection);
-        }
-        return employeeList;
-    }
-
     private static Employee findById(Long id, List<Employee> employees) {
         return employees.stream()
                 .filter(employee -> employee.getId().equals(id))
@@ -90,6 +46,49 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
         }
         return employees;
+    }
+
+    @Override
+    public void create(Employee employee) {
+        Connection connection = CONNECTIONPOOL.getConnection();
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement("INSERT INTO Employees (name, position) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, employee.getName());
+            preparedStatement.setString(2, employee.getPosition());
+            preparedStatement.executeUpdate();
+
+            ResultSet ResultSet = preparedStatement.getGeneratedKeys();
+            while (ResultSet.next()) {
+                employee.setId(ResultSet.getLong("id"));
+            }
+        } catch (SQLException e) {
+            log.info("Error executing SQL statement", e);
+        } finally {
+            CONNECTIONPOOL.releaseConnection(connection);
+        }
+    }
+
+    @Override
+    public List<Employee> getAll() {
+        Connection connection = CONNECTIONPOOL.getConnection();
+        List<Employee> employeeList = new ArrayList<>();
+        try (PreparedStatement statement = connection.prepareStatement(sqlAll);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                Employee employee = new Employee();
+                employee.setId(resultSet.getLong("employee_id"));
+                employee.setName(resultSet.getString("employee_name"));
+                employee.setPosition(resultSet.getString("employee_position"));
+                employeeList.add(employee);
+            }
+        } catch (SQLException e) {
+            log.info("Error executing SQL statement", e);
+        } finally {
+            CONNECTIONPOOL.releaseConnection(connection);
+        }
+        return employeeList;
     }
 
     @Override
