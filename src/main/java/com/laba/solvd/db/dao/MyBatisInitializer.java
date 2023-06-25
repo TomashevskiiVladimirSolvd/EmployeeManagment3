@@ -18,7 +18,7 @@ public class MyBatisInitializer {
             Reader reader = Resources.getResourceAsReader(mybatisConfigFile);
             sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to find MyBatis configuration file");
         }
     }
 

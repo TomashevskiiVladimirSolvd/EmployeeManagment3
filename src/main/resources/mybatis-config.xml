@@ -13,6 +13,9 @@
     </environments>
 
     <mappers>
-        <mapper resource="Mapper.xml"/>
+        <mapper resource="mapper/DepartmentMapper.xml"/>
+        <mapper resource="mapper/EmployeeMapper.xml"/>
+        <mapper resource="mapper/ContactMapper.xml"/>
+        <mapper resource="mapper/CredentialMapper.xml"/>
     </mappers>
 </configuration>

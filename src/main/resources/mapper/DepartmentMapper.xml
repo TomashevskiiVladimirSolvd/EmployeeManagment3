@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <mapper namespace="src/main/resources/">
-    <select id="findById" resultType="com.laba.solvd.db.dao.Interfaces.DepartmentMapper">
+    <select id="findById" resultType="com.laba.solvd.db.dao.Interfaces.DepartmentRepository">
         SELECT * FROM department WHERE id = #{id}
     </select>
 
-    <select id="getAll" resultType="com.laba.solvd.db.dao.Interfaces.DepartmentMapper">
+    <select id="getAll" resultType="com.laba.solvd.db.dao.Interfaces.DepartmentRepository">
         SELECT * FROM department
     </select>
 

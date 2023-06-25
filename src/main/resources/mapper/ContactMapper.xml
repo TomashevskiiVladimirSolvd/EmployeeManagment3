@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapper namespace="com.laba.solvd.db.dao.Interfaces.ContactRepository">
+    <insert id="create">
+        INSERT INTO contacts (email, phone, employee_id) VALUES (#{email}, #{phone}, #{employee.id})
+    </insert>
+
+    <select id="getAll" resultType="com.laba.solvd.db.model.Contact">
+        SELECT * FROM contacts
+    </select>
+
+    <insert id="setContact">
+        INSERT INTO employees_contacts (employee_id, contact_id) VALUES (#{employee.id}, #{contact.id})
+    </insert>
+</mapper>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapper namespace="com.laba.solvd.db.dao.Interfaces.EmployeeRepository">
+    <insert id="create">
+        INSERT INTO employees (name, position) VALUES (#{name}, #{position})
+    </insert>
+
+    <select id="getAll" resultType="com.laba.solvd.db.model.Employee">
+        SELECT * FROM employees
+    </select>
+
+    <insert id="setEmployee">
+        INSERT INTO employees_departments (employee_id, department_id) VALUES (#{employee.id}, #{department.id})
+    </insert>
+</mapper>
