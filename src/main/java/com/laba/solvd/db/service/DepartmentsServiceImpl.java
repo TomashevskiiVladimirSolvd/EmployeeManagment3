@@ -1,7 +1,7 @@
 package com.laba.solvd.db.service;
 
-import com.laba.solvd.db.dao.DepartmentRepositoryImpl;
-import com.laba.solvd.db.dao.EmployeeRepositoryImpl;
+import com.laba.solvd.db.dao.RepositoryImpl.DepartmentRepositoryImpl;
+import com.laba.solvd.db.dao.RepositoryImpl.EmployeeRepositoryImpl;
 import com.laba.solvd.db.dao.Interfaces.DepartmentRepository;
 import com.laba.solvd.db.dao.Interfaces.EmployeeRepository;
 import com.laba.solvd.db.model.Department;

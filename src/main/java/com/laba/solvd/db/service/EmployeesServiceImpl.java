@@ -1,8 +1,8 @@
 package com.laba.solvd.db.service;
 
-import com.laba.solvd.db.dao.ContactRepositoryImpl;
-import com.laba.solvd.db.dao.CredentialRepositoryImpl;
-import com.laba.solvd.db.dao.EmployeeRepositoryImpl;
+import com.laba.solvd.db.dao.RepositoryImpl.ContactRepositoryImpl;
+import com.laba.solvd.db.dao.RepositoryImpl.CredentialRepositoryImpl;
+import com.laba.solvd.db.dao.RepositoryImpl.EmployeeRepositoryImpl;
 import com.laba.solvd.db.dao.Interfaces.ContactRepository;
 import com.laba.solvd.db.dao.Interfaces.CredentialRepository;
 import com.laba.solvd.db.dao.Interfaces.EmployeeRepository;

@@ -1,5 +1,6 @@
-package com.laba.solvd.db.dao;
+package com.laba.solvd.db.dao.RepositoryImpl;
 
+import com.laba.solvd.db.dao.ConnectionPool;
 import com.laba.solvd.db.dao.Interfaces.CredentialRepository;
 import com.laba.solvd.db.model.Credential;
 import com.laba.solvd.db.model.Employee;
