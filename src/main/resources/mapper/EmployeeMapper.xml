@@ -7,7 +7,8 @@
     </insert>
 
     <select id="getAll" resultType="com.laba.solvd.db.model.Employee">
-        SELECT e.id as employee_id,e.name as employee_name,e.position as employee_position,cr.login as credential_login ,cr.password credential_password
+        SELECT e.id as employee_id,e.name as employee_name,e.position as employee_position,cr.login as credential_login
+        ,cr.password credential_password
         FROM employees e
         INNER JOIN credentials cr ON e.id = cr.employee_id;
     </select>
@@ -16,11 +17,11 @@
         INSERT INTO employees_departments (employee_id, department_id) VALUES (#{employee.id}, #{department.id})
     </insert>
 
-    <resultMap id="departmentResultMap" type="com.laba.solvd.db.model.Employee" automapping = "false">
+    <resultMap id="departmentResultMap" type="com.laba.solvd.db.model.Employee" automapping="false">
         <result property="id" column="employee_id"/>
         <result property="name" column="employee_name"/>
         <result property="position" column="employee_position"/>
         <association property="credentials" columnPrefix="employee_"
-                      resultMap="com.laba.solvd.db.dao.Interfaces.CredentialRepository.CredentialResultMap"/>
+                     resultMap="com.laba.solvd.db.dao.Interfaces.CredentialRepository.CredentialResultMap"/>
     </resultMap>
 </mapper>

@@ -13,10 +13,10 @@
     </select>
 
     <insert id="create">
-        INSERT INTO department  (name) VALUES (#{property1})
+        INSERT INTO department (name) VALUES (#{property1})
     </insert>
 
-    <resultMap id="departmentResultMap" type="com.laba.solvd.db.model.Department" automapping = "false">
+    <resultMap id="departmentResultMap" type="com.laba.solvd.db.model.Department" automapping="false">
         <result property="id" column="department_id"/>
         <result property="name" column="department_id"/>
         <association property="employees" columnPrefix="department_"
