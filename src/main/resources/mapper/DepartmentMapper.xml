@@ -8,12 +8,8 @@
         SELECT * FROM department
     </select>
 
-    <insert id="insert">
-        INSERT INTO department (column1, column2) VALUES (#{property1}, #{property2})
-    </insert>
-
     <update id="update">
-        UPDATE department SET column1 = #{property1}, column2 = #{property2} WHERE id = #{id}
+        UPDATE department SET name = #{property1} WHERE id = #{id}
     </update>
 
     <delete id="delete">
@@ -21,6 +17,6 @@
     </delete>
 
     <insert id="create">
-        INSERT INTO department (column1, column2) VALUES (#{property1}, #{property2})
+        INSERT INTO department (name) VALUES (#{property1})
     </insert>
 </mapper>
