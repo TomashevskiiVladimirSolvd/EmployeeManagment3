@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <mapper namespace="src/main/resources/">
     <select id="findById" resultType="com.laba.solvd.db.dao.Interfaces.DepartmentRepository">
-        SELECT * FROM department WHERE id = #{id}
+        SELECT d.name as department FROM department d WHERE d.id = #{id}
     </select>
 
     <select id="getAll" resultType="com.laba.solvd.db.dao.Interfaces.DepartmentRepository">
-        SELECT * FROM department
+        SELECT d.id as department_id, d.name as department,e.id as employee_id ,
+        e.name as employee,e.position as position
+        From departments d
+        LEFT JOIN employees_departments ed ON d.id =ed.department_id
+        LEFT JOIN employees e ON e.id = ed.employee_id
     </select>
 
-    <update id="update">
-        UPDATE department SET name = #{property1} WHERE id = #{id}
-    </update>
-
-    <delete id="delete">
-        DELETE FROM department WHERE id = #{id}
-    </delete>
-
     <insert id="create">
-        INSERT INTO department (name) VALUES (#{property1})
+        INSERT INTO department  (name) VALUES (#{property1})
     </insert>
+
+    <resultMap id="departmentResultMap" type="com.laba.solvd.db.model.Department" automapping = "false">
+        <result property="id" column="department_id"/>
+        <result property="name" column="department_id"/>
+        <association property="employees" columnPrefix="department_"
+                     resultMap="com.laba.solvd.db.dao.Interfaces.EmployeeRepository.EmployeeResultMap"/>
+    </resultMap>
+
 </mapper>

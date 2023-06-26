@@ -1,7 +1,7 @@
 package com.laba.solvd.db.service;
 
-import com.laba.solvd.db.dao.RepositoryImpl.CredentialRepositoryImpl;
 import com.laba.solvd.db.dao.Interfaces.CredentialRepository;
+import com.laba.solvd.db.dao.RepositoryImpl.CredentialRepositoryImpl;
 import com.laba.solvd.db.model.Credential;
 import com.laba.solvd.db.service.Interfaces.CredentialService;
 
