@@ -17,10 +17,14 @@
     </insert>
 
     <resultMap id="departmentResultMap" type="com.laba.solvd.db.model.Department" automapping="false">
-        <result property="id" column="department_id"/>
-        <result property="name" column="department_id"/>
-        <association property="employees" columnPrefix="department_"
-                     resultMap="com.laba.solvd.db.dao.Interfaces.EmployeeRepository.EmployeeResultMap"/>
+        <id property="id" column="department_id"/>
+        <result property="name" column="department"/>
+        <collection property="employees" ofType="com.laba.solvd.db.model.Employee">
+            <id property="id" column="employee_id"/>
+            <result property="name" column="employee"/>
+            <result property="position" column="position"/>
+        </collection>
     </resultMap>
 
 </mapper>
+

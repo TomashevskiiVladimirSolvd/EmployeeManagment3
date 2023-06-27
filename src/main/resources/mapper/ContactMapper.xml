@@ -4,11 +4,17 @@
         INSERT INTO contacts (email, phone, employee_id) VALUES (#{email}, #{phone}, #{employee.id})
     </insert>
 
-    <select id="getAll" resultType="com.laba.solvd.db.model.Contact">
-        SELECT * FROM contacts
+    <select id="getAll" resultMap="contactResultMap">
+        SELECT c.email as contact_email, c.phone as contact_phone FROM contacts c
     </select>
 
     <insert id="setContact">
         INSERT INTO employees_contacts (employee_id, contact_id) VALUES (#{employee.id}, #{contact.id})
     </insert>
+
+    <resultMap id="contactResultMap" type="com.laba.solvd.db.model.Contact" automapping="false">
+        <result property="email" column="contact_email"/>
+        <result property="phone" column="contact_phone"/>
+    </resultMap>
 </mapper>
+
