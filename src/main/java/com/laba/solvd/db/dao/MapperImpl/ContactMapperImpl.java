@@ -1,7 +1,6 @@
 package com.laba.solvd.db.dao.MapperImpl;
 
 import com.laba.solvd.db.dao.Interfaces.ContactRepository;
-import com.laba.solvd.db.dao.MyBatisInitializer;
 import com.laba.solvd.db.model.Contact;
 import com.laba.solvd.db.model.Employee;
 import org.apache.ibatis.session.SqlSession;
@@ -9,15 +8,20 @@ import org.apache.ibatis.session.SqlSession;
 import java.util.List;
 
 public class ContactMapperImpl implements ContactRepository {
-    private SqlSession sqlSession;
+    private final SqlSession sqlSession;
 
-    public ContactMapperImpl() {
+    public ContactMapperImpl(SqlSession sqlSession) {
         this.sqlSession = sqlSession;
     }
 
     @Override
     public void create(Contact contact) {
-        sqlSession.insert("create", contact);
+        try {
+            sqlSession.insert("create", contact);
+            sqlSession.commit();
+        } finally {
+            sqlSession.close();
+        }
     }
 
     @Override
@@ -31,10 +35,13 @@ public class ContactMapperImpl implements ContactRepository {
 
     @Override
     public void setContact(Contact contact, Employee employee) {
-        try (SqlSession session = MyBatisInitializer.getSqlSession()) {
-            ContactRepository contactRepository = session.getMapper(ContactRepository.class);
+        try {
+            ContactRepository contactRepository = sqlSession.getMapper(ContactRepository.class);
             contactRepository.setContact(contact, employee);
-            session.commit();
+            sqlSession.commit();
+        } finally {
+            sqlSession.close();
         }
     }
 }
+

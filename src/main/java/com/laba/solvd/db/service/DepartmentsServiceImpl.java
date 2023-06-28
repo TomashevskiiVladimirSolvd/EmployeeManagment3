@@ -1,9 +1,8 @@
 package com.laba.solvd.db.service;
 
+import com.laba.solvd.db.dao.Interfaces.DAOFactory;
 import com.laba.solvd.db.dao.Interfaces.DepartmentRepository;
 import com.laba.solvd.db.dao.Interfaces.EmployeeRepository;
-import com.laba.solvd.db.dao.RepositoryImpl.DepartmentRepositoryImpl;
-import com.laba.solvd.db.dao.RepositoryImpl.EmployeeRepositoryImpl;
 import com.laba.solvd.db.model.Department;
 import com.laba.solvd.db.model.Employee;
 import com.laba.solvd.db.service.Interfaces.DepartmentService;
@@ -18,12 +17,10 @@ public class DepartmentsServiceImpl implements DepartmentService {
     private final EmployeeRepository employeeRepository;
     private final EmployeeService employeeService;
 
-    public DepartmentsServiceImpl() {
-        this.departmentRepository = new DepartmentRepositoryImpl();
-        // this.departmentRepository= new DepartmentMapperImpl();
-        this.employeeService = new EmployeesServiceImpl();
-        this.employeeRepository = new EmployeeRepositoryImpl();
-
+    public DepartmentsServiceImpl(DAOFactory daoFactory) {
+        this.departmentRepository = daoFactory.createDepartmentRepository();
+        this.employeeRepository = daoFactory.createEmployeeRepository();
+        this.employeeService = new EmployeesServiceImpl(daoFactory);
     }
 
     @Override
@@ -32,13 +29,15 @@ public class DepartmentsServiceImpl implements DepartmentService {
         departmentRepository.create(department);
 
         if (department.getEmployee() != null) {
-            List<Employee> employees = department.getEmployee().stream().
-                    map(employee -> employeeService.create(employee))
+            List<Employee> employees = department.getEmployee().stream()
+                    .map(employee -> employeeService.create(employee))
                     .collect(Collectors.toList());
+
             for (Employee employee : employees) {
                 employeeRepository.setEmployee(employee, department);
             }
         }
+
         return department;
     }
 
@@ -47,3 +46,4 @@ public class DepartmentsServiceImpl implements DepartmentService {
         return departmentRepository.getAll();
     }
 }
+

@@ -1,7 +1,6 @@
 package com.laba.solvd.db.dao.MapperImpl;
 
 import com.laba.solvd.db.dao.Interfaces.DepartmentRepository;
-import com.laba.solvd.db.dao.MyBatisInitializer;
 import com.laba.solvd.db.model.Department;
 import org.apache.ibatis.session.SqlSession;
 
@@ -10,8 +9,8 @@ import java.util.List;
 public class DepartmentMapperImpl implements DepartmentRepository {
     private final SqlSession sqlSession;
 
-    public DepartmentMapperImpl() {
-        this.sqlSession = MyBatisInitializer.getSqlSession();
+    public DepartmentMapperImpl(SqlSession sqlSession) {
+        this.sqlSession = sqlSession;
     }
 
     @Override
@@ -33,3 +32,4 @@ public class DepartmentMapperImpl implements DepartmentRepository {
         }
     }
 }
+

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<mapper namespace="src/main/resources/">
+<mapper namespace="com.laba.solvd.db.dao.Interfaces.DepartmentRepository">
     <select id="findById" resultType="com.laba.solvd.db.dao.Interfaces.DepartmentRepository">
         SELECT d.name as department FROM department d WHERE d.id = #{id}
     </select>

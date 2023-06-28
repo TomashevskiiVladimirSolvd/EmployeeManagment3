@@ -2,10 +2,8 @@ package com.laba.solvd.db.service;
 
 import com.laba.solvd.db.dao.Interfaces.ContactRepository;
 import com.laba.solvd.db.dao.Interfaces.CredentialRepository;
+import com.laba.solvd.db.dao.Interfaces.DAOFactory;
 import com.laba.solvd.db.dao.Interfaces.EmployeeRepository;
-import com.laba.solvd.db.dao.RepositoryImpl.ContactRepositoryImpl;
-import com.laba.solvd.db.dao.RepositoryImpl.CredentialRepositoryImpl;
-import com.laba.solvd.db.dao.RepositoryImpl.EmployeeRepositoryImpl;
 import com.laba.solvd.db.model.Contact;
 import com.laba.solvd.db.model.Credential;
 import com.laba.solvd.db.model.Employee;
@@ -23,30 +21,29 @@ public class EmployeesServiceImpl implements EmployeeService {
     private final ContactRepository contactRepository;
     private final CredentialRepository credentialRepository;
 
-    public EmployeesServiceImpl() {
-        this.employeeRepository = new EmployeeRepositoryImpl();
-        // this.employeeRepository = new EmployeeMapperImpl();
-        this.credentialService = new CredentialServiceImpl();
-        this.contactService = new ContactServiceImpl();
-        this.credentialRepository = new CredentialRepositoryImpl();
-        // this.credentialRepository=new CredentialMapperImpl();
-        this.contactRepository = new ContactRepositoryImpl();
-        //this.contactRepository=new ContactMapperImpl();
+    public EmployeesServiceImpl(DAOFactory daoFactory) {
+        this.employeeRepository = daoFactory.createEmployeeRepository();
+        this.credentialService = new CredentialServiceImpl(daoFactory);
+        this.contactService = new ContactServiceImpl(daoFactory);
+        this.credentialRepository = daoFactory.createCredentialRepository();
+        this.contactRepository = daoFactory.createContactRepository();
     }
-
 
     @Override
     public Employee create(Employee employee) {
         employee.setId(null);
         employeeRepository.create(employee);
+
         if (employee.getCredentials() != null) {
             Credential credential = credentialService.create(employee.getCredentials());
             credentialRepository.setCredential(credential, employee);
         }
+
         if (employee.getContact() != null) {
             Contact contact = contactService.create(employee.getContact());
             contactRepository.setContact(contact, employee);
         }
+
         return employee;
     }
 
@@ -55,5 +52,6 @@ public class EmployeesServiceImpl implements EmployeeService {
         return employeeRepository.getAll();
     }
 }
+
 
 

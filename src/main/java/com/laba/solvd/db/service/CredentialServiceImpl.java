@@ -1,7 +1,7 @@
 package com.laba.solvd.db.service;
 
 import com.laba.solvd.db.dao.Interfaces.CredentialRepository;
-import com.laba.solvd.db.dao.RepositoryImpl.CredentialRepositoryImpl;
+import com.laba.solvd.db.dao.Interfaces.DAOFactory;
 import com.laba.solvd.db.model.Credential;
 import com.laba.solvd.db.service.Interfaces.CredentialService;
 
@@ -11,11 +11,9 @@ import java.util.List;
 public class CredentialServiceImpl implements CredentialService {
     private final CredentialRepository credentialRepository;
 
-    public CredentialServiceImpl() {
-        this.credentialRepository = new CredentialRepositoryImpl();
-        // this.credentialRepository=new CredentialMapperImpl();
+    public CredentialServiceImpl(DAOFactory daoFactory) {
+        this.credentialRepository = daoFactory.createCredentialRepository();
     }
-
 
     @Override
     public Credential create(Credential credential) {
@@ -29,4 +27,5 @@ public class CredentialServiceImpl implements CredentialService {
         return credentialRepository.getAll();
     }
 }
+
 

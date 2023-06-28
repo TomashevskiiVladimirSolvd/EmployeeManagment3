@@ -1,5 +1,6 @@
 package com.laba.solvd.db;
 
+import com.laba.solvd.db.dao.Interfaces.DAOFactory;
 import com.laba.solvd.db.model.Contact;
 import com.laba.solvd.db.model.Credential;
 import com.laba.solvd.db.model.Department;
@@ -12,6 +13,8 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+        DAOFactory daoFactory = new MyBatisDAOFactory();
+
         Credential credential1 = new Credential();
         credential1.setLogin("log1");
         credential1.setPassword("0987");
@@ -44,7 +47,7 @@ public class Main {
         department.setName("Sales");
         department.setEmployees(Arrays.asList(employee1, employee2));
 
-        DepartmentService departmentService = new DepartmentsServiceImpl();
+        DepartmentService departmentService = new DepartmentsServiceImpl(daoFactory);
         department = departmentService.create(department);
 
         System.out.println(department);
@@ -53,4 +56,5 @@ public class Main {
         System.out.println(allDepartments);
     }
 }
+
 

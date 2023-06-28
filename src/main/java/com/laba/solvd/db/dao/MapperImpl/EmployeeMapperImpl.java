@@ -1,7 +1,6 @@
 package com.laba.solvd.db.dao.MapperImpl;
 
 import com.laba.solvd.db.dao.Interfaces.EmployeeRepository;
-import com.laba.solvd.db.dao.MyBatisInitializer;
 import com.laba.solvd.db.model.Department;
 import com.laba.solvd.db.model.Employee;
 import org.apache.ibatis.session.SqlSession;
@@ -17,7 +16,13 @@ public class EmployeeMapperImpl implements EmployeeRepository {
 
     @Override
     public void create(Employee employee) {
-        sqlSession.insert("create", employee);
+        try {
+            EmployeeRepository employeeRepository = sqlSession.getMapper(EmployeeRepository.class);
+            employeeRepository.create(employee);
+            sqlSession.commit();
+        } finally {
+            sqlSession.close();
+        }
     }
 
     @Override
@@ -31,10 +36,13 @@ public class EmployeeMapperImpl implements EmployeeRepository {
 
     @Override
     public void setEmployee(Employee employee, Department department) {
-        try (SqlSession session = MyBatisInitializer.getSqlSession()) {
-            EmployeeRepository employeeRepository = session.getMapper(EmployeeRepository.class);
+        try {
+            EmployeeRepository employeeRepository = sqlSession.getMapper(EmployeeRepository.class);
             employeeRepository.setEmployee(employee, department);
-            session.commit();
+            sqlSession.commit();
+        } finally {
+            sqlSession.close();
         }
     }
 }
+
